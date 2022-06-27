@@ -1,0 +1,54 @@
+2022-06-27 17:00:22,981 ll           ['views', 'depth', 'full_reads_percent']
+2022-06-27 17:00:22,982 ll           0.5136913677359315
+2022-06-27 17:00:22,982 ll           {'bootstrap': False, 'max_features': 'log2', 'min_samples_split': 5, 'n_estimators': 500}
+2022-06-27 17:00:32,643 ll           0.5885616543736599
+2022-06-27 17:00:32,735 ll                                              importance
+ctr                                  0.654588
+day                                  0.124279
+month                                0.117680
+authors                              0.082544
+category_5409f11ce063da9c8b588a12    0.006745
+category_540d5eafcbb20f2524fc0509    0.006308
+category_5433e5decbb20f277b20eca9    0.003225
+category_5409f11ce063da9c8b588a13    0.002477
+category_540d5ecacbb20f2524fc050a    0.001143
+category_5409f11ce063da9c8b588a18    0.000997
+category_552e430f9a79475dd957f8b3    0.000013
+category_5e54e22a9a7947f560081ea2    0.000002
+category_5e54e2089a7947f63a801742    0.000000
+2022-06-27 17:08:31,246 ll           y_cols ['views', 'depth', 'full_reads_percent']
+2022-06-27 17:08:31,251 ll           best_score 0.5140450205383804
+2022-06-27 17:08:31,251 ll           best_params {'bootstrap': False, 'max_features': 'log2', 'min_samples_split': 5, 'n_estimators': 100}
+2022-06-27 17:08:31,967 ll           score 0.5834301749125921
+2022-06-27 17:08:32,603 ll           importance_df                                    importance
+ctr                                  0.673972
+month                                0.123534
+day                                  0.115765
+authors                              0.068982
+category_5409f11ce063da9c8b588a12    0.005487
+category_540d5eafcbb20f2524fc0509    0.004716
+category_5433e5decbb20f277b20eca9    0.003385
+category_5409f11ce063da9c8b588a13    0.002426
+category_5409f11ce063da9c8b588a18    0.000963
+category_540d5ecacbb20f2524fc050a    0.000748
+category_552e430f9a79475dd957f8b3    0.000019
+category_5e54e22a9a7947f560081ea2    0.000002
+category_5e54e2089a7947f63a801742    0.000000
+2022-06-27 17:12:57,252 ll           y_cols ['views', 'depth', 'full_reads_percent']
+2022-06-27 17:12:57,253 ll           best_score 0.5181672622241391
+2022-06-27 17:12:57,253 ll           best_params {'bootstrap': False, 'max_features': 'sqrt', 'min_samples_split': 5, 'n_estimators': 100}
+2022-06-27 17:12:57,865 ll           score 0.5889926017783909
+2022-06-27 17:12:57,883 ll           importance_df                                    importance
+ctr                                  0.643804
+day                                  0.128259
+month                                0.122354
+authors                              0.085734
+category_5409f11ce063da9c8b588a12    0.006643
+category_540d5eafcbb20f2524fc0509    0.005439
+category_5433e5decbb20f277b20eca9    0.003426
+category_5409f11ce063da9c8b588a13    0.002489
+category_5409f11ce063da9c8b588a18    0.001045
+category_540d5ecacbb20f2524fc050a    0.000791
+category_552e430f9a79475dd957f8b3    0.000013
+category_5e54e22a9a7947f560081ea2    0.000002
+category_5e54e2089a7947f63a801742    0.000000
