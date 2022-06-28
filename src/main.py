@@ -1,23 +1,34 @@
 import ast
+import logging
+import re
+import time
+from random import randrange
 from typing import Dict, List
 
+import numpy as np
 import pandas as pd
+import spacy_stanza
+import stanza
 from pandas import DataFrame
 from pandas import Series
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
-import logging
+from spacy.lang.ru.stop_words import STOP_WORDS
 
-from settings import RAW_PATH, LOGGING_PATH
+from settings import RAW_PATH, LOGGING_PATH, DATA_PATH
+from src.utils import identity, dump, write_to_file, loads
 
-logger = logging.getLogger("ll")
+logger = logging.getLogger()
 formatter = logging.Formatter(
-    "%(asctime)s %(name)-12s %(message)s"
+    "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
 )
 general_fh = logging.FileHandler(LOGGING_PATH / "logs.txt")
 general_fh.setFormatter(formatter)
+general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
 # df_train = pd.read_csv(RAW_PATH / "train.csv", index_col=0)
@@ -153,19 +164,19 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
     if y_train.shape[1] == 1:
         y_train = y_train.values.ravel()
 
-    estimator = RandomForestRegressor()
-
-    param_grid = {
-        "n_estimators": [100, 500, 1000],
-        "max_features": ["auto", "sqrt", "log2"],
-        "min_samples_split": [2, 4, 5],
-        "bootstrap": [True, False],
-    }
-    grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
-    grid.fit(X_train, y_train)
-    logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
-    logger.log(msg="best_score " + str(grid.best_score_), level=logging.getLevelName("WARNING"))
-    logger.log(msg="best_params " + str(grid.best_params_), level=logging.getLevelName("WARNING"))
+    # estimator = RandomForestRegressor()
+    #
+    # param_grid = {
+    #     "n_estimators": [100, 500, 1000],
+    #     "max_features": ["auto", "sqrt", "log2"],
+    #     "min_samples_split": [2, 4, 5],
+    #     "bootstrap": [True, False],
+    # }
+    # grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+    # grid.fit(X_train, y_train)
+    logger.log(msg=str(y_cols), level=logging.getLevelName("WARNING"))
+    # logger.log(msg=str(grid.best_score_), level=logging.getLevelName("WARNING"))
+    # logger.log(msg=str(grid.best_params_), level=logging.getLevelName("WARNING"))
 
     regr = LogisticRegression()
         RandomForestRegressor(n_estimators=200, min_samples_leaf=3, min_samples_split=3, max_depth=200)
@@ -174,12 +185,12 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
     pred = regr.predict(X_test)
     logger.log(msg="train score " + str(regr.score(X_train, y_train)), level=logging.getLevelName("WARNING"))
     score = calculate_score(y_test, pred, y_cols)
-    logger.log(msg="score " + str(score), level=logging.getLevelName("WARNING"))
+    logger.log(msg="test score "+str(score), level=logging.getLevelName("WARNING"))
 
-    col_name = 'importance'
-    importance_df = pd.DataFrame(regr.feature_importances_, columns=[col_name],
-                                 index=regr.feature_names_in_).sort_values(by=col_name, ascending=False)
-    logger.log(msg="importance_df " + str(importance_df), level=logging.getLevelName("WARNING"))
+    # col_name = 'importance'
+    # importance_df = pd.DataFrame(regr.feature_importances_, columns=[col_name],
+    #                              index=regr.feature_names_in_).sort_values(by=col_name, ascending=False)
+    # importance_df.to_csv(DATA_PATH/ (str(round(time.time() * 1000))+"importance.csv"))
 
 
 for y_cols in ([["views"], ["depth" ], ["full_reads_percent"],["views", "depth", "full_reads_percent"]]):
