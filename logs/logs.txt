@@ -53,3 +53,114 @@
 2022-06-28 15:59:05,460 root         WARNING  ['views', 'depth', 'full_reads_percent']
 2022-06-28 15:59:05,675 root         WARNING  score -0.0021443943403693932
 2022-06-28 15:59:45,178 root         WARNING  ['views']
+2022-06-28 16:24:33,540 root         WARNING  ['views']
+2022-06-28 16:24:39,159 root         WARNING  train score 0.0010204081632653062
+2022-06-28 16:26:33,152 root         WARNING  ['views']
+2022-06-28 16:26:33,158 root         WARNING  train score 0.0
+
+
+
+2022-06-28 16:41:44,955 root         WARNING  ['views']
+2022-06-28 16:41:53,415 root         WARNING  train score 0.5894685620237116
+2022-06-28 16:42:05,465 root         WARNING  test score -0.0559315523722399
+2022-06-28 16:42:05,475 root         WARNING  ['depth']
+2022-06-28 16:42:13,860 root         WARNING  train score 0.5816306330275165
+2022-06-28 16:42:13,865 root         WARNING  test score 0.0072990738689909795
+2022-06-28 16:42:13,875 root         WARNING  ['full_reads_percent']
+2022-06-28 16:42:23,050 root         WARNING  train score 0.6267732167498372
+2022-06-28 16:42:23,050 root         WARNING  test score -0.023399817891119667
+2022-06-28 16:42:23,055 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 16:42:32,070 root         WARNING  train score 0.6020567415891581
+2022-06-28 16:43:07,074 root         WARNING  test score -0.01584837351345202
+
+
+2022-06-28 16:43:50,385 root         WARNING  ['views']
+2022-06-28 16:43:59,345 root         WARNING  train score 0.6058107060440181
+
+2022-06-28 16:47:41,374 root         WARNING  ['views']
+2022-06-28 16:48:00,130 root         WARNING  ['views']
+2022-06-28 16:48:08,245 root         WARNING  train score 0.5803329132754842
+2022-06-28 16:48:08,425 root         WARNING  train score r2 0.5803329132754842
+2022-06-28 16:48:08,430 root         WARNING  test score -0.04267676763686934
+2022-06-28 16:48:08,430 root         WARNING  ['depth']
+2022-06-28 16:48:17,171 root         WARNING  train score 0.5834165818999053
+2022-06-28 16:48:17,393 root         WARNING  train score r2 0.5834165818999053
+2022-06-28 16:48:17,394 root         WARNING  test score -0.0007286798944186046
+2022-06-28 16:48:17,398 root         WARNING  ['full_reads_percent']
+2022-06-28 16:48:26,658 root         WARNING  train score 0.6231081175801707
+2022-06-28 16:48:26,856 root         WARNING  train score r2 0.6231081175801707
+2022-06-28 16:48:26,857 root         WARNING  test score -0.014929944313236243
+2022-06-28 16:48:26,861 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 16:48:35,982 root         WARNING  train score 0.5985694302075567
+2022-06-28 16:48:36,164 root         WARNING  train score r2 0.5985694302075567
+2022-06-28 16:48:36,165 root         WARNING  test score -0.01892428297402107
+2022-06-28 16:49:40,425 root         WARNING  ['views']
+2022-06-28 16:49:48,952 root         WARNING  train score 0.6097953170173082
+2022-06-28 16:49:49,125 root         WARNING  train score r2 0.6097953170173082
+2022-06-28 16:49:49,127 root         WARNING  test score r2 -0.045234013373030235
+2022-06-28 16:49:49,127 root         WARNING  test score -0.045234013373030235
+2022-06-28 16:49:49,131 root         WARNING  ['depth']
+2022-06-28 16:49:57,565 root         WARNING  train score 0.5823670073143803
+2022-06-28 16:49:57,745 root         WARNING  train score r2 0.5823670073143803
+2022-06-28 16:49:57,755 root         WARNING  test score r2 0.004699562889333708
+2022-06-28 16:49:57,755 root         WARNING  test score 0.004699562889333708
+2022-06-28 16:49:57,755 root         WARNING  ['full_reads_percent']
+2022-06-28 16:50:07,115 root         WARNING  train score 0.6249375378915976
+2022-06-28 16:50:07,309 root         WARNING  train score r2 0.6249375378915976
+2022-06-28 16:50:07,309 root         WARNING  test score r2 -0.00951972186780714
+2022-06-28 16:50:07,309 root         WARNING  test score -0.00951972186780714
+2022-06-28 16:50:07,315 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 16:50:16,205 root         WARNING  train score 0.6032853533517663
+2022-06-28 16:50:16,386 root         WARNING  train score r2 0.6032853533517663
+2022-06-28 16:50:16,386 root         WARNING  test score r2 -0.0106319543826211
+2022-06-28 16:50:16,395 root         WARNING  test score -0.014734882733500567
+
+
+
+
+
+
+2022-06-28 16:50:31,887 root         WARNING  ['views']
+2022-06-28 16:50:40,100 root         WARNING  train score 0.595276793748047
+2022-06-28 16:50:40,274 root         WARNING  train score r2 0.595276793748047
+2022-06-28 16:50:40,279 root         WARNING  test score r2 -0.06586375840032921
+2022-06-28 16:50:40,279 root         WARNING  test score -0.06586375840032921
+2022-06-28 16:50:40,279 root         WARNING  ['depth']
+2022-06-28 16:50:48,225 root         WARNING  train score 0.5835717944603369
+2022-06-28 16:50:48,405 root         WARNING  train score r2 0.5835717944603369
+2022-06-28 16:50:48,405 root         WARNING  test score r2 0.007107123477806732
+2022-06-28 16:50:48,405 root         WARNING  test score 0.007107123477806732
+2022-06-28 16:50:48,410 root         WARNING  ['full_reads_percent']
+2022-06-28 16:50:57,281 root         WARNING  train score 0.6289433813488543
+2022-06-28 16:50:57,489 root         WARNING  train score r2 0.6289433813488543
+2022-06-28 16:50:57,490 root         WARNING  test score r2 -0.02475464424939089
+2022-06-28 16:50:57,491 root         WARNING  test score -0.02475464424939089
+2022-06-28 16:50:57,495 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 16:51:06,250 root         WARNING  train score 0.6023190457286268
+2022-06-28 16:51:06,430 root         WARNING  train score r2 0.6023190457286268
+2022-06-28 16:51:06,430 root         WARNING  test score r2 -0.017495727287946683
+2022-06-28 16:51:06,435 root         WARNING  test score -0.02318648198453034
+
+
+
+2022-06-28 17:29:19,974 root         WARNING  y_cols ['views']
+2022-06-28 17:29:19,974 root         WARNING  grid.best_score_ 0.005241633988587124
+2022-06-28 17:29:19,974 root         WARNING  grid.best_params_ {'bootstrap': False, 'max_depth': 5, 'max_features': 'log2', 'min_samples_split': 10, 'n_estimators': 500}
+2022-06-28 17:29:20,576 root         WARNING  train score 0.12162367589610601
+2022-06-28 17:29:20,678 root         WARNING  train score r2 0.12162367589610601
+2022-06-28 17:29:20,681 root         WARNING  test score r2 0.010357262899685193
+2022-06-28 17:29:20,681 root         WARNING  test score 0.010357262899685193
+2022-06-28 18:03:43,795 root         WARNING  y_cols ['depth']
+2022-06-28 18:03:43,795 root         WARNING  grid.best_score_ 0.07011183315996153
+2022-06-28 18:03:43,795 root         WARNING  grid.best_params_ {'bootstrap': True, 'max_depth': 100, 'max_features': 'log2', 'min_samples_split': 10, 'n_estimators': 1000}
+2022-06-28 18:03:52,086 root         WARNING  train score 0.4260639667910884
+2022-06-28 18:03:53,382 root         WARNING  train score r2 0.4260639667910884
+2022-06-28 18:03:53,384 root         WARNING  test score r2 0.057880607980762666
+2022-06-28 18:03:53,385 root         WARNING  test score 0.057880607980762666
+2022-06-28 18:43:21,675 root         WARNING  y_cols ['full_reads_percent']
+2022-06-28 18:43:21,675 root         WARNING  grid.best_score_ 0.03422303133929076
+2022-06-28 18:43:21,676 root         WARNING  grid.best_params_ {'bootstrap': True, 'max_depth': 100, 'max_features': 'log2', 'min_samples_split': 1000, 'n_estimators': 100}
+2022-06-28 18:43:22,225 root         WARNING  train score 0.18173053694621988
+2022-06-28 18:43:22,344 root         WARNING  train score r2 0.18173053694621988
+2022-06-28 18:43:22,347 root         WARNING  test score r2 0.04587707885652692
+2022-06-28 18:43:22,347 root         WARNING  test score 0.04587707885652692

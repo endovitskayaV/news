@@ -26,7 +26,7 @@ logger = logging.getLogger()
 formatter = logging.Formatter(
     "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
 )
-general_fh = logging.FileHandler(LOGGING_PATH / "logs.txt")
+general_fh = logging.FileHandler(LOGGING_PATH / "logs2.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
@@ -162,23 +162,23 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
 
     if y_train.shape[1] == 1:
         y_train = y_train.values.ravel()
-
-    estimator = RandomForestRegressor()
-
-    param_grid = {
-        "n_estimators": [100, 200, 500, 1000],
-        "max_features": [1.0, "sqrt", "log2"],
-        "min_samples_split": [10, 100, 200, 500, 1000],
-        "bootstrap": [True, False],
-        "max_depth": [2,5,10,100,200],
-    }
-    grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
-    grid.fit(X_train, y_train)
+    #
+    # estimator = RandomForestRegressor()
+    #
+    # param_grid = {
+    #     "n_estimators": [100, 200, 500, 1000],
+    #     "max_features": [1.0, "sqrt", "log2"],
+    #     "min_samples_split": [10, 100, 200, 500, 1000],
+    #     "bootstrap": [True, False],
+    #     "max_depth": [2,5,10,100,200],
+    # }
+    # grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+    # grid.fit(X_train, y_train)
     logger.log(msg="y_cols "+str(y_cols), level=logging.getLevelName("WARNING"))
-    logger.log(msg="grid.best_score_ "+str(grid.best_score_), level=logging.getLevelName("WARNING"))
-    logger.log(msg="grid.best_params_ "+str(grid.best_params_), level=logging.getLevelName("WARNING"))
+    # logger.log(msg="grid.best_score_ "+str(grid.best_score_), level=logging.getLevelName("WARNING"))
+    # logger.log(msg="grid.best_params_ "+str(grid.best_params_), level=logging.getLevelName("WARNING"))
 
-    regr = RandomForestRegressor(**grid.best_params_)
+    regr = RandomForestRegressor(n_estimators=100, max_depth=None, min_samples_split=2, max_features=1.0, bootstrap=True, n_jobs=-1, max_samples=None)
     regr.fit(X_train, y_train)
 
     pred = regr.predict(X_test)

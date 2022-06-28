@@ -1,0 +1,26 @@
+
+2022-06-28 18:08:41,087 root         WARNING  y_cols ['views']
+2022-06-28 18:08:45,500 root         WARNING  estimator_params ('criterion', 'max_depth', 'min_samples_split', 'min_samples_leaf', 'min_weight_fraction_leaf', 'max_features', 'max_leaf_nodes', 'min_impurity_decrease', 'random_state', 'ccp_alpha')
+2022-06-28 18:08:45,941 root         WARNING  train score 0.591904441939141
+2022-06-28 18:08:46,437 root         WARNING  train score r2 0.591904441939141
+2022-06-28 18:08:46,439 root         WARNING  test score r2 -0.05531884978757029
+2022-06-28 18:08:46,440 root         WARNING  test score -0.05531884978757029
+2022-06-28 18:08:46,445 root         WARNING  y_cols ['depth']
+2022-06-28 18:08:50,953 root         WARNING  estimator_params ('criterion', 'max_depth', 'min_samples_split', 'min_samples_leaf', 'min_weight_fraction_leaf', 'max_features', 'max_leaf_nodes', 'min_impurity_decrease', 'random_state', 'ccp_alpha')
+2022-06-28 18:08:51,437 root         WARNING  train score 0.5840881765042863
+2022-06-28 18:08:52,026 root         WARNING  train score r2 0.5840881765042863
+2022-06-28 18:08:52,029 root         WARNING  test score r2 -0.0003056624260433516
+2022-06-28 18:08:52,030 root         WARNING  test score -0.0003056624260433516
+2022-06-28 18:08:52,035 root         WARNING  y_cols ['full_reads_percent']
+2022-06-28 18:08:56,557 root         WARNING  estimator_params ('criterion', 'max_depth', 'min_samples_split', 'min_samples_leaf', 'min_weight_fraction_leaf', 'max_features', 'max_leaf_nodes', 'min_impurity_decrease', 'random_state', 'ccp_alpha')
+2022-06-28 18:08:56,987 root         WARNING  train score 0.6308519589104996
+2022-06-28 18:08:57,398 root         WARNING  train score r2 0.6308519589104995
+2022-06-28 18:08:57,401 root         WARNING  test score r2 -0.02597506206712974
+2022-06-28 18:08:57,401 root         WARNING  test score -0.02597506206712974
+2022-06-28 18:08:57,407 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-06-28 18:09:01,481 root         WARNING  estimator_params ('criterion', 'max_depth', 'min_samples_split', 'min_samples_leaf', 'min_weight_fraction_leaf', 'max_features', 'max_leaf_nodes', 'min_impurity_decrease', 'random_state', 'ccp_alpha')
+2022-06-28 18:09:01,979 root         WARNING  train score 0.6031851082787759
+2022-06-28 18:09:02,393 root         WARNING  train score r2 0.603185108278776
+2022-06-28 18:09:02,395 root         WARNING  test score r2 -0.01195251198329276
+2022-06-28 18:09:02,397 root         WARNING  test score -0.017195259289034693
+2022-06-28 18:11:00,021 root         WARNING  y_cols ['views']
