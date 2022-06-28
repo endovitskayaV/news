@@ -30,3 +30,6 @@ def read_file(filename: Union[str, Path], encoding='utf-8') -> AnyStr:
 
 def unflatten(nested_list: List[List[Any]]) -> List[Any]:
     return list(chain.from_iterable(nested_list))
+
+def identity(w):
+    return w

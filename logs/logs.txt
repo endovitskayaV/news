@@ -1,54 +1,55 @@
-2022-06-27 17:00:22,981 ll           ['views', 'depth', 'full_reads_percent']
-2022-06-27 17:00:22,982 ll           0.5136913677359315
-2022-06-27 17:00:22,982 ll           {'bootstrap': False, 'max_features': 'log2', 'min_samples_split': 5, 'n_estimators': 500}
-2022-06-27 17:00:32,643 ll           0.5885616543736599
-2022-06-27 17:00:32,735 ll                                              importance
-ctr                                  0.654588
-day                                  0.124279
-month                                0.117680
-authors                              0.082544
-category_5409f11ce063da9c8b588a12    0.006745
-category_540d5eafcbb20f2524fc0509    0.006308
-category_5433e5decbb20f277b20eca9    0.003225
-category_5409f11ce063da9c8b588a13    0.002477
-category_540d5ecacbb20f2524fc050a    0.001143
-category_5409f11ce063da9c8b588a18    0.000997
-category_552e430f9a79475dd957f8b3    0.000013
-category_5e54e22a9a7947f560081ea2    0.000002
-category_5e54e2089a7947f63a801742    0.000000
-2022-06-27 17:08:31,246 ll           y_cols ['views', 'depth', 'full_reads_percent']
-2022-06-27 17:08:31,251 ll           best_score 0.5140450205383804
-2022-06-27 17:08:31,251 ll           best_params {'bootstrap': False, 'max_features': 'log2', 'min_samples_split': 5, 'n_estimators': 100}
-2022-06-27 17:08:31,967 ll           score 0.5834301749125921
-2022-06-27 17:08:32,603 ll           importance_df                                    importance
-ctr                                  0.673972
-month                                0.123534
-day                                  0.115765
-authors                              0.068982
-category_5409f11ce063da9c8b588a12    0.005487
-category_540d5eafcbb20f2524fc0509    0.004716
-category_5433e5decbb20f277b20eca9    0.003385
-category_5409f11ce063da9c8b588a13    0.002426
-category_5409f11ce063da9c8b588a18    0.000963
-category_540d5ecacbb20f2524fc050a    0.000748
-category_552e430f9a79475dd957f8b3    0.000019
-category_5e54e22a9a7947f560081ea2    0.000002
-category_5e54e2089a7947f63a801742    0.000000
-2022-06-27 17:12:57,252 ll           y_cols ['views', 'depth', 'full_reads_percent']
-2022-06-27 17:12:57,253 ll           best_score 0.5181672622241391
-2022-06-27 17:12:57,253 ll           best_params {'bootstrap': False, 'max_features': 'sqrt', 'min_samples_split': 5, 'n_estimators': 100}
-2022-06-27 17:12:57,865 ll           score 0.5889926017783909
-2022-06-27 17:12:57,883 ll           importance_df                                    importance
-ctr                                  0.643804
-day                                  0.128259
-month                                0.122354
-authors                              0.085734
-category_5409f11ce063da9c8b588a12    0.006643
-category_540d5eafcbb20f2524fc0509    0.005439
-category_5433e5decbb20f277b20eca9    0.003426
-category_5409f11ce063da9c8b588a13    0.002489
-category_5409f11ce063da9c8b588a18    0.001045
-category_540d5ecacbb20f2524fc050a    0.000791
-category_552e430f9a79475dd957f8b3    0.000013
-category_5e54e22a9a7947f560081ea2    0.000002
-category_5e54e2089a7947f63a801742    0.000000
+2022-06-28 15:27:17,656 root         WARNING  ['views']
+2022-06-28 15:27:31,606 root         WARNING  score 0.06150751909036922
+2022-06-28 15:27:31,673 root         WARNING  ['depth']
+2022-06-28 15:27:43,479 root         WARNING  score 0.12807174113876463
+2022-06-28 15:27:43,498 root         WARNING  ['full_reads_percent']
+2022-06-28 15:27:54,095 root         WARNING  score 0.24465729838254646
+2022-06-28 15:27:54,114 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:28:07,865 root         WARNING  score 0.16459756307448342
+2022-06-28 15:31:21,284 root         WARNING  ['views']
+2022-06-28 15:32:43,140 root         WARNING  ['views']
+2022-06-28 15:32:51,386 root         WARNING  score -0.05703299656645733
+2022-06-28 15:32:51,404 root         WARNING  ['depth']
+2022-06-28 15:32:59,207 root         WARNING  score 0.0038136250694167373
+2022-06-28 15:32:59,224 root         WARNING  ['full_reads_percent']
+2022-06-28 15:33:08,071 root         WARNING  score -0.014650588555611854
+2022-06-28 15:33:08,089 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:33:16,870 root         WARNING  score -0.0070803197352045655
+2022-06-28 15:36:00,076 root         WARNING  ['views']
+2022-06-28 15:36:08,038 root         WARNING  score -0.07210517482690593
+2022-06-28 15:42:03,551 root         WARNING  ['views']
+2022-06-28 15:42:03,789 root         WARNING  score -0.00012600788687278097
+2022-06-28 15:43:31,204 root         WARNING  ['views']
+2022-06-28 15:43:31,311 root         WARNING  score -0.00012472669687135784
+2022-06-28 15:43:31,313 root         WARNING  ['depth']
+2022-06-28 15:43:31,418 root         WARNING  score -0.003040944156649461
+2022-06-28 15:43:31,419 root         WARNING  ['full_reads_percent']
+2022-06-28 15:43:31,525 root         WARNING  score -0.0037241366461902015
+2022-06-28 15:43:31,527 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:43:31,634 root         WARNING  score -0.0020244676561001593
+
+2022-06-28 15:51:14,360 root         WARNING  ['views']
+2022-06-28 15:51:14,468 root         WARNING  score -4.788748481717222e+32
+2022-06-28 15:51:14,469 root         WARNING  ['depth']
+2022-06-28 15:51:14,591 root         WARNING  score 0.0
+2022-06-28 15:51:14,592 root         WARNING  ['full_reads_percent']
+2022-06-28 15:51:14,705 root         WARNING  score -2.000194673965958e+30
+2022-06-28 15:51:14,706 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:51:14,816 root         WARNING  score -4.791465663949716e+31
+2022-06-28 15:51:51,125 root         WARNING  ['views']
+2022-06-28 15:51:51,233 root         WARNING  score -0.0002619661935425732
+2022-06-28 15:51:51,235 root         WARNING  ['depth']
+2022-06-28 15:51:51,343 root         WARNING  score -0.0034581998209330944
+2022-06-28 15:51:51,344 root         WARNING  ['full_reads_percent']
+2022-06-28 15:51:51,450 root         WARNING  score -0.0034813731925613656
+2022-06-28 15:51:51,451 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:51:51,563 root         WARNING  score -0.0022606852737913742
+2022-06-28 15:59:04,822 root         WARNING  ['views']
+2022-06-28 15:59:05,037 root         WARNING  score -0.00011920486949579256
+2022-06-28 15:59:05,038 root         WARNING  ['depth']
+2022-06-28 15:59:05,250 root         WARNING  score -0.0033588937033994792
+2022-06-28 15:59:05,251 root         WARNING  ['full_reads_percent']
+2022-06-28 15:59:05,459 root         WARNING  score -0.0036969335940060244
+2022-06-28 15:59:05,460 root         WARNING  ['views', 'depth', 'full_reads_percent']
+2022-06-28 15:59:05,675 root         WARNING  score -0.0021443943403693932
+2022-06-28 15:59:45,178 root         WARNING  ['views']
