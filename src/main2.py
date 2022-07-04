@@ -119,26 +119,35 @@ def str_to_list(row: Series, col_name: str) -> Series:
 #
 df_train = pd.read_csv(DATA_PATH/"df_text.csv")
 df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-# vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False, min_df=0.007, max_df=0.9)
-# tra = vectorizer.fit_transform(df_train['title'])
-# dump(DATA_PATH / "vectorizer.pickle", vectorizer)
-#
-# feature_array = np.array(vectorizer.get_feature_names())
-# tfidf_sorting = np.argsort(tra.toarray()).flatten()[::-1]
-# n = 500
-# top_n = feature_array[tfidf_sorting][:n]
-# write_to_file(DATA_PATH / "top.txt", '\n'.join(p for p in top_n))
 
 X=df_train
-#df_train.drop([col for col in df_train.columns if not col.startswith("title_")],axis=1)
-#X = df_train.drop(["views", "depth", "full_reads_percent", "title", "publish_date", "session", "tags", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train = X_train['title']
+X_test= X_test['title']
 
-vectorizer = loads(DATA_PATH / "vectorizer.pickle")
-X_train = vectorizer.transform(X_train['title'])
-X_test= vectorizer.transform(X_test['title'])
+vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)#, min_df=0.007, max_df=0.9)
+X_train = vectorizer.fit_transform(X_train)
+X_test= vectorizer.transform(X_test)
+dump(DATA_PATH / "vectorizer1.pickle", vectorizer)
+#
+feature_array = np.array(vectorizer.get_feature_names())
+tfidf_sorting = np.argsort(X_train.toarray()).flatten()[::-1]
+n = 500
+top_n = feature_array[tfidf_sorting][:n]
+write_to_file(DATA_PATH / "top1.txt", '\n'.join(p for p in top_n))
+
+# X=df_train
+# #df_train.drop([col for col in df_train.columns if not col.startswith("title_")],axis=1)
+# #X = df_train.drop(["views", "depth", "full_reads_percent", "title", "publish_date", "session", "tags", "document_id"], axis=1)
+# y = df_train[["views", "depth", "full_reads_percent"]]
+#
+#
+#
+# # vectorizer = loads(DATA_PATH / "vectorizer.pickle")
+# X_train = vectorizer.transform(X_train['title'])
+# X_test= vectorizer.transform(X_test['title'])
 
 
 score_dict = {"views":0.4, "depth":0.3,"full_reads_percent":0.3}
@@ -162,23 +171,25 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
 
     if y_train.shape[1] == 1:
         y_train = y_train.values.ravel()
-    #
-    # estimator = RandomForestRegressor()
-    #
-    # param_grid = {
-    #     "n_estimators": [100, 200, 500, 1000],
-    #     "max_features": [1.0, "sqrt", "log2"],
-    #     "min_samples_split": [10, 100, 200, 500, 1000],
-    #     "bootstrap": [True, False],
-    #     "max_depth": [2,5,10,100,200],
-    # }
-    # grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
-    # grid.fit(X_train, y_train)
-    logger.log(msg="y_cols "+str(y_cols), level=logging.getLevelName("WARNING"))
-    # logger.log(msg="grid.best_score_ "+str(grid.best_score_), level=logging.getLevelName("WARNING"))
-    # logger.log(msg="grid.best_params_ "+str(grid.best_params_), level=logging.getLevelName("WARNING"))
 
-    regr = RandomForestRegressor(n_estimators=100, max_depth=None, min_samples_split=2, max_features=1.0, bootstrap=True, n_jobs=-1, max_samples=None)
+    estimator = RandomForestRegressor()
+
+    param_grid = {
+        "n_estimators": [100, 200, 500, 1000],
+        "max_features": [500,1000,2500, 5000, 6000,6500],
+        # "min_samples_split": [10, 100, 200, 500, 1000],
+        # "bootstrap": [True, False],
+        "max_depth": [5,10,100,200],
+
+    }
+    grid = GridSearchCV(estimator, param_grid, n_jobs=-1, cv=5)
+    grid.fit(X_train, y_train)
+    logger.log(msg="y_cols "+str(y_cols), level=logging.getLevelName("WARNING"))
+    logger.log(msg="grid.best_score_ "+str(grid.best_score_), level=logging.getLevelName("WARNING"))
+    logger.log(msg="grid.best_params_ "+str(grid.best_params_), level=logging.getLevelName("WARNING"))
+
+    # regr = RandomForestRegressor(n_estimators=200, max_depth=20, min_samples_split=2, max_features=1.0, bootstrap=True, n_jobs=-1, max_samples=None)
+    regr = RandomForestRegressor(**grid.best_params_)
     regr.fit(X_train, y_train)
 
     pred = regr.predict(X_test)

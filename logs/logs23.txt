@@ -1,0 +1,296 @@
+2022-07-04 10:48:06,770 root         WARNING  y_cols ['views']
+2022-07-04 10:48:06,771 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:48:54,229 root         WARNING  train score 0.7486626912236186
+2022-07-04 10:48:54,291 root         WARNING  train score r2 0.7486626912236185
+2022-07-04 10:48:54,291 root         WARNING  test score r2 0.063401762559253
+2022-07-04 10:48:54,291 root         WARNING  test score 0.063401762559253
+2022-07-04 10:48:54,291 root         WARNING  params {'n_estimators': 500, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:07,031 root         WARNING  train score 0.7568820818368062
+2022-07-04 10:49:07,198 root         WARNING  train score r2 0.7568820818368062
+2022-07-04 10:49:07,198 root         WARNING  test score r2 -0.076468708226054
+2022-07-04 10:49:07,198 root         WARNING  test score -0.076468708226054
+2022-07-04 10:49:07,198 root         WARNING  params {'n_estimators': 1000, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:20,970 root         WARNING  train score 0.7606325485123917
+2022-07-04 10:49:21,267 root         WARNING  train score r2 0.7606325485123918
+2022-07-04 10:49:21,267 root         WARNING  test score r2 -0.020923739257491025
+2022-07-04 10:49:21,267 root         WARNING  test score -0.020923739257491025
+2022-07-04 10:49:21,267 root         WARNING  params {'n_estimators': 200, 'max_depth': 100, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:27,879 root         WARNING  train score 0.8455085874824741
+2022-07-04 10:49:27,957 root         WARNING  train score r2 0.8455085874824741
+2022-07-04 10:49:27,957 root         WARNING  test score r2 -0.04546395255457081
+2022-07-04 10:49:27,957 root         WARNING  test score -0.04546395255457081
+2022-07-04 10:49:27,957 root         WARNING  params {'n_estimators': 200, 'max_depth': 200, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:43,345 root         WARNING  train score 0.8763032293393468
+2022-07-04 10:49:43,471 root         WARNING  train score r2 0.8763032293393468
+2022-07-04 10:49:43,474 root         WARNING  test score r2 -0.03520802805174594
+2022-07-04 10:49:43,475 root         WARNING  test score -0.03520802805174594
+2022-07-04 10:49:43,475 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 5000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:45,104 root         WARNING  train score 0.761328844978397
+2022-07-04 10:49:45,191 root         WARNING  train score r2 0.761328844978397
+2022-07-04 10:49:45,196 root         WARNING  test score r2 -0.03759418056351982
+2022-07-04 10:49:45,198 root         WARNING  test score -0.03759418056351982
+2022-07-04 10:49:45,199 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 2500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:46,238 root         WARNING  train score 0.7605146763940066
+2022-07-04 10:49:46,308 root         WARNING  train score r2 0.7605146763940066
+2022-07-04 10:49:46,310 root         WARNING  test score r2 0.0035550574119349587
+2022-07-04 10:49:46,310 root         WARNING  test score 0.0035550574119349587
+2022-07-04 10:49:46,315 root         WARNING  y_cols ['depth']
+2022-07-04 10:49:46,315 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:48,451 root         WARNING  train score 0.37118424149513474
+2022-07-04 10:49:48,511 root         WARNING  train score r2 0.37118424149513474
+2022-07-04 10:49:48,526 root         WARNING  test score r2 0.18040431363274512
+2022-07-04 10:49:48,526 root         WARNING  test score 0.18040431363274512
+2022-07-04 10:49:48,526 root         WARNING  params {'n_estimators': 500, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:49:53,813 root         WARNING  train score 0.37200035730278425
+2022-07-04 10:49:53,985 root         WARNING  train score r2 0.3720003573027838
+2022-07-04 10:49:53,985 root         WARNING  test score r2 0.19498989733722616
+2022-07-04 10:49:53,985 root         WARNING  test score 0.19498989733722616
+2022-07-04 10:49:53,985 root         WARNING  params {'n_estimators': 1000, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:04,166 root         WARNING  train score 0.37221230887534407
+2022-07-04 10:50:04,479 root         WARNING  train score r2 0.3722123088753442
+2022-07-04 10:50:04,479 root         WARNING  test score r2 0.19139043299941638
+2022-07-04 10:50:04,479 root         WARNING  test score 0.19139043299941638
+2022-07-04 10:50:04,479 root         WARNING  params {'n_estimators': 200, 'max_depth': 100, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:13,137 root         WARNING  train score 0.6176958373018232
+2022-07-04 10:50:13,215 root         WARNING  train score r2 0.6176958373018231
+2022-07-04 10:50:13,217 root         WARNING  test score r2 0.194326608972077
+2022-07-04 10:50:13,218 root         WARNING  test score 0.194326608972077
+2022-07-04 10:50:13,218 root         WARNING  params {'n_estimators': 200, 'max_depth': 200, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:30,530 root         WARNING  train score 0.7466325343388664
+2022-07-04 10:50:30,640 root         WARNING  train score r2 0.7466325343388664
+2022-07-04 10:50:30,640 root         WARNING  test score r2 0.20644114792626533
+2022-07-04 10:50:30,640 root         WARNING  test score 0.20644114792626533
+2022-07-04 10:50:30,640 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 5000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:32,455 root         WARNING  train score 0.3707209993095971
+2022-07-04 10:50:32,547 root         WARNING  train score r2 0.370720999309597
+2022-07-04 10:50:32,550 root         WARNING  test score r2 0.17259634329658924
+2022-07-04 10:50:32,551 root         WARNING  test score 0.17259634329658924
+2022-07-04 10:50:32,551 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 2500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:33,892 root         WARNING  train score 0.36560913700845354
+2022-07-04 10:50:33,964 root         WARNING  train score r2 0.36560913700845354
+2022-07-04 10:50:33,967 root         WARNING  test score r2 0.20463506369158213
+2022-07-04 10:50:33,967 root         WARNING  test score 0.20463506369158213
+2022-07-04 10:50:33,971 root         WARNING  y_cols ['full_reads_percent']
+2022-07-04 10:50:33,971 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:36,203 root         WARNING  train score 0.2843076834031719
+2022-07-04 10:50:36,281 root         WARNING  train score r2 0.2843076834031718
+2022-07-04 10:50:36,281 root         WARNING  test score r2 0.06524717358065646
+2022-07-04 10:50:36,281 root         WARNING  test score 0.06524717358065646
+2022-07-04 10:50:36,281 root         WARNING  params {'n_estimators': 500, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:41,816 root         WARNING  train score 0.2848390101877166
+2022-07-04 10:50:41,973 root         WARNING  train score r2 0.2848390101877166
+2022-07-04 10:50:41,973 root         WARNING  test score r2 0.06304579754614748
+2022-07-04 10:50:41,973 root         WARNING  test score 0.06304579754614748
+2022-07-04 10:50:41,973 root         WARNING  params {'n_estimators': 1000, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:50:52,650 root         WARNING  train score 0.28274302126696993
+2022-07-04 10:50:52,962 root         WARNING  train score r2 0.28274302126696993
+2022-07-04 10:50:52,977 root         WARNING  test score r2 0.06306744465598269
+2022-07-04 10:50:52,977 root         WARNING  test score 0.06306744465598269
+2022-07-04 10:50:52,977 root         WARNING  params {'n_estimators': 200, 'max_depth': 100, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:02,079 root         WARNING  train score 0.5463882605259777
+2022-07-04 10:51:02,163 root         WARNING  train score r2 0.5463882605259777
+2022-07-04 10:51:02,165 root         WARNING  test score r2 0.09654207073426513
+2022-07-04 10:51:02,166 root         WARNING  test score 0.09654207073426513
+2022-07-04 10:51:02,166 root         WARNING  params {'n_estimators': 200, 'max_depth': 200, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:17,753 root         WARNING  train score 0.6904275547886383
+2022-07-04 10:51:17,860 root         WARNING  train score r2 0.6904275547886383
+2022-07-04 10:51:17,860 root         WARNING  test score r2 0.09285904770359077
+2022-07-04 10:51:17,860 root         WARNING  test score 0.09285904770359077
+2022-07-04 10:51:17,860 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 5000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:19,720 root         WARNING  train score 0.28629084636979374
+2022-07-04 10:51:19,782 root         WARNING  train score r2 0.28629084636979374
+2022-07-04 10:51:19,782 root         WARNING  test score r2 0.07002958763753209
+2022-07-04 10:51:19,782 root         WARNING  test score 0.07002958763753209
+2022-07-04 10:51:19,782 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 2500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:21,037 root         WARNING  train score 0.28270015082809663
+2022-07-04 10:51:21,106 root         WARNING  train score r2 0.28270015082809663
+2022-07-04 10:51:21,106 root         WARNING  test score r2 0.07023775616766081
+2022-07-04 10:51:21,106 root         WARNING  test score 0.07023775616766081
+2022-07-04 10:51:21,106 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-04 10:51:21,106 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:23,085 root         WARNING  train score 0.31965746905645237
+2022-07-04 10:51:23,169 root         WARNING  train score r2 0.31965746905645226
+2022-07-04 10:51:23,169 root         WARNING  test score r2 0.04390607629005364
+2022-07-04 10:51:23,169 root         WARNING  test score 0.03737262924303828
+2022-07-04 10:51:23,169 root         WARNING  params {'n_estimators': 500, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:27,775 root         WARNING  train score 0.32006259417119926
+2022-07-04 10:51:27,946 root         WARNING  train score r2 0.3200625941711995
+2022-07-04 10:51:27,962 root         WARNING  test score r2 0.04600970596691437
+2022-07-04 10:51:27,962 root         WARNING  test score 0.039713322317069276
+2022-07-04 10:51:27,962 root         WARNING  params {'n_estimators': 1000, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:37,972 root         WARNING  train score 0.319483391970676
+2022-07-04 10:51:38,303 root         WARNING  train score r2 0.3194833919706753
+2022-07-04 10:51:38,303 root         WARNING  test score r2 0.05019525977509124
+2022-07-04 10:51:38,303 root         WARNING  test score 0.04455938978365416
+2022-07-04 10:51:38,303 root         WARNING  params {'n_estimators': 200, 'max_depth': 100, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:51:45,919 root         WARNING  train score 0.3987390261152459
+2022-07-04 10:51:45,994 root         WARNING  train score r2 0.398739026115246
+2022-07-04 10:51:45,994 root         WARNING  test score r2 0.053704595871456894
+2022-07-04 10:51:45,994 root         WARNING  test score 0.047682494027746006
+2022-07-04 10:51:45,994 root         WARNING  params {'n_estimators': 200, 'max_depth': 200, 'min_samples_split': 2, 'max_features': 1.0, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:52:01,293 root         WARNING  train score 0.5166973827797255
+2022-07-04 10:52:01,402 root         WARNING  train score r2 0.5166973827797258
+2022-07-04 10:52:01,418 root         WARNING  test score r2 0.05600212738374347
+2022-07-04 10:52:01,418 root         WARNING  test score 0.046986334975644695
+2022-07-04 10:52:01,418 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 5000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:52:02,904 root         WARNING  train score 0.32186617080658503
+2022-07-04 10:52:02,979 root         WARNING  train score r2 0.32186617080658503
+2022-07-04 10:52:02,979 root         WARNING  test score r2 0.0392415774973377
+2022-07-04 10:52:02,979 root         WARNING  test score 0.032040880929637285
+2022-07-04 10:52:02,979 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 2500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 10:52:03,979 root         WARNING  train score 0.3159468074670997
+2022-07-04 10:52:04,058 root         WARNING  train score r2 0.31594680746709974
+2022-07-04 10:52:04,058 root         WARNING  test score r2 0.03605053934657102
+2022-07-04 10:52:04,058 root         WARNING  test score 0.028480297322181457
+
+
+2022-07-04 11:06:56,466 root         WARNING  y_cols ['views']
+2022-07-04 11:06:56,466 root         WARNING  params {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:56,695 root         WARNING  train score 0.6566567934896113
+2022-07-04 11:06:56,715 root         WARNING  train score r2 0.6566567934896113
+2022-07-04 11:06:56,715 root         WARNING  test score r2 0.03340560312548091
+2022-07-04 11:06:56,715 root         WARNING  test score 0.03340560312548091
+2022-07-04 11:06:56,715 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:57,236 root         WARNING  train score 0.6697157463463852
+2022-07-04 11:06:57,271 root         WARNING  train score r2 0.6697157463463852
+2022-07-04 11:06:57,271 root         WARNING  test score r2 0.05486143893461659
+2022-07-04 11:06:57,271 root         WARNING  test score 0.05486143893461659
+2022-07-04 11:06:57,271 root         WARNING  y_cols ['depth']
+2022-07-04 11:06:57,271 root         WARNING  params {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:57,571 root         WARNING  train score 0.35880194797412923
+2022-07-04 11:06:57,591 root         WARNING  train score r2 0.3588019479741291
+2022-07-04 11:06:57,591 root         WARNING  test score r2 0.14671417260074793
+2022-07-04 11:06:57,596 root         WARNING  test score 0.14671417260074793
+2022-07-04 11:06:57,596 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:58,256 root         WARNING  train score 0.3640337356609823
+2022-07-04 11:06:58,286 root         WARNING  train score r2 0.3640337356609823
+2022-07-04 11:06:58,286 root         WARNING  test score r2 0.14967101129174054
+2022-07-04 11:06:58,286 root         WARNING  test score 0.14967101129174054
+2022-07-04 11:06:58,286 root         WARNING  y_cols ['full_reads_percent']
+2022-07-04 11:06:58,286 root         WARNING  params {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:58,606 root         WARNING  train score 0.2516909724466935
+2022-07-04 11:06:58,621 root         WARNING  train score r2 0.2516909724466935
+2022-07-04 11:06:58,626 root         WARNING  test score r2 0.07164682236873565
+2022-07-04 11:06:58,626 root         WARNING  test score 0.07164682236873565
+2022-07-04 11:06:58,626 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:59,356 root         WARNING  train score 0.26112883201105397
+2022-07-04 11:06:59,396 root         WARNING  train score r2 0.26112883201105397
+2022-07-04 11:06:59,396 root         WARNING  test score r2 0.053953172843819286
+2022-07-04 11:06:59,396 root         WARNING  test score 0.053953172843819286
+2022-07-04 11:06:59,396 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-04 11:06:59,396 root         WARNING  params {'n_estimators': 100, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1000, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:06:59,651 root         WARNING  train score 0.28253227520993257
+2022-07-04 11:06:59,676 root         WARNING  train score r2 0.2825322752099328
+2022-07-04 11:06:59,676 root         WARNING  test score r2 0.04816120884012546
+2022-07-04 11:06:59,681 root         WARNING  test score 0.04725600635520449
+2022-07-04 11:06:59,681 root         WARNING  params {'n_estimators': 200, 'max_depth': 20, 'min_samples_split': 2, 'max_features': 1500, 'bootstrap': True, 'n_jobs': -1, 'max_samples': None}
+2022-07-04 11:07:00,261 root         WARNING  train score 0.28288385718936776
+2022-07-04 11:07:00,297 root         WARNING  train score r2 0.2828838571893678
+2022-07-04 11:07:00,297 root         WARNING  test score r2 0.057024557377330885
+2022-07-04 11:07:00,297 root         WARNING  test score 0.057229431227613634
+
+
+
+2022-07-04 11:20:47,825 root         WARNING  y_cols ['views']
+2022-07-04 11:21:11,536 root         WARNING  y_cols ['views']
+2022-07-04 11:22:00,539 root         WARNING  y_cols ['views']
+2022-07-04 11:51:02,811 root         WARNING  params {'n_estimators': 1000}
+2022-07-04 11:51:02,813 root         WARNING  best_score_ -0.8481730163206506
+2022-07-04 11:51:09,387 root         WARNING  train score r2 0.8381268990803729
+2022-07-04 11:52:13,150 root         WARNING  y_cols ['views']
+2022-07-04 12:29:10,061 root         WARNING  params {'n_estimators': 500}
+2022-07-04 12:29:19,782 root         WARNING  best_score_ 0.16558938970375767
+2022-07-04 12:32:49,905 root         WARNING  params {'n_estimators': 500}
+2022-07-04 12:32:49,905 root         WARNING  best_score_ 0.16558938970375767
+2022-07-04 12:32:53,285 root         WARNING  train score r2 0.8791507407403943
+2022-07-04 12:32:56,637 root         WARNING  train score 0.8791507407403943
+2022-07-04 12:32:57,999 root         WARNING  test score 0.07830374915040705
+2022-07-04 12:32:59,473 root         WARNING  test score r20.07830374915040705
+2022-07-04 12:33:00,837 root         WARNING  test score custom0.07830374915040705
+2022-07-04 12:33:35,045 root         WARNING  params {'n_estimators': 500}
+2022-07-04 12:33:35,045 root         WARNING  best_score_ 0.16558938970375767
+2022-07-04 12:33:38,384 root         WARNING  train score r2 0.8791507407403943
+2022-07-04 12:33:41,864 root         WARNING  train score 0.8791507407403943
+2022-07-04 12:33:43,605 root         WARNING  test score 0.07830374915040705
+2022-07-04 12:33:45,268 root         WARNING  test score r20.07830374915040705
+2022-07-04 12:33:46,653 root         WARNING  test score custom0.07830374915040705
+
+
+
+2022-07-04 12:49:31,212 root         WARNING  y_cols ['views']
+2022-07-04 13:13:09,560 root         WARNING  params {'n_estimators': 200, 'max_features': 0.8, 'max_depth': 50}
+2022-07-04 13:13:09,560 root         WARNING  best_score_ 0.27807568819134065
+2022-07-04 13:13:09,755 root         WARNING  train score r2 0.8419738835984514
+2022-07-04 13:13:09,946 root         WARNING  train score 0.8419738835984514
+2022-07-04 13:13:10,051 root         WARNING  test score 0.21418172621755394
+2022-07-04 13:13:10,155 root         WARNING  test score r2 0.21418172621755394
+2022-07-04 13:13:10,258 root         WARNING  test score custom 0.21418172621755394
+2022-07-04 13:13:10,261 root         WARNING  y_cols ['depth']
+2022-07-04 13:39:12,433 root         WARNING  params {'n_estimators': 1000, 'max_features': 'auto', 'max_depth': 50}
+2022-07-04 13:39:12,434 root         WARNING  best_score_ 0.27235240264537214
+2022-07-04 13:39:13,384 root         WARNING  train score r2 0.5465335982363579
+2022-07-04 13:39:14,332 root         WARNING  train score 0.5465335982363579
+2022-07-04 13:39:14,834 root         WARNING  test score 0.16011819793295368
+2022-07-04 13:39:15,335 root         WARNING  test score r2 0.16011819793295368
+2022-07-04 13:39:15,834 root         WARNING  test score custom 0.16011819793295368
+2022-07-04 13:39:15,843 root         WARNING  y_cols ['full_reads_percent']
+2022-07-04 14:02:56,160 root         WARNING  params {'n_estimators': 500, 'max_features': 'sqrt', 'max_depth': 200}
+2022-07-04 14:02:56,160 root         WARNING  best_score_ 0.11367657469184005
+2022-07-04 14:02:57,397 root         WARNING  train score r2 0.6182185143736051
+2022-07-04 14:02:58,635 root         WARNING  train score 0.6182185143736051
+2022-07-04 14:02:59,204 root         WARNING  test score 0.07080815407771479
+2022-07-04 14:02:59,775 root         WARNING  test score r2 0.07080815407771479
+2022-07-04 14:03:00,346 root         WARNING  test score custom 0.07080815407771479
+2022-07-04 14:03:00,357 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+
+
+2022-07-04 14:11:43,547 root         WARNING  y_cols ['views']
+2022-07-04 14:13:44,851 root         WARNING  params {'n_estimators': 200, 'min_samples_leaf': 2, 'max_features': 0.8, 'max_depth': 50}
+2022-07-04 14:13:44,851 root         WARNING  best_score_ 0.06539930628787279
+2022-07-04 14:13:45,023 root         WARNING  train score r2 0.555049709615598
+2022-07-04 14:13:45,211 root         WARNING  train score 0.555049709615598
+2022-07-04 14:13:45,304 root         WARNING  test score 0.33879943212203323
+2022-07-04 14:13:45,414 root         WARNING  test score r2 0.33879943212203323
+2022-07-04 14:13:45,507 root         WARNING  test score custom 0.33879943212203323
+2022-07-04 14:13:45,507 root         WARNING  y_cols ['depth']
+2022-07-04 14:15:44,551 root         WARNING  params {'n_estimators': 200, 'min_samples_leaf': 2, 'max_features': 0.6, 'max_depth': 50}
+2022-07-04 14:15:44,551 root         WARNING  best_score_ 0.1630442724035459
+2022-07-04 14:15:44,723 root         WARNING  train score r2 0.4366230826189468
+2022-07-04 14:15:44,911 root         WARNING  train score 0.4366230826189468
+2022-07-04 14:15:45,004 root         WARNING  test score 0.29807057433912154
+2022-07-04 14:15:45,098 root         WARNING  test score r2 0.29807057433912154
+2022-07-04 14:15:45,207 root         WARNING  test score custom 0.29807057433912154
+2022-07-04 14:15:45,207 root         WARNING  y_cols ['full_reads_percent']
+2022-07-04 14:17:44,614 root         WARNING  params {'n_estimators': 200, 'min_samples_leaf': 2, 'max_features': 0.6, 'max_depth': 50}
+2022-07-04 14:17:44,614 root         WARNING  best_score_ 0.09763949609801574
+2022-07-04 14:17:44,801 root         WARNING  train score r2 0.3296019621181052
+2022-07-04 14:17:44,973 root         WARNING  train score 0.3296019621181052
+2022-07-04 14:17:45,082 root         WARNING  test score 0.041252839909347694
+2022-07-04 14:17:45,176 root         WARNING  test score r2 0.041252839909347694
+2022-07-04 14:17:45,317 root         WARNING  test score custom 0.041252839909347694
+2022-07-04 14:17:45,317 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-04 14:18:28,185 root         WARNING  y_cols ['views']
+2022-07-04 14:21:18,782 root         WARNING  params {'n_estimators': 200, 'min_samples_leaf': 4, 'max_features': 0.8, 'max_depth': 50}
+2022-07-04 14:21:18,782 root         WARNING  best_score_ 0.023611386625660757
+2022-07-04 14:21:18,967 root         WARNING  train score r2 0.44378098880085637
+2022-07-04 14:21:19,168 root         WARNING  train score 0.44378098880085637
+2022-07-04 14:21:19,266 root         WARNING  test score 0.21571052124241963
+2022-07-04 14:21:19,360 root         WARNING  test score r2 0.21571052124241963
+2022-07-04 14:21:19,478 root         WARNING  test score custom 0.21571052124241963
+2022-07-04 14:21:19,478 root         WARNING  y_cols ['depth']
+2022-07-04 14:23:21,271 root         WARNING  params {'n_estimators': 200, 'min_samples_leaf': 4, 'max_features': 0.8, 'max_depth': 50}
+2022-07-04 14:23:21,271 root         WARNING  best_score_ 0.17017167357182975
+2022-07-04 14:23:21,443 root         WARNING  train score r2 0.3981935087930839
+2022-07-04 14:23:21,631 root         WARNING  train score 0.3981935087930839
+2022-07-04 14:23:21,740 root         WARNING  test score 0.23570305358723898
+2022-07-04 14:23:21,845 root         WARNING  test score r2 0.23570305358723898
+2022-07-04 14:23:21,940 root         WARNING  test score custom 0.23570305358723898
+2022-07-04 14:23:21,940 root         WARNING  y_cols ['full_reads_percent']
+2022-07-04 14:25:46,152 root         WARNING  params {'n_estimators': 500, 'min_samples_leaf': 4, 'max_features': 0.8, 'max_depth': 50}
+2022-07-04 14:25:46,153 root         WARNING  best_score_ 0.07402411460400848
+2022-07-04 14:25:46,640 root         WARNING  train score r2 0.26915195309727835
+2022-07-04 14:25:47,101 root         WARNING  train score 0.26915195309727835
+2022-07-04 14:25:47,351 root         WARNING  test score 0.06922057638800272
+2022-07-04 14:25:47,614 root         WARNING  test score r2 0.06922057638800272
+2022-07-04 14:25:47,863 root         WARNING  test score custom 0.06922057638800272
+2022-07-04 14:25:47,868 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
