@@ -1,0 +1,91 @@
+2022-07-05 12:24:51,014 root         WARNING  y_cols ['views']
+2022-07-05 12:50:33,192 root         WARNING  params {'n_estimators': 500, 'max_features': 0.8, 'max_depth': 20}
+2022-07-05 12:50:33,192 root         WARNING  best_score_ 0.5440261075460936
+2022-07-05 12:50:33,983 root         WARNING  train score r2 0.9198724556864808
+2022-07-05 12:50:34,757 root         WARNING  train score 0.9198724556864808
+2022-07-05 12:50:35,208 root         WARNING  test score 0.5095682166987534
+2022-07-05 12:50:35,644 root         WARNING  test score r2 0.5095682166987534
+2022-07-05 12:50:36,085 root         WARNING  test score custom 0.5095682166987534
+2022-07-05 12:50:36,194 root         WARNING  y_cols ['depth']
+2022-07-05 13:12:21,314 root         WARNING  params {'n_estimators': 200, 'max_features': 0.6, 'max_depth': 50}
+2022-07-05 13:12:21,314 root         WARNING  best_score_ 0.7725587230734207
+2022-07-05 13:12:21,965 root         WARNING  train score r2 0.9590443890133447
+2022-07-05 13:12:22,610 root         WARNING  train score 0.9590443890133447
+2022-07-05 13:12:22,998 root         WARNING  test score 0.7783521325097563
+2022-07-05 13:12:23,358 root         WARNING  test score r2 0.7783521325097563
+2022-07-05 13:12:23,732 root         WARNING  test score custom 0.7783521325097563
+2022-07-05 13:12:23,903 root         WARNING  y_cols ['full_reads_percent']
+2022-07-05 13:37:37,436 root         WARNING  params {'n_estimators': 500, 'max_features': 0.6, 'max_depth': 50}
+2022-07-05 13:37:37,436 root         WARNING  best_score_ 0.37165098346554853
+2022-07-05 13:37:38,897 root         WARNING  train score r2 0.8808384898290648
+2022-07-05 13:37:40,189 root         WARNING  train score 0.8808384898290648
+2022-07-05 13:37:40,862 root         WARNING  test score 0.37233705083509694
+2022-07-05 13:37:41,512 root         WARNING  test score r2 0.37233705083509694
+2022-07-05 13:37:42,191 root         WARNING  test score custom 0.37233705083509694
+2022-07-05 13:37:42,409 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-05 13:45:24,433 concurrent.futures ERROR    exception calling callback for <Future at 0x1c8ba882250 state=finished raised TerminatedWorkerError>
+Traceback (most recent call last):
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\externals\loky\_base.py", line 625, in _invoke_callbacks
+    callback(self)
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\parallel.py", line 359, in __call__
+    self.parallel.dispatch_next()
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\parallel.py", line 794, in dispatch_next
+    if not self.dispatch_one_batch(self._original_iterator):
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\parallel.py", line 861, in dispatch_one_batch
+    self._dispatch(tasks)
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\parallel.py", line 779, in _dispatch
+    job = self._backend.apply_async(batch, callback=cb)
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\_parallel_backends.py", line 531, in apply_async
+    future = self._workers.submit(SafeFunction(func))
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\externals\loky\reusable_executor.py", line 177, in submit
+    return super(_ReusablePoolExecutor, self).submit(
+  File "C:\Users\evvEn\PycharmProjects\news\venv\lib\site-packages\joblib\externals\loky\process_executor.py", line 1115, in submit
+    raise self._flags.broken
+joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process managed by the executor was unexpectedly terminated. This could be caused by a segmentation fault while calling the function or by an excessive memory usage causing the Operating System to kill the worker.
+
+2022-07-05 13:53:16,592 root         WARNING  y_cols ['views']
+2022-07-05 13:55:01,940 root         WARNING  y_cols ['views']
+2022-07-05 14:14:43,632 root         WARNING  y_cols ['views']
+2022-07-05 14:35:25,415 root         WARNING  params {'n_estimators': 200, 'max_features': 0.6, 'max_depth': 20}
+2022-07-05 14:35:25,416 root         WARNING  best_score_ 0.5182123736773859
+2022-07-05 14:35:25,950 root         WARNING  train score r2 0.9034165311672919
+2022-07-05 14:35:26,439 root         WARNING  train score 0.9034165311672919
+2022-07-05 14:35:26,769 root         WARNING  test score 0.5622023909026554
+2022-07-05 14:35:27,072 root         WARNING  test score r2 0.5622023909026554
+2022-07-05 14:35:27,369 root         WARNING  test score custom 0.5622023909026554
+2022-07-05 14:40:08,569 root         WARNING  y_cols ['views']
+2022-07-05 14:42:41,703 root         WARNING  y_cols ['views']
+2022-07-05 14:47:46,568 root         WARNING  y_cols ['views']
+2022-07-05 15:36:56,052 root         WARNING  params {'n_estimators': 1000, 'max_features': 0.5, 'max_depth': 20}
+2022-07-05 15:36:56,053 root         WARNING  best_score_ 0.5142036893867218
+2022-07-05 15:36:57,367 root         WARNING  train score r2 0.9137187825111321
+2022-07-05 15:36:58,557 root         WARNING  train score 0.9137187825111321
+2022-07-05 15:36:59,263 root         WARNING  test score 0.5547140318362487
+2022-07-05 15:37:00,008 root         WARNING  test score r2 0.5547140318362487
+2022-07-05 15:37:00,690 root         WARNING  test score custom 0.5547140318362487
+2022-07-05 15:45:40,724 root         WARNING  y_cols ['views']
+2022-07-05 15:45:40,725 root         WARNING  n_components 0.5
+2022-07-05 15:47:20,517 root         WARNING  explained_variance_ [0.63234961]
+2022-07-05 15:47:20,518 root         WARNING  n_components_ 1
+2022-07-05 15:47:20,518 root         WARNING  n_features_ 6496
+2022-07-05 15:47:29,482 root         WARNING  params {'n_estimators': 200, 'max_depth': 10}
+2022-07-05 15:47:29,482 root         WARNING  best_score_ 0.04758825480986528
+2022-07-05 15:47:29,574 root         WARNING  train score r2 0.4180453713050837
+2022-07-05 15:47:29,667 root         WARNING  train score 0.4180453713050837
+2022-07-05 15:47:29,727 root         WARNING  test score 0.11854191684815996
+2022-07-05 15:47:29,786 root         WARNING  test score r2 0.11854191684815996
+2022-07-05 15:47:29,845 root         WARNING  test score custom 0.11854191684815996
+2022-07-05 15:47:29,846 root         WARNING  n_components 0.6
+2022-07-05 15:49:08,568 root         WARNING  explained_variance_ [0.63234961]
+2022-07-05 15:49:08,568 root         WARNING  n_components_ 1
+2022-07-05 15:49:08,568 root         WARNING  n_features_ 6496
+
+
+2022-07-05 15:52:06,100 root         WARNING  y_cols ['views']
+2022-07-05 15:52:06,101 root         WARNING  n_components 3900.0
+2022-07-05 15:53:13,721 root         WARNING  y_cols ['views']
+2022-07-05 15:53:35,457 root         WARNING  n_components 3864
+2022-07-05 15:55:02,519 root         WARNING  explained_variance_ [6.43451989e-01 2.99252404e-01 5.06443281e-02 ... 1.30013254e-08
+ 1.29622271e-08 1.28675047e-08]
+2022-07-05 15:55:02,520 root         WARNING  n_components_ 3864
+2022-07-05 15:55:02,520 root         WARNING  n_features_ 6441
