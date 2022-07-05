@@ -121,7 +121,7 @@ df_train = pd.read_csv(DATA_PATH/"df_text.csv")
 df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
 # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False, min_df=0.007, max_df=0.9)
 # tra = vectorizer.fit_transform(df_train['title'])
-# dump(DATA_PATH / "vectorizer.pickle", vectorizer)
+# dump(DATA_PATH / "views_vectorizer.pickle", vectorizer)
 #
 # feature_array = np.array(vectorizer.get_feature_names())
 # tfidf_sorting = np.argsort(tra.toarray()).flatten()[::-1]
@@ -136,7 +136,7 @@ y = df_train[["views", "depth", "full_reads_percent"]]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-vectorizer = loads(DATA_PATH / "vectorizer.pickle")
+vectorizer = loads(DATA_PATH / "views_vectorizer.pickle")
 X_train = vectorizer.transform(X_train['title'])
 X_test= vectorizer.transform(X_test['title'])
 

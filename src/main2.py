@@ -145,7 +145,7 @@ write_to_file(DATA_PATH / "top1.txt", '\n'.join(p for p in top_n))
 #
 #
 #
-# # vectorizer = loads(DATA_PATH / "vectorizer.pickle")
+# # vectorizer = loads(DATA_PATH / "views_vectorizer.pickle")
 # X_train = vectorizer.transform(X_train['title'])
 # X_test= vectorizer.transform(X_test['title'])
 
