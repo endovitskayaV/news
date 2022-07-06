@@ -91,16 +91,19 @@ logger.addHandler(general_fh)
 df_train = pd.read_csv(DATA_PATH / "df_text.csv")
 df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
 df_train = df_train[df_train['views'] <= 1_000_000]
-# df_train = df_train[df_train['depth'] < 1.79]
-# df_train = df_train[df_train['full_reads_percent'] <= 100]
+df_train = df_train[df_train['depth'] < 1.79]
+df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
+df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
 
 df_train = encode_dummies(df_train, 'category')
 df_train = encode_list_by_rate(df_train, 'authors', 0.03)
 df_train = encode_list_by_rate(df_train, 'tags', 0.01)
 df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
+df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
+df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
 
-X = df_train.drop(["views", "depth", "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
+X = df_train.drop(["views", "publish_date", "session", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
@@ -144,20 +147,24 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
     logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
 
-    for n_components_rate in [0.6, 0.8]:
-        n_components = int(n_components_rate * X_train.shape[1])
-        logger.log(msg="n_components " + str(n_components), level=logging.getLevelName("WARNING"))
-        pca = PCA(n_components=n_components)
-        X_train_new = pca.fit_transform(X_train)
-        X_test_new = pca.transform(X_test)
-
-        logger.log(msg="explained_variance_ " + str(pca.explained_variance_ratio_), level=logging.getLevelName("WARNING"))
-        logger.log(msg="n_components_ " + str(pca.n_components_), level=logging.getLevelName("WARNING"))
-        logger.log(msg="n_features_ " + str(pca.n_features_), level=logging.getLevelName("WARNING"))
+    for n_components_rate in [0]:
+        X_train_new =X_train.copy()
+        X_test_new = X_test.copy()
+    # for n_components_rate in [0.6, 0.8]:
+    #     n_components = int(n_components_rate * X_train.shape[1])
+    #     logger.log(msg="n_components " + str(n_components), level=logging.getLevelName("WARNING"))
+    #     pca = PCA(n_components=n_components)
+    #     X_train_new = pca.fit_transform(X_train)
+    #     X_test_new = pca.transform(X_test)
+    #
+    #     logger.log(msg="explained_variance_ " + str(pca.explained_variance_ratio_),
+    #                level=logging.getLevelName("WARNING"))
+    #     logger.log(msg="n_components_ " + str(pca.n_components_), level=logging.getLevelName("WARNING"))
+    #     logger.log(msg="n_features_ " + str(pca.n_features_), level=logging.getLevelName("WARNING"))
 
         random_grid = {
             "n_estimators": [200, 500],
-            # 'max_features': [0.6, 0.8],
+            'max_features': [0.6, 0.8],
             "max_depth": [10, 20],
         }
 
@@ -166,7 +173,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
                                        cv=3, verbose=2, random_state=42, n_jobs=-1,
                                        return_train_score=True)
         search = rf_random.fit(X_train_new, y_train)
-        dump(DATA_PATH / (str(index) + "search.pickle"), search)
+        dump(DATA_PATH / (str(index) + "search_f.pickle"), search)
         logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
         logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
@@ -180,5 +187,5 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate(l1):
+for index, y_cols in enumerate([["views"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
