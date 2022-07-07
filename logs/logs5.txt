@@ -149,3 +149,57 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 2022-07-07 11:46:25,441 root         WARNING  test score 0.7923471008940073
 2022-07-07 11:46:25,980 root         WARNING  test score r2 0.7923471008940073
 2022-07-07 11:46:26,626 root         WARNING  test score custom 0.7923471008940073
+2022-07-07 11:49:52,310 root         WARNING  y_cols ['full_reads_percent'] with all
+2022-07-07 11:55:06,789 root         WARNING  train score r2 0.8290576600726234
+2022-07-07 11:55:07,600 root         WARNING  train score 0.8290576600726234
+2022-07-07 11:55:08,067 root         WARNING  test score 0.46066611349732545
+2022-07-07 11:55:08,531 root         WARNING  test score r2 0.46066611349732545
+2022-07-07 11:55:08,987 root         WARNING  test score custom 0.46066611349732545
+2022-07-07 11:56:19,552 root         WARNING  y_cols ['full_reads_percent'] no holid
+2022-07-07 12:01:07,643 root         WARNING  train score r2 0.8246919710375452
+2022-07-07 12:01:08,439 root         WARNING  train score 0.8246919710375452
+2022-07-07 12:01:08,893 root         WARNING  test score 0.46395777178663844
+2022-07-07 12:01:09,345 root         WARNING  test score r2 0.46395777178663844
+2022-07-07 12:01:09,828 root         WARNING  test score custom 0.46395777178663844
+2022-07-07 12:05:23,628 root         WARNING  y_cols ['full_reads_percent'] no depth
+2022-07-07 12:10:44,601 root         WARNING  train score r2 0.7215478424687232
+2022-07-07 12:10:45,482 root         WARNING  train score 0.7215478424687232
+2022-07-07 12:10:45,969 root         WARNING  test score 0.3886671686577927
+2022-07-07 12:10:46,483 root         WARNING  test score r2 0.3886671686577927
+2022-07-07 12:10:47,001 root         WARNING  test score custom 0.3886671686577927
+2022-07-07 12:11:35,257 root         WARNING  y_cols ['full_reads_percent'] np views
+2022-07-07 12:16:37,022 root         WARNING  train score r2 0.8202090244597269
+2022-07-07 12:16:37,895 root         WARNING  train score 0.8202090244597269
+2022-07-07 12:16:38,422 root         WARNING  test score 0.44767660353112015
+2022-07-07 12:16:38,870 root         WARNING  test score r2 0.44767660353112015
+2022-07-07 12:16:39,391 root         WARNING  test score custom 0.44767660353112015
+2022-07-07 12:17:26,225 root         WARNING  y_cols ['full_reads_percent'] nothing
+2022-07-07 12:22:59,332 root         WARNING  train score r2 0.6740254319465492
+2022-07-07 12:23:00,068 root         WARNING  train score 0.6740254319465492
+2022-07-07 12:23:00,524 root         WARNING  test score 0.3933516789305225
+2022-07-07 12:23:00,950 root         WARNING  test score r2 0.3933516789305225
+2022-07-07 12:23:01,388 root         WARNING  test score custom 0.3933516789305225
+2022-07-07 12:23:53,768 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-07 12:29:09,633 root         WARNING  train score r2 0.7442446078805748
+2022-07-07 12:29:10,418 root         WARNING  train score 0.7442446078805748
+2022-07-07 12:29:10,865 root         WARNING  test score 0.46412241123533376
+2022-07-07 12:29:11,325 root         WARNING  test score r2 0.46412241123533376
+2022-07-07 12:29:11,766 root         WARNING  test score custom 0.4651596601423393
+2022-07-07 12:35:59,481 root         WARNING  y_cols ['views'] is_weekend
+2022-07-07 12:41:16,894 root         WARNING  train score r2 0.9211703816658701
+2022-07-07 12:41:17,632 root         WARNING  train score 0.9211703816658701
+2022-07-07 12:41:18,094 root         WARNING  test score 0.6013027438573793
+2022-07-07 12:41:18,551 root         WARNING  test score r2 0.6013027438573793
+2022-07-07 12:41:19,008 root         WARNING  test score custom 0.6013027438573793
+2022-07-07 12:42:31,091 root         WARNING  y_cols ['depth'] is_weekend
+2022-07-07 12:47:23,980 root         WARNING  train score r2 0.9369061454150358
+2022-07-07 12:47:24,760 root         WARNING  train score 0.9369061454150358
+2022-07-07 12:47:25,213 root         WARNING  test score 0.8093935244494445
+2022-07-07 12:47:25,669 root         WARNING  test score r2 0.8093935244494445
+2022-07-07 12:47:26,143 root         WARNING  test score custom 0.8093935244494445
+2022-07-07 12:48:25,591 root         WARNING  y_cols ['full_reads_percent'] is_weekend
+2022-07-07 12:53:20,638 root         WARNING  train score r2 0.8301310503769148
+2022-07-07 12:53:21,430 root         WARNING  train score 0.8301310503769148
+2022-07-07 12:53:21,892 root         WARNING  test score 0.4580549072072848
+2022-07-07 12:53:22,345 root         WARNING  test score r2 0.4580549072072848
+2022-07-07 12:53:22,800 root         WARNING  test score custom 0.4580549072072848

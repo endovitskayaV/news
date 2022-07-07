@@ -83,6 +83,11 @@ def holiday_fun(row: Series, dates: Series) -> Series:
     return row
 
 
+def weekend_fun(row: Series) -> Series:
+    row['is_weekend'] = row['publish_date'].date().weekday() >= 5
+    return row
+
+
 # logging
 logger = logging.getLogger()
 formatter = logging.Formatter(
@@ -113,7 +118,10 @@ dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%
 df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
 df_train['is_holiday'] = df_train['is_holiday'].astype(int)
 
-X = df_train.drop(['is_holiday', "depth", "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
+df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
+df_train['is_weekend'] = df_train['is_weekend'].astype(int)
+
+X = df_train.drop(["full_reads_percent", "publish_date", "session", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
@@ -204,5 +212,5 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["depth"]]):
+for index, y_cols in enumerate([["full_reads_percent"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
