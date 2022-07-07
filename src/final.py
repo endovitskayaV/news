@@ -99,6 +99,9 @@ general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
 df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
+df_train = df_train[df_train.category.isin(
+    ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
+     '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
 df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
 df_train = df_train[df_train['views'] <= 1_000_000]
 df_train = df_train[df_train['depth'] < 1.79]
@@ -156,6 +159,7 @@ write_to_file(DATA_PATH / "top500.txt", '\n'.join(p for p in top_n))
 
 score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
 
+
 # search = loads(DATA_PATH / "views_reg.pickle")
 # score = calculate_score(y_test, search.predict(X_test), ['views'])
 # print(score)
@@ -195,8 +199,8 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         #                                cv=3, verbose=2, random_state=42, n_jobs=-1,
         #                                return_train_score=True)
         # search = rf_random.fit(X_train_new, y_train)
-        p={'n_estimators': 500, 'max_features': 0.8, 'max_depth': 20}
-        search=RandomForestRegressor(**p)
+        p = {'n_estimators': 500, 'max_features': 0.8, 'max_depth': 20}
+        search = RandomForestRegressor(**p)
         search.fit(X_train_new, y_train)
         dump(DATA_PATH / (str(index) + "reg.pickle"), search)
         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
