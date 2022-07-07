@@ -121,7 +121,7 @@ df_train['is_holiday'] = df_train['is_holiday'].astype(int)
 df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
 df_train['is_weekend'] = df_train['is_weekend'].astype(int)
 
-X = df_train.drop(['depth', "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
+X = df_train.drop(['is_weekend', 'views', 'depth', "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
@@ -198,7 +198,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         p={'n_estimators': 500, 'max_features': 0.8, 'max_depth': 20}
         search=RandomForestRegressor(**p)
         search.fit(X_train_new, y_train)
-        dump(DATA_PATH / (str(index) + "depth_reg_weekend.pickle"), search)
+        dump(DATA_PATH / (str(index) + "reg.pickle"), search)
         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
         # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
@@ -212,5 +212,5 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["depth"]]):
+for index, y_cols in enumerate([["views"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
