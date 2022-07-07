@@ -128,3 +128,24 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 2022-07-07 10:57:02,853 root         WARNING  test score 0.9987831080383585
 2022-07-07 10:57:03,506 root         WARNING  test score r2 0.9987831080383585
 2022-07-07 10:57:04,021 root         WARNING  test score custom 0.9987831080383585
+2022-07-07 11:13:50,784 root         WARNING  y_cols ['depth']
+2022-07-07 11:29:57,557 root         WARNING  params {'n_estimators': 200, 'max_features': 0.8, 'max_depth': 20}
+2022-07-07 11:29:57,557 root         WARNING  best_score_ 0.7879742820787058
+2022-07-07 11:29:58,301 root         WARNING  train score r2 0.9332913493950581
+2022-07-07 11:29:58,951 root         WARNING  train score 0.9332913493950581
+2022-07-07 11:29:59,496 root         WARNING  test score 0.770113260464099
+2022-07-07 11:29:59,951 root         WARNING  test score r2 0.770113260464099
+2022-07-07 11:30:00,333 root         WARNING  test score custom 0.770113260464099
+2022-07-07 11:31:59,772 root         WARNING  y_cols ['depth']
+2022-07-07 11:34:06,232 root         WARNING  y_cols ['depth']
+2022-07-07 11:39:38,458 root         WARNING  train score r2 0.9336404413469881
+2022-07-07 11:39:39,545 root         WARNING  train score 0.9336404413469881
+2022-07-07 11:39:40,112 root         WARNING  test score 0.7800538900358104
+2022-07-07 11:39:40,595 root         WARNING  test score r2 0.7800538900358104
+2022-07-07 11:39:41,064 root         WARNING  test score custom 0.7800538900358104
+2022-07-07 11:40:36,538 root         WARNING  y_cols ['depth']
+2022-07-07 11:46:23,915 root         WARNING  train score r2 0.9353899431541354
+2022-07-07 11:46:24,855 root         WARNING  train score 0.9353899431541354
+2022-07-07 11:46:25,441 root         WARNING  test score 0.7923471008940073
+2022-07-07 11:46:25,980 root         WARNING  test score r2 0.7923471008940073
+2022-07-07 11:46:26,626 root         WARNING  test score custom 0.7923471008940073

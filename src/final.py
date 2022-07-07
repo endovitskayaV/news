@@ -113,15 +113,15 @@ dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%
 df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
 df_train['is_holiday'] = df_train['is_holiday'].astype(int)
 
-X = df_train.drop(["depth", "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
+X = df_train.drop(['is_holiday', "depth", "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
+# vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
 vectorizer = loads(DATA_PATH / "views_vectorizer.pickle")
 train_texts = vectorizer.transform(X_train['title'])
 test_texts = vectorizer.transform(X_test['title'])
-# dump(DATA_PATH / "views_vectorizer.pickle", vectorizer)
+# dump(DATA_PATH / "vectorizer.pickle", vectorizer)
 
 train_texts_arr = train_texts.toarray()
 train_texts_df = pd.DataFrame(train_texts_arr)
@@ -148,9 +148,9 @@ write_to_file(DATA_PATH / "top500.txt", '\n'.join(p for p in top_n))
 
 score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
 
-search = loads(DATA_PATH / "views_reg.pickle")
-score = calculate_score(y_test, search.predict(X_test), ['views'])
-print(score)
+# search = loads(DATA_PATH / "views_reg.pickle")
+# score = calculate_score(y_test, search.predict(X_test), ['views'])
+# print(score)
 
 def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test):
     y_train = y_train[y_cols]
@@ -193,7 +193,6 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         dump(DATA_PATH / (str(index) + "search_f.pickle"), search)
         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
         # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
-        logger.log(msg="score" + str(search.score(X_train_new, y_train)), level=logging.getLevelName("WARNING"))
         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
                    level=logging.getLevelName("WARNING"))
         logger.log(msg="train score " + str(search.score(X_train_new, y_train)), level=logging.getLevelName("WARNING"))
@@ -203,7 +202,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         score = calculate_score(y_test, search.predict(X_test_new), y_cols)
         logger.log(msg="test score custom " + str(score), level=logging.getLevelName("WARNING"))
 
-#
-# l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-# for index, y_cols in enumerate([["views"]]):
-#     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
+
+l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
+for index, y_cols in enumerate([["depth"]]):
+    train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
