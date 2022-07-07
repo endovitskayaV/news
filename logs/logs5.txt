@@ -440,3 +440,51 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-07 16:30:06,324 root         WARNING  
 
+2022-07-07 17:04:01,810 root         WARNING  category общество_политика
+2022-07-07 17:04:03,153 root         WARNING  y_cols ['views']
+2022-07-07 17:07:37,650 root         WARNING  train score r2 0.9245999732021991
+2022-07-07 17:07:38,213 root         WARNING  train score 0.9245999732021991
+2022-07-07 17:07:38,576 root         WARNING  test score 0.520169160951409
+2022-07-07 17:07:38,926 root         WARNING  test score r2 0.520169160951409
+2022-07-07 17:07:39,271 root         WARNING  test score custom 0.520169160951409
+2022-07-07 17:07:39,271 root         WARNING  
+
+2022-07-07 17:07:39,308 root         WARNING  
+
+2022-07-07 17:07:39,308 root         WARNING  category бизнес_финансы
+2022-07-07 17:07:39,539 root         WARNING  y_cols ['views']
+2022-07-07 17:07:50,078 root         WARNING  train score r2 0.9395026908521139
+2022-07-07 17:07:50,238 root         WARNING  train score 0.9395026908521139
+2022-07-07 17:07:50,374 root         WARNING  test score 0.47661500518449285
+2022-07-07 17:07:50,513 root         WARNING  test score r2 0.47661500518449285
+2022-07-07 17:07:50,651 root         WARNING  test score custom 0.47661500518449285
+2022-07-07 17:07:50,651 root         WARNING  
+
+2022-07-07 17:07:50,655 root         WARNING  
+
+2022-07-07 17:07:50,655 root         WARNING  category экономика
+2022-07-07 17:07:50,693 root         WARNING  y_cols ['views']
+2022-07-07 17:07:53,635 root         WARNING  train score r2 0.914898448224705
+2022-07-07 17:07:53,745 root         WARNING  train score 0.914898448224705
+2022-07-07 17:07:53,848 root         WARNING  test score 0.2315517049405006
+2022-07-07 17:07:53,947 root         WARNING  test score r2 0.2315517049405006
+2022-07-07 17:07:54,047 root         WARNING  test score custom 0.2315517049405006
+2022-07-07 17:07:54,047 root         WARNING  
+
+2022-07-07 17:07:54,048 root         WARNING  
+
+2022-07-07 17:07:54,049 root         WARNING  category медиа и технологии
+2022-07-07 17:07:54,080 root         WARNING  y_cols ['views']
+2022-07-07 17:07:56,642 root         WARNING  train score r2 0.9004718124455291
+2022-07-07 17:07:56,747 root         WARNING  train score 0.9004718124455291
+2022-07-07 17:07:56,847 root         WARNING  test score 0.22085544202338458
+2022-07-07 17:07:56,947 root         WARNING  test score r2 0.22085544202338458
+2022-07-07 17:07:57,045 root         WARNING  test score custom 0.22085544202338458
+2022-07-07 17:07:57,045 root         WARNING  
+
+2022-07-07 17:07:57,047 root         WARNING  
+
+2022-07-07 17:07:57,047 root         WARNING  
+
+2022-07-07 17:16:13,054 root         WARNING  category политика
+2022-07-07 17:18:01,535 root         WARNING  category политика

@@ -99,6 +99,8 @@ general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
 df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
+df_train.sort_values('publish_date', inplace=True)
+df_train['Time'] = np.arange(len(df_train.index))
 df_train = df_train[df_train.category.isin(
     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
@@ -124,8 +126,9 @@ df_train['is_holiday'] = df_train['is_holiday'].astype(int)
 df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
 df_train['is_weekend'] = df_train['is_weekend'].astype(int)
 
-categs={'общество': ['5433e5decbb20f277b20eca9'],
-'политика': ['5409f11ce063da9c8b588a12'],
+categs={
+    'политика': ['5409f11ce063da9c8b588a12'],
+    'общество': ['5433e5decbb20f277b20eca9'],
 'бизнес_финансы': ['540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a18'],
 'экономика': ['5409f11ce063da9c8b588a13', ],
 'медиа и технологии': ['540d5ecacbb20f2524fc050a'],
