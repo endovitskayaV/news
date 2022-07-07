@@ -107,7 +107,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
 train_texts = vectorizer.fit_transform(X_train['title'])
 test_texts = vectorizer.transform(X_test['title'])
-dump(DATA_PATH / "views_vectorizer.pickle", vectorizer)
+dump(DATA_PATH / "vectorizer.pickle", vectorizer)
 
 train_texts_arr = train_texts.toarray()
 train_texts_df = pd.DataFrame(train_texts_arr)
