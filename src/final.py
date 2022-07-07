@@ -121,7 +121,7 @@ df_train['is_holiday'] = df_train['is_holiday'].astype(int)
 df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
 df_train['is_weekend'] = df_train['is_weekend'].astype(int)
 
-X = df_train.drop(['is_weekend', 'views', 'depth', "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
+X = df_train.drop(['is_weekend', 'depth', "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
 y = df_train[["views", "depth", "full_reads_percent"]]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
@@ -212,5 +212,5 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["views"]]):
+for index, y_cols in enumerate([["depth"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
