@@ -612,3 +612,15 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-08 14:38:45,011 root         WARNING  
 
+2022-07-08 14:41:44,024 root         WARNING  y_cols ['views']
+2022-07-08 14:47:11,300 root         WARNING  train score r2 0.9213214582097209
+2022-07-08 14:47:12,113 root         WARNING  train score 0.9213214582097209
+2022-07-08 14:47:12,510 root         WARNING  test score 0.5639158273665609
+2022-07-08 14:47:12,863 root         WARNING  test score r2 0.5639158273665609
+2022-07-08 14:47:13,204 root         WARNING  test score custom 0.5639158273665609
+2022-07-08 14:47:13,204 root         WARNING  
+
+2022-07-08 14:47:13,263 root         WARNING  
+
+2022-07-08 14:47:13,263 root         WARNING  
+
