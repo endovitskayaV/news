@@ -968,3 +968,109 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-08 15:40:47,645 root         WARNING  
 
+2022-07-08 15:49:14,142 root         WARNING  category политика
+2022-07-08 15:49:17,162 root         WARNING  y_cols ['views']
+2022-07-08 15:55:48,512 root         WARNING  train score r2 0.9245702766898087
+2022-07-08 15:55:51,189 root         WARNING  train score 0.9245702766898087
+2022-07-08 15:55:52,051 root         WARNING  test score 0.54087122636037
+2022-07-08 15:55:52,875 root         WARNING  test score r2 0.54087122636037
+2022-07-08 15:55:53,737 root         WARNING  test score custom 0.54087122636037
+2022-07-08 15:55:53,737 root         WARNING  
+
+2022-07-08 15:55:53,782 root         WARNING  
+
+2022-07-08 15:55:53,782 root         WARNING  category общество
+2022-07-08 15:56:30,801 root         WARNING  y_cols ['views']
+2022-07-08 16:01:04,590 root         WARNING  train score r2 0.9192204722957027
+2022-07-08 16:01:06,635 root         WARNING  train score 0.9192204722957027
+2022-07-08 16:01:07,329 root         WARNING  test score 0.6501325726918329
+2022-07-08 16:01:08,019 root         WARNING  test score r2 0.6501325726918329
+2022-07-08 16:01:08,692 root         WARNING  test score custom 0.6501325726918329
+2022-07-08 16:01:08,692 root         WARNING  
+
+2022-07-08 16:01:08,737 root         WARNING  
+
+2022-07-08 16:01:08,737 root         WARNING  category бизнес_финансы
+2022-07-08 16:01:10,761 root         WARNING  y_cols ['views']
+2022-07-08 16:04:25,645 root         WARNING  train score r2 0.9220267774834875
+2022-07-08 16:04:27,219 root         WARNING  train score 0.9220267774834875
+2022-07-08 16:04:27,804 root         WARNING  test score 0.5067966013398488
+2022-07-08 16:04:28,354 root         WARNING  test score r2 0.5067966013398488
+2022-07-08 16:04:28,874 root         WARNING  test score custom 0.5067966013398488
+2022-07-08 16:04:28,874 root         WARNING  
+
+2022-07-08 16:04:28,913 root         WARNING  
+
+2022-07-08 16:04:28,913 root         WARNING  category экономика
+2022-07-08 16:04:30,446 root         WARNING  y_cols ['views']
+2022-07-08 16:06:39,284 root         WARNING  train score r2 0.9284672025740355
+2022-07-08 16:06:40,425 root         WARNING  train score 0.9284672025740355
+2022-07-08 16:06:40,831 root         WARNING  test score 0.40252738936572663
+2022-07-08 16:06:41,253 root         WARNING  test score r2 0.40252738936572663
+2022-07-08 16:06:41,675 root         WARNING  test score custom 0.40252738936572663
+2022-07-08 16:06:41,675 root         WARNING  
+
+2022-07-08 16:06:41,706 root         WARNING  
+
+2022-07-08 16:06:41,706 root         WARNING  category медиа и технологии
+2022-07-08 16:06:42,987 root         WARNING  y_cols ['views']
+2022-07-08 16:08:12,417 root         WARNING  train score r2 0.9292346356486438
+2022-07-08 16:08:13,335 root         WARNING  train score 0.9292346356486438
+2022-07-08 16:08:13,711 root         WARNING  test score 0.5090859869324641
+2022-07-08 16:08:14,211 root         WARNING  test score r2 0.5090859869324641
+2022-07-08 16:08:14,601 root         WARNING  test score custom 0.5090859869324641
+2022-07-08 16:08:14,602 root         WARNING  
+
+2022-07-08 16:08:14,629 root         WARNING  
+
+2022-07-08 16:08:14,629 root         WARNING
+
+
+
+
+2022-07-08 16:13:51,483 root         WARNING  category политика
+2022-07-08 16:13:54,168 root         WARNING  y_cols ['views']
+2022-07-08 16:20:17,739 root         WARNING  train score r2 0.9197987293653851
+2022-07-08 16:20:20,465 root         WARNING  train score 0.9197987293653851
+2022-07-08 16:20:21,352 root         WARNING  test score 0.5103626915257469
+2022-07-08 16:20:22,232 root         WARNING  test score r2 0.5103626915257469
+2022-07-08 16:20:23,110 root         WARNING  test score custom 0.5103626915257469
+2022-07-08 16:20:23,111 root         WARNING  
+
+2022-07-08 16:20:23,174 root         WARNING  
+
+2022-07-08 16:20:23,174 root         WARNING  category общество
+2022-07-08 16:20:25,702 root         WARNING  y_cols ['views']
+2022-07-08 16:25:08,187 root         WARNING  train score r2 0.9261957559751799
+2022-07-08 16:25:10,318 root         WARNING  train score 0.9261957559751799
+2022-07-08 16:25:11,014 root         WARNING  test score 0.5247468000706859
+2022-07-08 16:25:11,669 root         WARNING  test score r2 0.5247468000706859
+2022-07-08 16:25:12,323 root         WARNING  test score custom 0.5247468000706859
+2022-07-08 16:25:12,323 root         WARNING  
+
+2022-07-08 16:25:12,366 root         WARNING  
+
+2022-07-08 16:25:12,367 root         WARNING  category бизнес_финансы
+2022-07-08 16:25:14,321 root         WARNING  y_cols ['views']
+2022-07-08 16:28:42,866 root         WARNING  train score r2 0.9332998401211263
+2022-07-08 16:28:44,403 root         WARNING  train score 0.9332998401211263
+2022-07-08 16:28:44,964 root         WARNING  test score 0.4868640033025504
+2022-07-08 16:28:45,484 root         WARNING  test score r2 0.4868640033025504
+2022-07-08 16:28:46,003 root         WARNING  test score custom 0.4868640033025504
+2022-07-08 16:28:46,003 root         WARNING  
+
+2022-07-08 16:28:46,036 root         WARNING  
+
+2022-07-08 16:28:46,036 root         WARNING  category экономика_медиа и технологии
+2022-07-08 16:28:47,639 root         WARNING  y_cols ['views']
+2022-07-08 16:31:14,324 root         WARNING  train score r2 0.9333915215744729
+2022-07-08 16:31:15,534 root         WARNING  train score 0.9333915215744729
+2022-07-08 16:31:15,991 root         WARNING  test score 0.6078445350725403
+2022-07-08 16:31:16,462 root         WARNING  test score r2 0.6078445350725403
+2022-07-08 16:31:16,981 root         WARNING  test score custom 0.6078445350725403
+2022-07-08 16:31:16,981 root         WARNING  
+
+2022-07-08 16:31:17,011 root         WARNING  
+
+2022-07-08 16:31:17,012 root         WARNING  
+
