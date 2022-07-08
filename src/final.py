@@ -9,7 +9,7 @@ from pandas import Series, DataFrame
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import r2_score
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import RandomizedSearchCV, cross_validate, TimeSeriesSplit
 from sklearn.model_selection import train_test_split
 
 from settings import LOGGING_PATH, DATA_PATH
@@ -141,12 +141,12 @@ for category, df_train in df_dict.items():
     X = df_train.drop(['is_weekend', 'views', 'category', 'depth', "full_reads_percent", "publish_date", "session", "document_id"], axis=1)
     y = df_train[["views", "depth", "full_reads_percent"]]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
     vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
     # vectorizer = loads(DATA_PATH / "views_vectorizer.pickle")
-    train_texts = vectorizer.fit_transform(X_train['title'])
-    test_texts = vectorizer.transform(X_test['title'])
+    train_texts = vectorizer.fit_transform(X['title'])
+    test_texts = vectorizer.transform(X['title'])
     dump(DATA_PATH / (category+"vectorizer.pickle"), vectorizer)
 
     train_texts_arr = train_texts.toarray()
@@ -156,15 +156,15 @@ for category, df_train in df_dict.items():
     train_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
     test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
 
-    X_train = X_train.reset_index()
-    X_test = X_test.reset_index()
-    y_train = y_train.reset_index()
-    y_test = y_test.reset_index()
+    X = X.reset_index()
+    # X_test = X_test.reset_index()
+    y = y.reset_index()
+    # y_test = y_test.reset_index()
 
-    X_train = X_train.merge(train_texts_df, left_index=True, right_index=True)
-    X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
-    X_train.drop(['title', 'index'], axis=1, inplace=True)
-    X_test.drop(['title', 'index'], axis=1, inplace=True)
+    X = X.merge(train_texts_df, left_index=True, right_index=True)
+    # X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
+    X.drop(['title', 'index'], axis=1, inplace=True)
+    # X_test.drop(['title', 'index'], axis=1, inplace=True)
 
     feature_array = np.array(vectorizer.get_feature_names_out())
     tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
@@ -179,9 +179,9 @@ for category, df_train in df_dict.items():
     # score = calculate_score(y_test, search.predict(X_test), ['views'])
     # print(score)
 
-    def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test):
-        y_train = y_train[y_cols]
-        y_test = y_test[y_cols]
+    def train_score(index: int, y_cols: List[str], X, y):
+        y_train = y[y_cols]
+        # y_test = y_test[y_cols]
 
         if y_train.shape[1] == 1:
             y_train = y_train.values.ravel()
@@ -189,8 +189,8 @@ for category, df_train in df_dict.items():
         logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
 
         for n_components_rate in [0]:
-            X_train_new = X_train.copy()
-            X_test_new = X_test.copy()
+            X_train_new = X.copy()
+            # X_test_new = X_test.copy()
             # for n_components_rate in [0.6, 0.8]:
             #     n_components = int(n_components_rate * X_train.shape[1])
             #     logger.log(msg="n_components " + str(n_components), level=logging.getLevelName("WARNING"))
@@ -214,27 +214,30 @@ for category, df_train in df_dict.items():
             #                                cv=3, verbose=2, random_state=42, n_jobs=-1,
             #                                return_train_score=True)
             # search = rf_random.fit(X_train_new, y_train)
-            p = {'n_estimators': 500, 'max_features': 0.8, 'max_depth': 20}
+            p = {'n_estimators': 500, 'max_depth': 20}
             search = RandomForestRegressor(**p)
-            search.fit(X_train_new, y_train)
-            dump(DATA_PATH / (str(index) + "reg.pickle"), search)
+            cv=TimeSeriesSplit(n_splits=5)
+            scores = cross_validate(search, X_train_new, y_train, cv=cv, scoring='r2',   return_train_score=True)
+            logger.log(msg="scores " + str(scores), level=logging.getLevelName("WARNING"))
+            # search.fit(X_train_new, y_train)
+            # dump(DATA_PATH / (str(index) + "reg.pickle"), search)
             # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
             # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
-            logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
-                       level=logging.getLevelName("WARNING"))
-            logger.log(msg="train score " + str(search.score(X_train_new, y_train)),
-                       level=logging.getLevelName("WARNING"))
-            logger.log(msg="test score " + str(search.score(X_test_new, y_test)), level=logging.getLevelName("WARNING"))
-            logger.log(msg="test score r2 " + str(r2_score(y_test, search.predict(X_test_new))),
-                       level=logging.getLevelName("WARNING"))
-            score = calculate_score(y_test, search.predict(X_test_new), y_cols)
-            logger.log(msg="test score custom " + str(score), level=logging.getLevelName("WARNING"))
+            # logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
+            #            level=logging.getLevelName("WARNING"))
+            # logger.log(msg="train score " + str(search.score(X_train_new, y_train)),
+            #            level=logging.getLevelName("WARNING"))
+            # logger.log(msg="test score " + str(search.score(X_test_new, y_test)), level=logging.getLevelName("WARNING"))
+            # logger.log(msg="test score r2 " + str(r2_score(y_test, search.predict(X_test_new))),
+            #            level=logging.getLevelName("WARNING"))
+            # score = calculate_score(y_test, search.predict(X_test_new), y_cols)
+            # logger.log(msg="test score custom " + str(score), level=logging.getLevelName("WARNING"))
             logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 
 
     l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-    for index, y_cols in enumerate([["views"]]):
-        train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
+    for index, y_cols in enumerate(l1):
+        train_score(index, y_cols, X, y)
         logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 
 logger.log(msg="\n", level=logging.getLevelName("WARNING"))
