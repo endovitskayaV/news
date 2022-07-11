@@ -1074,3 +1074,220 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-08 16:31:17,012 root         WARNING  
 
+2022-07-11 09:54:38,935 root         WARNING  category политика
+2022-07-11 09:54:42,098 root         WARNING  y_cols ['views']
+2022-07-11 10:01:46,388 root         WARNING  train score r2 0.9241294347462098
+2022-07-11 10:01:49,121 root         WARNING  train score 0.9241294347462098
+2022-07-11 10:01:49,965 root         WARNING  test score 0.5738792126056049
+2022-07-11 10:01:50,811 root         WARNING  test score r2 0.5738792126056049
+2022-07-11 10:01:51,655 root         WARNING  test score custom 0.5738792126056049
+2022-07-11 10:01:51,655 root         WARNING  
+
+2022-07-11 10:01:51,717 root         WARNING  
+
+2022-07-11 10:01:51,717 root         WARNING  category общество
+2022-07-11 10:02:46,898 root         WARNING  y_cols ['views']
+2022-07-11 10:07:29,901 root         WARNING  train score r2 0.9273391252131237
+2022-07-11 10:07:31,944 root         WARNING  train score 0.9273391252131237
+2022-07-11 10:07:32,605 root         WARNING  test score 0.5665449544836976
+2022-07-11 10:07:33,279 root         WARNING  test score r2 0.5665449544836976
+2022-07-11 10:07:33,924 root         WARNING  test score custom 0.5665449544836976
+2022-07-11 10:07:33,924 root         WARNING  
+
+2022-07-11 10:07:33,956 root         WARNING  
+
+2022-07-11 10:07:33,956 root         WARNING  category бизнес_финансы
+2022-07-11 10:08:00,471 root         WARNING  y_cols ['views']
+2022-07-11 10:11:21,135 root         WARNING  train score r2 0.9325047375460656
+2022-07-11 10:11:22,672 root         WARNING  train score 0.9325047375460656
+2022-07-11 10:11:23,213 root         WARNING  test score 0.42463953388723774
+2022-07-11 10:11:23,733 root         WARNING  test score r2 0.42463953388723774
+2022-07-11 10:11:24,303 root         WARNING  test score custom 0.42463953388723774
+2022-07-11 10:11:24,303 root         WARNING  
+
+2022-07-11 10:11:24,319 root         WARNING  
+
+2022-07-11 10:11:24,319 root         WARNING  category экономика_медиа и технологии
+2022-07-11 10:11:25,937 root         WARNING  y_cols ['views']
+2022-07-11 10:13:47,031 root         WARNING  train score r2 0.9317986470815139
+2022-07-11 10:13:48,267 root         WARNING  train score 0.9317986470815139
+2022-07-11 10:13:48,736 root         WARNING  test score 0.4687800901376358
+2022-07-11 10:13:49,176 root         WARNING  test score r2 0.4687800901376358
+2022-07-11 10:13:49,603 root         WARNING  test score custom 0.4687800901376358
+2022-07-11 10:13:49,603 root         WARNING  
+
+2022-07-11 10:13:49,628 root         WARNING  
+
+2022-07-11 10:13:49,628 root         WARNING  
+
+2022-07-11 10:15:27,211 root         WARNING  category политика
+2022-07-11 10:16:38,636 root         WARNING  category политика
+2022-07-11 10:16:48,281 root         WARNING  y_cols ['views']
+2022-07-11 10:16:58,989 root         WARNING  train score r2 0.9343165141803461
+2022-07-11 10:16:59,417 root         WARNING  train score 0.9343165141803461
+2022-07-11 10:16:59,599 root         WARNING  test score 0.51529623430448
+2022-07-11 10:16:59,781 root         WARNING  test score r2 0.51529623430448
+2022-07-11 10:16:59,961 root         WARNING  test score custom 0.51529623430448
+2022-07-11 10:16:59,961 root         WARNING  
+
+2022-07-11 10:16:59,978 root         WARNING  
+
+2022-07-11 10:16:59,978 root         WARNING  category общество
+2022-07-11 10:17:00,731 root         WARNING  y_cols ['views']
+2022-07-11 10:17:09,262 root         WARNING  train score r2 0.9381094329902936
+2022-07-11 10:17:09,614 root         WARNING  train score 0.9381094329902936
+2022-07-11 10:17:09,776 root         WARNING  test score 0.36388617344531726
+2022-07-11 10:17:09,938 root         WARNING  test score r2 0.36388617344531726
+2022-07-11 10:17:10,098 root         WARNING  test score custom 0.36388617344531726
+2022-07-11 10:17:10,098 root         WARNING  
+
+2022-07-11 10:17:10,113 root         WARNING  
+
+2022-07-11 10:17:10,113 root         WARNING  category бизнес_финансы
+2022-07-11 10:17:10,850 root         WARNING  y_cols ['views']
+2022-07-11 10:17:17,778 root         WARNING  train score r2 0.9346474835812811
+2022-07-11 10:17:18,116 root         WARNING  train score 0.9346474835812811
+2022-07-11 10:17:18,262 root         WARNING  test score 0.5551464808220034
+2022-07-11 10:17:18,406 root         WARNING  test score r2 0.5551464808220034
+2022-07-11 10:17:18,549 root         WARNING  test score custom 0.5551464808220034
+2022-07-11 10:17:18,549 root         WARNING  
+
+2022-07-11 10:17:18,563 root         WARNING  
+
+2022-07-11 10:17:18,563 root         WARNING  category экономика_медиа и технологии
+2022-07-11 10:17:19,300 root         WARNING  y_cols ['views']
+2022-07-11 10:17:25,259 root         WARNING  train score r2 0.9352377182010193
+2022-07-11 10:17:25,514 root         WARNING  train score 0.9352377182010193
+2022-07-11 10:17:25,651 root         WARNING  test score 0.46806546898931
+2022-07-11 10:17:25,786 root         WARNING  test score r2 0.46806546898931
+2022-07-11 10:17:25,955 root         WARNING  test score custom 0.46806546898931
+2022-07-11 10:17:25,955 root         WARNING  
+
+2022-07-11 10:17:25,971 root         WARNING  
+
+2022-07-11 10:17:25,971 root         WARNING  
+
+2022-07-11 10:20:49,953 root         WARNING  y_cols ['views']
+2022-07-11 10:27:56,751 root         WARNING  train score r2 0.9187949282023148
+2022-07-11 10:27:59,742 root         WARNING  train score 0.9187949282023148
+2022-07-11 10:28:00,632 root         WARNING  test score 0.598069144605746
+2022-07-11 10:28:01,551 root         WARNING  test score r2 0.598069144605746
+2022-07-11 10:28:02,530 root         WARNING  test score custom 0.598069144605746
+2022-07-11 10:28:02,530 root         WARNING  
+
+2022-07-11 10:28:02,635 root         WARNING  
+
+2022-07-11 10:28:14,787 root         WARNING  y_cols ['depth']
+2022-07-11 10:33:56,362 root         WARNING  train score r2 0.9222222452117619
+2022-07-11 10:33:59,191 root         WARNING  train score 0.9222222452117619
+2022-07-11 10:34:00,049 root         WARNING  test score 0.7818781278387545
+2022-07-11 10:34:00,940 root         WARNING  test score r2 0.7818781278387545
+2022-07-11 10:34:01,788 root         WARNING  test score custom 0.7818781278387545
+2022-07-11 10:34:01,788 root         WARNING  
+
+2022-07-11 10:34:01,859 root         WARNING  
+
+2022-07-11 10:34:01,945 root         WARNING  y_cols ['full_reads_percent']
+2022-07-11 10:41:05,268 root         WARNING  train score r2 0.7139584523580074
+2022-07-11 10:41:08,107 root         WARNING  train score 0.7139584523580074
+2022-07-11 10:41:09,058 root         WARNING  test score 0.37477709874314613
+2022-07-11 10:41:10,034 root         WARNING  test score r2 0.37477709874314613
+2022-07-11 10:41:10,966 root         WARNING  test score custom 0.37477709874314613
+2022-07-11 10:41:10,966 root         WARNING  
+
+2022-07-11 10:41:11,034 root         WARNING  
+
+2022-07-11 10:41:11,157 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-11 10:48:23,552 root         WARNING  train score r2 0.7242582103593952
+2022-07-11 10:48:26,336 root         WARNING  train score 0.7242582103593952
+2022-07-11 10:48:27,273 root         WARNING  test score 0.507458698905641
+2022-07-11 10:48:28,160 root         WARNING  test score r2 0.507458698905641
+2022-07-11 10:48:29,069 root         WARNING  test score custom 0.5161261597764049
+2022-07-11 10:48:29,069 root         WARNING  
+
+2022-07-11 10:48:29,147 root         WARNING  
+
+2022-07-11 10:48:29,147 root         WARNING  
+
+2022-07-11 10:49:48,640 root         WARNING  y_cols ['views']
+2022-07-11 10:56:21,380 root         WARNING  y_cols ['views']
+2022-07-11 11:00:17,672 root         WARNING  y_cols ['views']
+2022-07-11 11:00:28,294 root         WARNING  train score r2 0.9381131185792051
+2022-07-11 11:00:28,715 root         WARNING  train score 0.9381131185792051
+2022-07-11 11:00:28,902 root         WARNING  test score 0.4726617753739347
+2022-07-11 11:00:29,086 root         WARNING  test score r2 0.4726617753739347
+2022-07-11 11:00:29,258 root         WARNING  test score custom 0.4726617753739347
+2022-07-11 11:00:29,258 root         WARNING  
+
+2022-07-11 11:00:29,273 root         WARNING  
+
+2022-07-11 11:00:29,273 root         WARNING  y_cols ['depth']
+2022-07-11 11:00:39,048 root         WARNING  train score r2 0.9593928112668773
+2022-07-11 11:00:39,458 root         WARNING  train score 0.9593928112668773
+2022-07-11 11:00:39,646 root         WARNING  test score 0.7390788687945453
+2022-07-11 11:00:39,818 root         WARNING  test score r2 0.7390788687945453
+2022-07-11 11:00:39,998 root         WARNING  test score custom 0.7390788687945453
+2022-07-11 11:00:39,998 root         WARNING  
+
+2022-07-11 11:00:40,015 root         WARNING  
+
+2022-07-11 11:00:40,018 root         WARNING  y_cols ['full_reads_percent']
+2022-07-11 11:00:50,283 root         WARNING  train score r2 0.885230392326151
+2022-07-11 11:00:50,724 root         WARNING  train score 0.885230392326151
+2022-07-11 11:00:50,915 root         WARNING  test score 0.3332793751948072
+2022-07-11 11:00:51,100 root         WARNING  test score r2 0.3332793751948072
+2022-07-11 11:00:51,283 root         WARNING  test score custom 0.3332793751948072
+2022-07-11 11:00:51,283 root         WARNING  
+
+2022-07-11 11:00:51,307 root         WARNING  
+
+2022-07-11 11:00:51,310 root         WARNING  y_cols ['views', 'depth', 'full_reads_percent']
+2022-07-11 11:01:02,872 root         WARNING  train score r2 0.9017346591867613
+2022-07-11 11:01:03,323 root         WARNING  train score 0.9017346591867613
+2022-07-11 11:01:03,497 root         WARNING  test score 0.48716197883754786
+2022-07-11 11:01:03,684 root         WARNING  test score r2 0.48716197883754786
+2022-07-11 11:01:03,872 root         WARNING  test score custom 0.48584217993932777
+2022-07-11 11:01:03,872 root         WARNING  
+
+2022-07-11 11:01:03,903 root         WARNING  
+
+2022-07-11 11:01:03,903 root         WARNING  
+
+2022-07-11 11:04:15,583 root         WARNING  y_cols ['depth']
+2022-07-11 11:10:00,482 root         WARNING  train score r2 0.928098917100601
+2022-07-11 11:10:03,610 root         WARNING  train score 0.928098917100601
+2022-07-11 11:10:04,542 root         WARNING  test score 0.81430001826578
+2022-07-11 11:10:05,479 root         WARNING  test score r2 0.81430001826578
+2022-07-11 11:10:06,436 root         WARNING  test score custom 0.81430001826578
+2022-07-11 11:10:06,436 root         WARNING  
+
+2022-07-11 11:10:06,516 root         WARNING  
+
+2022-07-11 11:10:06,516 root         WARNING  
+
+2022-07-11 11:11:45,994 root         WARNING  y_cols ['full_reads_percent']
+2022-07-11 11:18:45,369 root         WARNING  train score r2 0.8350028017748579
+2022-07-11 11:18:48,640 root         WARNING  train score 0.8350028017748579
+2022-07-11 11:18:49,675 root         WARNING  test score 0.4425982145581998
+2022-07-11 11:18:50,617 root         WARNING  test score r2 0.4425982145581998
+2022-07-11 11:18:51,560 root         WARNING  test score custom 0.4425982145581998
+2022-07-11 11:18:51,560 root         WARNING  
+
+2022-07-11 11:18:51,627 root         WARNING  
+
+2022-07-11 11:18:51,627 root         WARNING  
+
+2022-07-11 12:50:55,184 root         WARNING  y_cols ['full_reads_percent']
+2022-07-11 12:53:17,780 root         WARNING  y_cols ['full_reads_percent']
+2022-07-11 13:00:10,761 root         WARNING  train score r2 0.8997646119381874
+2022-07-11 13:00:13,689 root         WARNING  train score 0.8997646119381874
+2022-07-11 13:00:14,598 root         WARNING  test score 0.5653232113279043
+2022-07-11 13:00:15,492 root         WARNING  test score r2 0.5653232113279043
+2022-07-11 13:00:16,392 root         WARNING  test score custom 0.5653232113279043
+2022-07-11 13:00:16,392 root         WARNING  
+
+2022-07-11 13:00:16,469 root         WARNING  
+
+2022-07-11 13:00:16,469 root         WARNING  
+
+2022-07-11 16:54:10,761 root         WARNING  y_cols ['full_reads_percent']

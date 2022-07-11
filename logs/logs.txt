@@ -164,3 +164,37 @@
 2022-06-28 18:43:22,344 root         WARNING  train score r2 0.18173053694621988
 2022-06-28 18:43:22,347 root         WARNING  test score r2 0.04587707885652692
 2022-06-28 18:43:22,347 root         WARNING  test score 0.04587707885652692
+2022-07-11 14:13:38,254 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-11 14:13:39,979 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-11 14:13:43,580 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-11 14:13:44,079 stanza       INFO     Loading these models for language: ru (Russian):
+=========================
+| Processor | Package   |
+-------------------------
+| tokenize  | syntagrus |
+| pos       | syntagrus |
+| lemma     | syntagrus |
+=========================
+
+2022-07-11 14:13:44,079 stanza       INFO     Use device: cpu
+2022-07-11 14:13:44,079 stanza       INFO     Loading: tokenize
+2022-07-11 14:13:44,091 stanza       INFO     Loading: pos
+2022-07-11 14:13:44,313 stanza       INFO     Loading: lemma
+2022-07-11 14:13:44,430 stanza       INFO     Done loading processors!
+2022-07-11 14:14:08,362 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-11 14:14:09,514 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-11 14:14:14,048 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-11 14:14:14,654 stanza       INFO     Loading these models for language: ru (Russian):
+=========================
+| Processor | Package   |
+-------------------------
+| tokenize  | syntagrus |
+| pos       | syntagrus |
+| lemma     | syntagrus |
+=========================
+
+2022-07-11 14:14:14,654 stanza       INFO     Use device: cpu
+2022-07-11 14:14:14,654 stanza       INFO     Loading: tokenize
+2022-07-11 14:14:14,663 stanza       INFO     Loading: pos
+2022-07-11 14:14:14,905 stanza       INFO     Loading: lemma
+2022-07-11 14:14:15,084 stanza       INFO     Done loading processors!

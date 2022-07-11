@@ -32,6 +32,7 @@ general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
 # df_train = pd.read_csv(RAW_PATH / "train.csv", index_col=0)
+df_train = pd.read_csv(DATA_PATH / "df_text.csv")
 # df_train.reset_index(inplace=True)
 
 def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
@@ -80,7 +81,7 @@ def encode_list_by_rate(df: DataFrame, col_name: str, rate_limit: float) -> Data
 # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
 
-title_vectorized = loads(DATA_PATH / "title_vectorized.pickle")
+# title_vectorized = loads(DATA_PATH / "title_vectorized.pickle")
 #df_title_vectorized = pd.DataFrame.sparse.from_spmatrix(title_vectorized).add_prefix('title_')
 
 
@@ -89,36 +90,38 @@ title_vectorized = loads(DATA_PATH / "title_vectorized.pickle")
 # nltk.download('stopwords')
 # STOP_WORDS = set(stopwords.words("russian"))
 
-# stanza.download("ru")
-# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
+stanza.download("ru")
+nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
 
-#
-# def clean_text(row: Series, col_name: str) -> Series:
-#     text = row[col_name].split('\n')[0]
-#     text = text.lower()
-#     text = re.sub(r'[^A-zА-я\s]+', '', text)
-#     text = re.sub(r'\s+', ' ', text)
-#     text = text.strip()
-#     row[col_name] = normalize_text(text)
-#     return row
-#
-#
-# def normalize_text(text: str) -> List[str]:
-#     doc = nlp(text)
-#     lemmatized_words = [token.lemma_ for token in doc]
-#     return [word for word in lemmatized_words if word not in STOP_WORDS]
 
-#
-# df_train = df_train.apply(lambda row: clean_text(row, 'title'), axis=1)
-# df_train.to_csv(DATA_PATH/"df_text.csv")
+def clean_text(row: Series, col_name: str) -> Series:
+    text = row[col_name]
+    text = text.lower()
+    text = re.sub(r'[^A-zА-я\s]+', '', text)
+    text = re.sub(r'\n', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+    text = text.strip()
+    row[col_name] = normalize_text(text)
+    return row
+
+
+def normalize_text(text: str) -> List[str]:
+    doc = nlp(text)
+    lemmatized_words = [token.lemma_ for token in doc]
+    return [word for word in lemmatized_words if word not in STOP_WORDS]
+
+
+df_train = df_train.apply(lambda row: clean_text(row, 'text'), axis=1)
+df_train.to_csv(DATA_PATH/"df_text.csv")
 
 def str_to_list(row: Series, col_name: str) -> Series:
       row[col_name] = ast.literal_eval(row[col_name])
       return row
 
-#
-df_train = pd.read_csv(DATA_PATH/"df_text.csv")
-df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+# #
+# df_train = pd.read_csv(DATA_PATH/"df_text.csv")
+# df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
+
 # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False, min_df=0.007, max_df=0.9)
 # tra = vectorizer.fit_transform(df_train['title'])
 # dump(DATA_PATH / "views_vectorizer.pickle", vectorizer)
