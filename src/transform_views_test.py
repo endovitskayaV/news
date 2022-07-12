@@ -218,14 +218,13 @@ logger.addHandler(general_fh)
 # df_test['curs'].fillna((df_test['curs'].mean()), inplace=True)
 # df_test.to_csv(DATA_PATH / "df_test_prepared_v.csv", index=False)
 
-df_test = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
+df_test = pd.read_csv(DATA_PATH / "df_test_views_pred.csv")
 
-x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
+#x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
+#X=df_test.drop(x_cols_drop, axis=1)
 
-X = df_test.drop(x_cols_drop, axis=1)
-
-search = loads(DATA_PATH / "0reg_authors_short068.pickle")
-
+search = loads(DATA_PATH / "depth_regressor_083.pickle")
+X = df_test[search.feature_names_in_]
 views = search.predict(X)
-views_df = X.merge(pd.Series(views).rename("views"), left_index=True, right_index=True)
-views_df.to_csv(DATA_PATH / "df_test_views_pred.csv", index=False)
+views_df = X.merge(pd.Series(views).rename("depth"), left_index=True, right_index=True)
+views_df.to_csv(DATA_PATH / "df_test_depth_pred.csv", index=False)

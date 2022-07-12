@@ -250,7 +250,7 @@ def split(df):
 df_train = pd.read_csv(DATA_PATH / "df_text_prepared_a_short.csv", parse_dates=['publish_date'])
 
 df_train, df_test = split(df_train)
-x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session", "document_id", 'date', 'title',
+x_cols_drop = ["depth", "full_reads_percent", "publish_date", "session", "document_id", 'date', 'title',
                'text']
 y_cols = ["views", "depth", "full_reads_percent"]
 
@@ -307,7 +307,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         p = {'n_estimators': 500, 'max_depth': 20}
         search = RandomForestRegressor(**p)
         search.fit(X_train_new, y_train)
-        dump(DATA_PATH / (str(index) + "reg_authors_short.pickle"), search)
+        dump(DATA_PATH / (str(index) + "reg_authors_short_depth.pickle"), search)
         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
         # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
@@ -328,7 +328,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["views"]]):
+for index, y_cols in enumerate([["depth"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
     logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 

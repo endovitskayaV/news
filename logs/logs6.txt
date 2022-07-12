@@ -244,3 +244,26 @@
 2022-07-12 17:48:46,743 root         WARNING  
 
 2022-07-12 17:53:10,428 root         WARNING  y_cols ['views']
+2022-07-12 17:57:47,048 root         WARNING  train score r2 0.9246804266873156
+2022-07-12 17:57:47,778 root         WARNING  train score 0.9246804266873156
+2022-07-12 17:57:48,120 root         WARNING  test score 0.583937300387759
+2022-07-12 17:57:48,440 root         WARNING  test score r2 0.583937300387759
+2022-07-12 17:57:48,773 root         WARNING  test score custom 0.583937300387759
+2022-07-12 17:57:48,773 root         WARNING  
+
+2022-07-12 17:57:48,950 root         WARNING  
+
+2022-07-12 17:57:48,950 root         WARNING  
+
+2022-07-12 18:01:32,160 root         WARNING  y_cols ['depth']
+2022-07-12 18:05:10,564 root         WARNING  train score r2 0.949578135966303
+2022-07-12 18:05:11,281 root         WARNING  train score 0.949578135966303
+2022-07-12 18:05:11,609 root         WARNING  test score 0.8366856798241575
+2022-07-12 18:05:11,960 root         WARNING  test score r2 0.8366856798241575
+2022-07-12 18:05:12,334 root         WARNING  test score custom 0.8366856798241575
+2022-07-12 18:05:12,334 root         WARNING  
+
+2022-07-12 18:05:12,537 root         WARNING  
+
+2022-07-12 18:05:12,537 root         WARNING  
+
