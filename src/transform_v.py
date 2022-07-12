@@ -160,74 +160,74 @@ general_fh = logging.FileHandler(LOGGING_PATH / "logs6.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
-
-# transform data
-
-df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
-
-df_train.sort_values('publish_date', inplace=True)
-df_train['Time'] = np.arange(len(df_train.index))
-df_train = df_train.reset_index(drop=True)
-
-category_encoder = OneHotEncoder()
-categs = category_encoder.fit_transform(df_train[['category']]).toarray()
-category_feat_names = list(category_encoder.get_feature_names_out(['category']))
-category_df = pd.DataFrame(categs, columns=category_feat_names)
-dump(DATA_PATH / "category_encoder.pickle", category_encoder)
-df_train = df_train.merge(category_df, left_index=True, right_index=True)
-
-df_train = df_train[df_train.category.isin(
-    ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
-     '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
-
-df_train = df_train.drop('category', axis=1)
-
-df_train = df_train[df_train['views'] <= 800_000]
-df_train = df_train[df_train['depth'] < 1.79]
-df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
-df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
-
+#
+# # transform data
+#
+# df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
+#
+# df_train.sort_values('publish_date', inplace=True)
+# df_train['Time'] = np.arange(len(df_train.index))
+# df_train = df_train.reset_index(drop=True)
+#
+# category_encoder = OneHotEncoder()
+# categs = category_encoder.fit_transform(df_train[['category']]).toarray()
+# category_feat_names = list(category_encoder.get_feature_names_out(['category']))
+# category_df = pd.DataFrame(categs, columns=category_feat_names)
+# dump(DATA_PATH / "category_encoder.pickle", category_encoder)
+# df_train = df_train.merge(category_df, left_index=True, right_index=True)
+#
+# df_train = df_train[df_train.category.isin(
+#     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
+#      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
+#
+# df_train = df_train.drop('category', axis=1)
+#
+# df_train = df_train[df_train['views'] <= 800_000]
+# df_train = df_train[df_train['depth'] < 1.79]
+# df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
+# df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+#
+# # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
+#
+# df_train = df_train.apply(lambda row: str_to_list(row, 'tags'), axis=1)
+# tags_encoder = MultiLabelBinarizer()
+# tags = tags_encoder.fit_transform(df_train['tags'])
+# tags_feat_names = ['tags_' + str(cls) for cls in list(tags_encoder.classes_)]
+# tags_df = pd.DataFrame(tags, columns=tags_feat_names)
+# dump(DATA_PATH / "tags_encoder.pickle", tags_encoder)
+# df_train = df_train.merge(tags_df, left_index=True, right_index=True)
+# df_train = df_train.drop('tags', axis=1)
+#
+# # df_train = df_train.apply(lambda row: str_to_list(row, 'authors'), axis=1)
+# # authors_encoder = MultiLabelBinarizer()
+# # authors = authors_encoder.fit_transform(df_train['authors'])
+# # authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
+# # authors_df = pd.DataFrame(authors, columns=authors_feat_names)
+# # dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
+# # df_train = df_train.merge(authors_df, left_index=True, right_index=True)
+# # df_train = df_train.drop('authors', axis=1)
+#
 # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-
-df_train = df_train.apply(lambda row: str_to_list(row, 'tags'), axis=1)
-tags_encoder = MultiLabelBinarizer()
-tags = tags_encoder.fit_transform(df_train['tags'])
-tags_feat_names = ['tags_' + str(cls) for cls in list(tags_encoder.classes_)]
-tags_df = pd.DataFrame(tags, columns=tags_feat_names)
-dump(DATA_PATH / "tags_encoder.pickle", tags_encoder)
-df_train = df_train.merge(tags_df, left_index=True, right_index=True)
-df_train = df_train.drop('tags', axis=1)
-
-# df_train = df_train.apply(lambda row: str_to_list(row, 'authors'), axis=1)
-# authors_encoder = MultiLabelBinarizer()
-# authors = authors_encoder.fit_transform(df_train['authors'])
-# authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
-# authors_df = pd.DataFrame(authors, columns=authors_feat_names)
-# dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
-# df_train = df_train.merge(authors_df, left_index=True, right_index=True)
-# df_train = df_train.drop('authors', axis=1)
-
-df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-
-df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
-df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
-df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
-df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
-df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
-
-holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
-dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
-df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
-df_train['is_holiday'] = df_train['is_holiday'].astype(int)
-df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
-df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
-
-dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
-dollar_df = dollar_df.parse("RC", parse_dates=['data'])
-dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
-df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
-df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
-df_train.to_csv(DATA_PATH / "df_text_prepared2.csv", index=False)
+#
+# df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
+# df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
+# df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
+# df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
+# df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
+#
+# holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
+# dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
+# df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
+# df_train['is_holiday'] = df_train['is_holiday'].astype(int)
+# df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
+# df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
+#
+# dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
+# dollar_df = dollar_df.parse("RC", parse_dates=['data'])
+# dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
+# df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
+# df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
+# df_train.to_csv(DATA_PATH / "df_text_prepared2.csv", index=False)
 
 
 def split(df):

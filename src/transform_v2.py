@@ -239,7 +239,7 @@ df_train = pd.read_csv(DATA_PATH / "df_text_prepared2.csv", parse_dates=['publis
 
 # df_train, df_test = split(df_train)
 x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session", "document_id", 'date', 'title',
-               'text', 'authors']
+               'text']
 y_cols = ["views", "depth", "full_reads_percent"]
 
 # X_train = df_train.drop(x_cols_drop, axis=1)
