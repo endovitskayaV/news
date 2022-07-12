@@ -1302,3 +1302,16 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-11 17:57:43,946 root         WARNING  
 
+2022-07-12 09:21:49,380 root         WARNING  y_cols ['full_reads_percent']
+2022-07-12 11:50:36,465 root         WARNING  y_cols ['full_reads_percent']
+2022-07-12 11:54:36,057 root         WARNING  train score r2 0.9211273872951744
+2022-07-12 11:54:38,426 root         WARNING  train score 0.9211273872951744
+2022-07-12 11:54:39,162 root         WARNING  test score 0.5991219396730691
+2022-07-12 11:54:39,885 root         WARNING  test score r2 0.5991219396730691
+2022-07-12 11:54:40,608 root         WARNING  test score custom 0.5991219396730691
+2022-07-12 11:54:40,609 root         WARNING  
+
+2022-07-12 11:54:40,661 root         WARNING  
+
+2022-07-12 11:54:40,662 root         WARNING  
+

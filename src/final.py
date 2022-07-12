@@ -9,17 +9,26 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from pandas import Series, DataFrame
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import r2_score
 
 from settings import LOGGING_PATH, DATA_PATH
-from src.utils import dump, write_to_file, loads, identity
+from src.utils import dump
 
 
 # funs
 def str_to_list(row: Series, col_name: str) -> Series:
     row[col_name] = ast.literal_eval(row[col_name])
     return row
+
+
+def encode_list_dummies(df: DataFrame, col_name: str) -> DataFrame:
+    df = df.apply(lambda row: str_to_list(row, col_name), axis=1)
+    categories_df = pd.get_dummies(df[col_name].apply(pd.Series).stack(), prefix=col_name).sum(level=0)
+    df = df.drop(col_name, axis=1)
+    df = df.join(categories_df)
+    cols = [col for col in df if col.startswith(col_name)]
+    df[cols] = df[cols].fillna(0)
+    return df
 
 
 def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
@@ -133,7 +142,7 @@ def len_fun(row: Series) -> Series:
     if content:
         soup = BeautifulSoup(content, 'lxml')
         text = soup.select_one('.article__text_free')
-        text=text.text
+        text = text.text
     else:
         text = ""
 
@@ -169,9 +178,9 @@ df_train = df_train[df_train['depth'] < 1.79]
 df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
 df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
 
-# df_train = encode_dummies(df_train, 'category')
+df_train = encode_dummies(df_train, 'category')
 df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-df_train = encode_list_by_rate(df_train, 'tags', 0.01)
+df_train = encode_list_dummies(df_train, 'tags')
 df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
 df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
@@ -218,40 +227,40 @@ def split(df):
 # logger.log(msg="category " + category, level=logging.getLevelName("WARNING"))
 
 df_train, df_test = split(df_train)
-x_cols_drop = ['category', "full_reads_percent", "publish_date", "session",
-               "document_id", 'date']
+x_cols_drop = ["full_reads_percent", "publish_date", "session",
+               "document_id", 'date', 'title', 'text']
 y_cols = ["views", "depth", "full_reads_percent"]
 
 X_train = df_train.drop(x_cols_drop, axis=1)
 y_train = df_train[y_cols]
 X_test = df_test.drop(x_cols_drop, axis=1)
 y_test = df_test[y_cols]
-
-# vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
-# train_texts = vectorizer.fit_transform(X_train['text'])
+#
+# # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
+# # train_texts = vectorizer.fit_transform(X_train['text'])
+# # test_texts = vectorizer.transform(X_test['text'])
+# # dump(DATA_PATH / "text_vectorizer.pickle", vectorizer)
+#
+# vectorizer = loads(DATA_PATH / "text_vectorizer.pickle")
+# train_texts = vectorizer.transform(X_train['text'])
 # test_texts = vectorizer.transform(X_test['text'])
-# dump(DATA_PATH / "text_vectorizer.pickle", vectorizer)
-
-vectorizer = loads(DATA_PATH / "text_vectorizer.pickle")
-train_texts = vectorizer.transform(X_train['text'])
-test_texts = vectorizer.transform(X_test['text'])
-
-train_texts_arr = train_texts.toarray()
-train_texts_df = pd.DataFrame(train_texts_arr)
-test_texts_df = pd.DataFrame(test_texts.toarray())
-
-train_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
-test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
-
-X_train = X_train.reset_index()
-X_test = X_test.reset_index()
-y_train = y_train.reset_index()
-y_test = y_test.reset_index()
-
-X_train = X_train.merge(train_texts_df, left_index=True, right_index=True)
-X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
-X_train.drop(['title', 'text','index'], axis=1, inplace=True)
-X_test.drop(['title',  'text', 'index'], axis=1, inplace=True)
+#
+# train_texts_arr = train_texts.toarray()
+# train_texts_df = pd.DataFrame(train_texts_arr)
+# test_texts_df = pd.DataFrame(test_texts.toarray())
+#
+# train_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
+# test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
+#
+# X_train = X_train.reset_index()
+# X_test = X_test.reset_index()
+# y_train = y_train.reset_index()
+# y_test = y_test.reset_index()
+#
+# X_train = X_train.merge(train_texts_df, left_index=True, right_index=True)
+# X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
+# X_train.drop(['title', 'text','index'], axis=1, inplace=True)
+# X_test.drop(['title',  'text', 'index'], axis=1, inplace=True)
 
 # feature_array = np.array(vectorizer.get_feature_names_out())
 # tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
