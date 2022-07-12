@@ -160,41 +160,41 @@ general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
-df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
-
-dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
-dollar_df = dollar_df.parse("RC", parse_dates=['data'])
-dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
-
-df_train.sort_values('publish_date', inplace=True)
-df_train['Time'] = np.arange(len(df_train.index))
-df_train = df_train[df_train.category.isin(
-    ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
-     '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
-df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
-df_train = df_train[df_train['views'] <= 800_000]
-df_train = df_train[df_train['depth'] < 1.79]
-df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
-df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
-
-df_train = encode_dummies(df_train, 'category')
-df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-df_train = encode_list_dummies(df_train, 'tags')
-df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
-df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
-df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
-df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
-df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
-
-holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
-dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
-df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
-df_train['is_holiday'] = df_train['is_holiday'].astype(int)
-df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
-df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
-df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
-df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
+# df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
+#
+# dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
+# dollar_df = dollar_df.parse("RC", parse_dates=['data'])
+# dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
+#
+# df_train.sort_values('publish_date', inplace=True)
+# df_train['Time'] = np.arange(len(df_train.index))
+# df_train = df_train[df_train.category.isin(
+#     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
+#      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
+# df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+# df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
+# df_train = df_train[df_train['views'] <= 800_000]
+# df_train = df_train[df_train['depth'] < 1.79]
+# df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
+# df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+#
+# df_train = encode_dummies(df_train, 'category')
+# df_train = encode_list_by_rate(df_train, 'authors', 0.03)
+# df_train = encode_list_dummies(df_train, 'tags')
+# df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
+# df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
+# df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
+# df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
+# df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
+#
+# holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
+# dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
+# df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
+# df_train['is_holiday'] = df_train['is_holiday'].astype(int)
+# df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
+# df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
+# df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
+# df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
 
 
 # cats = {
@@ -225,9 +225,10 @@ def split(df):
 
 # for category, df in cats_df_dict.items():
 # logger.log(msg="category " + category, level=logging.getLevelName("WARNING"))
+df_train = pd.read_csv(DATA_PATH / "df_text_prepared.csv", parse_dates=['publish_date'])
 
 df_train, df_test = split(df_train)
-x_cols_drop = ["full_reads_percent", "publish_date", "session",
+x_cols_drop = ["depth", "full_reads_percent", "publish_date", "session",
                "document_id", 'date', 'title', 'text']
 y_cols = ["views", "depth", "full_reads_percent"]
 
@@ -329,7 +330,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["full_reads_percent"]]):
+for index, y_cols in enumerate([["depth"]]):
     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
     logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 
