@@ -1339,3 +1339,87 @@ joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process m
 
 2022-07-12 12:11:55,761 root         WARNING  
 
+2022-07-12 14:53:11,824 root         WARNING  y_cols ['views']
+2022-07-12 14:57:48,162 root         WARNING  train score r2 0.9327128219253201
+2022-07-12 14:57:49,939 root         WARNING  train score 0.9327128219253201
+2022-07-12 14:57:50,539 root         WARNING  test score 0.550846119011658
+2022-07-12 14:57:51,156 root         WARNING  test score r2 0.550846119011658
+2022-07-12 14:57:51,744 root         WARNING  test score custom 0.550846119011658
+2022-07-12 14:57:51,744 root         WARNING  
+
+2022-07-12 14:57:51,793 root         WARNING  
+
+2022-07-12 14:57:51,793 root         WARNING  
+
+2022-07-12 15:08:59,158 root         WARNING  y_cols ['views']
+2022-07-12 15:13:42,739 root         WARNING  train score r2 0.932841486882866
+2022-07-12 15:13:46,990 root         WARNING  train score 0.932841486882866
+2022-07-12 15:13:47,985 root         WARNING  test score 0.585678448008123
+2022-07-12 15:13:48,923 root         WARNING  test score r2 0.585678448008123
+2022-07-12 15:13:49,918 root         WARNING  test score custom 0.585678448008123
+2022-07-12 15:13:49,919 root         WARNING  
+
+2022-07-12 15:13:50,007 root         WARNING  
+
+2022-07-12 15:13:50,007 root         WARNING  
+
+2022-07-12 15:26:16,920 root         WARNING  y_cols ['views']
+2022-07-12 15:30:58,259 root         WARNING  train score r2 0.9300240100832418
+2022-07-12 15:31:00,576 root         WARNING  train score 0.9300240100832418
+2022-07-12 15:31:01,299 root         WARNING  test score 0.6246031114234096
+2022-07-12 15:31:02,011 root         WARNING  test score r2 0.6246031114234096
+2022-07-12 15:31:02,717 root         WARNING  test score custom 0.6246031114234096
+2022-07-12 15:31:15,850 root         WARNING  
+
+2022-07-12 15:31:15,850 root         WARNING  
+
+2022-07-12 15:32:30,326 root         WARNING  
+
+2022-07-12 15:34:08,260 root         WARNING  y_cols ['views']
+2022-07-12 15:38:34,775 root         WARNING  train score r2 0.9315303117454402
+2022-07-12 15:38:35,483 root         WARNING  train score 0.9315303117454402
+2022-07-12 15:38:35,794 root         WARNING  test score 0.6217288240662737
+2022-07-12 15:38:36,105 root         WARNING  test score r2 0.6217288240662737
+2022-07-12 15:38:36,419 root         WARNING  test score custom 0.6217288240662737
+2022-07-12 15:38:36,420 root         WARNING  
+
+2022-07-12 15:38:36,462 root         WARNING  
+
+2022-07-12 15:38:36,462 root         WARNING  
+
+2022-07-12 15:40:11,892 root         WARNING  y_cols ['views']
+2022-07-12 15:45:30,571 root         WARNING  train score r2 0.932433254466757
+2022-07-12 15:45:31,536 root         WARNING  train score 0.932433254466757
+2022-07-12 15:45:31,951 root         WARNING  test score 0.5539469432627969
+2022-07-12 15:45:32,363 root         WARNING  test score r2 0.5539469432627969
+2022-07-12 15:45:32,746 root         WARNING  test score custom 0.5539469432627969
+2022-07-12 15:45:32,746 root         WARNING  
+
+2022-07-12 15:45:32,789 root         WARNING  
+
+2022-07-12 15:45:32,789 root         WARNING  
+
+2022-07-12 15:46:23,225 root         WARNING  y_cols ['views']
+2022-07-12 15:51:21,637 root         WARNING  train score r2 0.9343039598542838
+2022-07-12 15:51:22,412 root         WARNING  train score 0.9343039598542838
+2022-07-12 15:51:22,765 root         WARNING  test score 0.575587485383106
+2022-07-12 15:51:23,090 root         WARNING  test score r2 0.575587485383106
+2022-07-12 15:51:23,414 root         WARNING  test score custom 0.575587485383106
+2022-07-12 15:51:23,414 root         WARNING  
+
+2022-07-12 15:51:23,459 root         WARNING  
+
+2022-07-12 15:51:23,460 root         WARNING  
+
+2022-07-12 15:52:09,857 root         WARNING  y_cols ['views']
+2022-07-12 15:56:43,857 root         WARNING  train score r2 0.927643711226396
+2022-07-12 15:56:44,546 root         WARNING  train score 0.927643711226396
+2022-07-12 15:56:44,874 root         WARNING  test score 0.6293795290213647
+2022-07-12 15:56:45,202 root         WARNING  test score r2 0.6293795290213647
+2022-07-12 15:56:45,525 root         WARNING  test score custom 0.6293795290213647
+2022-07-12 15:56:45,525 root         WARNING  
+
+2022-07-12 15:56:45,576 root         WARNING  
+
+2022-07-12 15:56:45,576 root         WARNING  
+

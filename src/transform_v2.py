@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from pandas import Series, DataFrame
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+from sklearn.preprocessing import OneHotEncoder, MultiLabelBinarizer
 
 from settings import LOGGING_PATH, DATA_PATH
 from src.utils import dump, loads
@@ -155,7 +156,7 @@ logger = logging.getLogger()
 formatter = logging.Formatter(
     "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
 )
-general_fh = logging.FileHandler(LOGGING_PATH / "logs6.txt")
+general_fh = logging.FileHandler(LOGGING_PATH / "logs7.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
@@ -166,22 +167,38 @@ logger.addHandler(general_fh)
 #
 # df_train.sort_values('publish_date', inplace=True)
 # df_train['Time'] = np.arange(len(df_train.index))
+# df_train = df_train.reset_index(drop=True)
 #
-# # df_train = df_train[df_train.category.isin(
-# #     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
-# #      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
+# category_encoder = OneHotEncoder()
+# categs = category_encoder.fit_transform(df_train[['category']]).toarray()
+# category_feat_names = list(category_encoder.get_feature_names_out(['category']))
+# category_df = pd.DataFrame(categs, columns=category_feat_names)
+# dump(DATA_PATH / "category_encoder.pickle", category_encoder)
+# df_train = df_train.merge(category_df, left_index=True, right_index=True)
 #
-# df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-# df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
+# df_train = df_train[df_train.category.isin(
+#     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
+#      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
 #
-# # df_train = df_train[df_train['views'] <= 800_000]
-# # df_train = df_train[df_train['depth'] < 1.79]
-# # df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
-# # df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+# df_train = df_train.drop('category', axis=1)
 #
-# df_train = encode_dummies(df_train, 'category')
-# df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-# df_train = encode_list_dummies(df_train, 'tags')
+# df_train = df_train[df_train['views'] <= 800_000]
+# df_train = df_train[df_train['depth'] < 1.79]
+# df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
+# df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+#
+# # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
+#
+# df_train = df_train.apply(lambda row: str_to_list(row, 'tags'), axis=1)
+# tags_encoder = MultiLabelBinarizer()
+# tags = tags_encoder.fit_transform(df_train['tags'])
+# tags_feat_names = list(tags_encoder.classes_)
+# tags_df = pd.DataFrame(tags, columns=tags_feat_names)
+# dump(DATA_PATH / "tags_encoder.pickle", tags_encoder)
+# df_train = df_train.merge(tags_df, left_index=True, right_index=True)
+# df_train = df_train.drop('tags', axis=1)
+#
+#
 # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
 # df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
@@ -200,63 +217,51 @@ logger.addHandler(general_fh)
 # dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
 # df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
 # df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
+#
 
+# def split(df):
+#     df_train = DataFrame()
+#     df_test = DataFrame()
+#     groups = df.groupby('date')
+#     for name, group in groups:
+#         if group.shape[0] < 3:
+#             df_train = pd.concat([group, df_train])
+#         else:
+#             group_train = group.sample(frac=0.8)
+#             group_test = group.loc[~group.index.isin(group_train.index)]
+#             df_train = pd.concat([group_train, df_train])
+#             df_test = pd.concat([group_test, df_test])
+#
+#     return df_train, df_test
 
-# cats = {
-#     'политика': ['5409f11ce063da9c8b588a12'],
-#     'общество': ['5433e5decbb20f277b20eca9'],
-#     'бизнес_финансы': ['540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a18'],
-#     'экономика_медиа и технологии': ['5409f11ce063da9c8b588a13', '540d5ecacbb20f2524fc050a'],
-# }
-# cats_df_dict = {category_name: df_train[df_train['category'].isin(category_ids)] for category_name, category_ids in
-#                 cats.items()}
+df_train = pd.read_csv(DATA_PATH / "df_text_prepared2.csv", parse_dates=['publish_date'])
 
-
-def split(df):
-    df_train = DataFrame()
-    df_test = DataFrame()
-    groups = df.groupby('date')
-    for name, group in groups:
-        if group.shape[0] < 3:
-            df_train = pd.concat([group, df_train])
-        else:
-            group_train = group.sample(frac=0.8)
-            group_test = group.loc[~group.index.isin(group_train.index)]
-            df_train = pd.concat([group_train, df_train])
-            df_test = pd.concat([group_test, df_test])
-
-    return df_train, df_test
-
-
-# for category, df in cats_df_dict.items():
-# logger.log(msg="category " + category, level=logging.getLevelName("WARNING"))
-# df_train = pd.read_csv(DATA_PATH / "df_text_prepared.csv", parse_dates=['publish_date'])
 
 # df_train, df_test = split(df_train)
-x_cols_drop = ["full_reads_percent", "publish_date", "session", "document_id", 'date', 'title', 'text']
+x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session", "document_id", 'date', 'title',
+               'text', 'authors']
 y_cols = ["views", "depth", "full_reads_percent"]
 
 # X_train = df_train.drop(x_cols_drop, axis=1)
 # y_train = df_train[y_cols]
 # X_test = df_test.drop(x_cols_drop, axis=1)
 # y_test = df_test[y_cols]
-df_train = pd.read_csv(DATA_PATH / "df_text_prepared.csv", parse_dates=['publish_date'])
 X = df_train.drop(x_cols_drop, axis=1)
 y = df_train[y_cols]
 
 score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
 
+search = loads(DATA_PATH / "views_regressor.pickle")
+logger.log(msg="views", level=logging.getLevelName("WARNING"))
+score = calculate_score(y, search.predict(X), ['views'])
+logger.log(msg="score " + str(score), level=logging.getLevelName("WARNING"))
 
-search = loads(DATA_PATH / "best_reads_reg.pickle")
-logger.log(msg="full_reads_percent", level=logging.getLevelName("WARNING"))
-score = calculate_score(y, search.predict(X), ['full_reads_percent'])
-logger.log(msg="score " + str(score),level=logging.getLevelName("WARNING"))
-
-# def train_score(index: int, y_cols: List[str], X, y):
-#     y = y[y_cols]
+# def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test):
+#     y_train = y_train[y_cols]
+#     y_test = y_test[y_cols]
 #
-#     if y.shape[1] == 1:
-#         y = y.values.ravel()
+#     if y_train.shape[1] == 1:
+#         y_train = y_train.values.ravel()
 #
 #     logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
 #
@@ -306,7 +311,7 @@ logger.log(msg="score " + str(score),level=logging.getLevelName("WARNING"))
 #
 # l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
 # for index, y_cols in enumerate([["views"]]):
-#     train_score(index, y_cols, X.copy(), y.copy())
+#     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
 #     logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 
 logger.log(msg="\n", level=logging.getLevelName("WARNING"))

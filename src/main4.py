@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.ature_extraction.text import TfidfVectorizer
 from sklearn.metrics import r2_score
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import train_test_split
