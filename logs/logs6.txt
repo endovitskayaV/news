@@ -267,3 +267,27 @@
 
 2022-07-12 18:05:12,537 root         WARNING  
 
+2022-07-12 18:12:00,950 root         WARNING  y_cols ['full_reads_percent']
+2022-07-12 18:16:25,218 root         WARNING  train score r2 0.9172576284409392
+2022-07-12 18:16:26,135 root         WARNING  train score 0.9172576284409392
+2022-07-12 18:16:26,507 root         WARNING  test score 0.5653890677859659
+2022-07-12 18:16:26,869 root         WARNING  test score r2 0.5653890677859659
+2022-07-12 18:16:27,239 root         WARNING  test score custom 0.5653890677859659
+2022-07-12 18:16:27,239 root         WARNING  
+
+2022-07-12 18:16:27,445 root         WARNING  
+
+2022-07-12 18:16:27,446 root         WARNING  
+
+2022-07-12 18:17:32,475 root         WARNING  y_cols ['full_reads_percent']
+2022-07-12 18:21:58,196 root         WARNING  train score r2 0.9206565022070697
+2022-07-12 18:21:59,033 root         WARNING  train score 0.9206565022070697
+2022-07-12 18:21:59,401 root         WARNING  test score 0.5506934085828676
+2022-07-12 18:21:59,758 root         WARNING  test score r2 0.5506934085828676
+2022-07-12 18:22:00,119 root         WARNING  test score custom 0.5506934085828676
+2022-07-12 18:22:00,120 root         WARNING  
+
+2022-07-12 18:22:00,328 root         WARNING  
+
+2022-07-12 18:22:00,328 root         WARNING  
+
