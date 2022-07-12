@@ -160,9 +160,9 @@ general_fh = logging.FileHandler(LOGGING_PATH / "logs6.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
-#
-# # transform data
-#
+
+# transform data
+
 # df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
 #
 # df_train.sort_values('publish_date', inplace=True)
@@ -198,16 +198,14 @@ logger.addHandler(general_fh)
 # df_train = df_train.merge(tags_df, left_index=True, right_index=True)
 # df_train = df_train.drop('tags', axis=1)
 #
-# # df_train = df_train.apply(lambda row: str_to_list(row, 'authors'), axis=1)
-# # authors_encoder = MultiLabelBinarizer()
-# # authors = authors_encoder.fit_transform(df_train['authors'])
-# # authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
-# # authors_df = pd.DataFrame(authors, columns=authors_feat_names)
-# # dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
-# # df_train = df_train.merge(authors_df, left_index=True, right_index=True)
-# # df_train = df_train.drop('authors', axis=1)
-#
-# df_train = encode_list_by_rate(df_train, 'authors', 0.03)
+# df_train = df_train.apply(lambda row: str_to_list(row, 'authors'), axis=1)
+# authors_encoder = MultiLabelBinarizer()
+# authors = authors_encoder.fit_transform(df_train['authors'])
+# authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
+# authors_df = pd.DataFrame(authors, columns=authors_feat_names)
+# dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
+# df_train = df_train.merge(authors_df, left_index=True, right_index=True)
+# df_train = df_train.drop('authors', axis=1)
 #
 # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
@@ -227,7 +225,7 @@ logger.addHandler(general_fh)
 # dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
 # df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
 # df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
-# df_train.to_csv(DATA_PATH / "df_text_prepared2.csv", index=False)
+# df_train.to_csv(DATA_PATH / "df_text_prepared3.csv", index=False)
 
 
 def split(df):
@@ -246,7 +244,7 @@ def split(df):
     return df_train, df_test
 
 
-df_train = pd.read_csv(DATA_PATH / "df_text_prepared2.csv", parse_dates=['publish_date'])
+df_train = pd.read_csv(DATA_PATH / "df_text_prepared3.csv", parse_dates=['publish_date'])
 
 df_train, df_test = split(df_train)
 x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session", "document_id", 'date', 'title',
@@ -306,7 +304,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         p = {'n_estimators': 500, 'max_depth': 20}
         search = RandomForestRegressor(**p)
         search.fit(X_train_new, y_train)
-        dump(DATA_PATH / (str(index) + "reg.pickle"), search)
+        dump(DATA_PATH / (str(index) + "reg_auth.pickle"), search)
         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
         # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
