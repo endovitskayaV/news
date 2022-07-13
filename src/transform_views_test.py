@@ -132,6 +132,7 @@ def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
 
 
 def len_fun(row: Series) -> Series:
+    id=''
     id = row['document_id'][0:24]
     views = -1
     try:
@@ -162,13 +163,13 @@ logger.addHandler(general_fh)
 #
 # # transform data
 #
-df_test = pd.read_csv(RAW_PATH / "test.csv", parse_dates=['publish_date'])
-
-df_test.sort_values('publish_date', inplace=True)
-df_test['Time'] = np.arange(len(df_test.index))
-df_test = df_test.reset_index(drop=True)
-df_test = df_test.apply(lambda row: len_fun(row), axis=1)
-
+# df_test = pd.read_csv(RAW_PATH / "test.csv", parse_dates=['publish_date'])
+#
+# # df_test.sort_values('publish_date', inplace=True)
+# # df_test['Time'] = np.arange(len(df_test.index))
+# # df_test = df_test.reset_index(drop=True)
+# df_test = df_test.apply(lambda row: len_fun(row), axis=1)
+# df_test.to_csv(DATA_PATH / "df_test_prepared_v_real.csv", index=False)
 #
 # category_encoder = loads(DATA_PATH / "category_encoder.pickle")
 # categs = category_encoder.transform(df_test[['category']]).toarray()
@@ -216,16 +217,31 @@ df_test = df_test.apply(lambda row: len_fun(row), axis=1)
 # df_test = df_test.apply(lambda row: curs_fun(row, dollar_df), axis=1)
 # df_test['curs'].fillna((df_test['curs'].mean()), inplace=True)
 # df_test.to_csv(DATA_PATH / "df_test_prepared_v.csv", index=False)
-df_test_prepared = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
-df_test = pd.read_csv(DATA_PATH / "df_test_depth_pred.csv")
+# df_test_prepared = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
+# df_test = pd.read_csv(DATA_PATH / "df_test_depth_pred.csv")
+#
+# # x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
+# # X=df_test.drop(x_cols_drop, axis=1)
+#
+# search = loads(DATA_PATH / "0reg_authors_short_full_rp056.pickle")
+# X = df_test[search.feature_names_in_]
+# views = search.predict(X)
+# views_df = X.merge(pd.Series(views).rename("full_reads_percent"), left_index=True, right_index=True)
+# views_df['document_id'] = df_test_prepared['document_id']
+# views_df = views_df[["document_id", "views", "depth", "full_reads_percent"]]
+# views_df.to_csv(DATA_PATH / "df_test_full_reads_percent_pred.csv", index=False)
 
-# x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
-# X=df_test.drop(x_cols_drop, axis=1)
 
-search = loads(DATA_PATH / "0reg_authors_short_full_rp056.pickle")
-X = df_test[search.feature_names_in_]
-views = search.predict(X)
-views_df = X.merge(pd.Series(views).rename("full_reads_percent"), left_index=True, right_index=True)
-views_df['document_id'] = df_test_prepared['document_id']
-views_df = views_df[["document_id", "views", "depth", "full_reads_percent"]]
-views_df.to_csv(DATA_PATH / "df_test_full_reads_percent_pred.csv", index=False)
+
+
+df_test = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
+y = pd.read_csv(DATA_PATH / "df_test_prepared_v_real.csv")
+
+x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
+X=df_test.drop(x_cols_drop, axis=1)
+y=y['real_views']
+
+search = loads(DATA_PATH / "0reg_authors_short068.pickle")
+
+score = r2_score(y, search.predict(X))
+print(score) #-0.0027811378308364443
