@@ -4,15 +4,12 @@ import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
 
-import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 from pandas import Series, DataFrame
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
-from settings import LOGGING_PATH, DATA_PATH
-from src.utils import dump
+from settings import LOGGING_PATH, DATA_PATH, RAW_PATH
 
 
 # funs
@@ -134,6 +131,10 @@ def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
 def len_fun(row: Series) -> Series:
     id = row['document_id'][0:24]
     content = None
+    img = 0
+    video = 0
+    p = 0
+    a_s = 0
     try:
         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
     except Exception as e:
@@ -142,14 +143,22 @@ def len_fun(row: Series) -> Series:
     if content:
         soup = BeautifulSoup(content, 'lxml')
         text = soup.select_one('.article__text_free')
-        text = text.text
+        img = int(len(text.select('.article__main-image__image')) > 0)
+        video = int(len(text.select('.article__inline-video')) > 0)
+        p = len(text.select('p'))
+        a_s = text.select('a')
+        a_s = len([a for a in a_s if not a.attrs.get('class', None)])
     else:
-        text = ""
+        logger.log(msg=id, level=logging.getLevelName("WARN"))
 
-    row['text'] = text
+    row['img'] = img
+    row['video'] = video
+    row['p'] = p
+    row['a'] = a_s
     return row
 
 
+#
 # logging
 logger = logging.getLogger()
 formatter = logging.Formatter(
@@ -159,181 +168,183 @@ general_fh = logging.FileHandler(LOGGING_PATH / "logs5.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
-
-# df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'])
 #
-# dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
-# dollar_df = dollar_df.parse("RC", parse_dates=['data'])
-# dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
-#
-# df_train.sort_values('publish_date', inplace=True)
-# df_train['Time'] = np.arange(len(df_train.index))
-# df_train = df_train[df_train.category.isin(
-#     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
-#      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
-# df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-# df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
-# df_train = df_train[df_train['views'] <= 800_000]
-# df_train = df_train[df_train['depth'] < 1.79]
+df_train = pd.read_csv(RAW_PATH / "test_v.csv")
+# #
+# # dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
+# # dollar_df = dollar_df.parse("RC", parse_dates=['data'])
+# # dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
+# #
+# # df_train.sort_values('publish_date', inplace=True)
+# # df_train['Time'] = np.arange(len(df_train.index))
+# # df_train = df_train[df_train.category.isin(
+# #     ['5409f11ce063da9c8b588a18', '5409f11ce063da9c8b588a12', '5433e5decbb20f277b20eca9', '540d5ecacbb20f2524fc050a',
+# #      '540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a13'])]
+# # df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+# # df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
+# # df_train = df_train[df_train['views'] <= 800_000]
+# # df_train = df_train[df_train['depth'] < 1.79]
 # df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
 # df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+# # #
+# # df_train = encode_dummies(df_train, 'category')
+# # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
+df_train = df_train.apply(lambda row: len_fun(row), axis=1)
+df_train.to_csv(DATA_PATH / "df_test_text_co.csv", index=False)
+print('')
+# # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
+# # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
+# # df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
+# # df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
+# # df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
+# #
+# # holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
+# # dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
+# # df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
+# # df_train['is_holiday'] = df_train['is_holiday'].astype(int)
+# # df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
+# # df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
+# # df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
+# # df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
 #
-# df_train = encode_dummies(df_train, 'category')
-# df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-# df_train = encode_list_dummies(df_train, 'tags')
-# df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
-# df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
-# df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
-# df_train['minute'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%M").astype(int)
-# df_train['date'] = df_train['publish_date'].apply(lambda _date: _date.date())
 #
-# holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
-# dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
-# df_train = df_train.apply(lambda row: holiday_fun(row, dates), axis=1)
-# df_train['is_holiday'] = df_train['is_holiday'].astype(int)
-# df_train = df_train.apply(lambda row: weekend_fun(row), axis=1)
-# df_train = df_train.apply(lambda row: date_categ_fun(row), axis=1)
-# df_train = df_train.apply(lambda row: curs_fun(row, dollar_df), axis=1)
-# df_train['curs'].fillna((df_train['curs'].mean()), inplace=True)
-
-
-# cats = {
-#     'политика': ['5409f11ce063da9c8b588a12'],
-#     'общество': ['5433e5decbb20f277b20eca9'],
-#     'бизнес_финансы': ['540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a18'],
-#     'экономика_медиа и технологии': ['5409f11ce063da9c8b588a13', '540d5ecacbb20f2524fc050a'],
-# }
-# cats_df_dict = {category_name: df_train[df_train['category'].isin(category_ids)] for category_name, category_ids in
-#                 cats.items()}
-
-
-def split(df):
-    df_train = DataFrame()
-    df_test = DataFrame()
-    groups = df.groupby('date')
-    for name, group in groups:
-        if group.shape[0] < 3:
-            df_train = pd.concat([group, df_train])
-        else:
-            group_train = group.sample(frac=0.8)
-            group_test = group.loc[~group.index.isin(group_train.index)]
-            df_train = pd.concat([group_train, df_train])
-            df_test = pd.concat([group_test, df_test])
-
-    return df_train, df_test
-
-
-# for category, df in cats_df_dict.items():
-# logger.log(msg="category " + category, level=logging.getLevelName("WARNING"))
-df_train = pd.read_csv(DATA_PATH / "df_train_v.csv", parse_dates=['publish_date'])
-df_test = pd.read_csv(DATA_PATH / "df_test_v.csv", parse_dates=['publish_date'])
-df_train = df_train.append(df_test)
-# df_train.to_csv(DATA_PATH / "df_text_prepared1.6.csv", index=False)
-df_train, df_test = split(df_train)
-x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session",
-               "document_id", 'date', 'title', 'text']
-y_cols = ["views", "depth", "full_reads_percent"]
-
-X_train = df_train.drop(x_cols_drop, axis=1)
-y_train = df_train[y_cols]
-X_test = df_test.drop(x_cols_drop, axis=1)
-y_test = df_test[y_cols]
+# # cats = {
+# #     'политика': ['5409f11ce063da9c8b588a12'],
+# #     'общество': ['5433e5decbb20f277b20eca9'],
+# #     'бизнес_финансы': ['540d5eafcbb20f2524fc0509', '5409f11ce063da9c8b588a18'],
+# #     'экономика_медиа и технологии': ['5409f11ce063da9c8b588a13', '540d5ecacbb20f2524fc050a'],
+# # }
+# # cats_df_dict = {category_name: df_train[df_train['category'].isin(category_ids)] for category_name, category_ids in
+# #                 cats.items()}
 #
-# # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
-# # train_texts = vectorizer.fit_transform(X_train['text'])
+#
+# def split(df):
+#     df_train = DataFrame()
+#     df_test = DataFrame()
+#     groups = df.groupby('date')
+#     for name, group in groups:
+#         if group.shape[0] < 3:
+#             df_train = pd.concat([group, df_train])
+#         else:
+#             group_train = group.sample(frac=0.8)
+#             group_test = group.loc[~group.index.isin(group_train.index)]
+#             df_train = pd.concat([group_train, df_train])
+#             df_test = pd.concat([group_test, df_test])
+#
+#     return df_train, df_test
+#
+#
+# # for category, df in cats_df_dict.items():
+# # logger.log(msg="category " + category, level=logging.getLevelName("WARNING"))
+# df_train = pd.read_csv(DATA_PATH / "df_train_v.csv", parse_dates=['publish_date'])
+# df_test = pd.read_csv(DATA_PATH / "df_test_v.csv", parse_dates=['publish_date'])
+# df_train = df_train.append(df_test)
+# # df_train.to_csv(DATA_PATH / "df_text_prepared1.6.csv", index=False)
+# df_train, df_test = split(df_train)
+# x_cols_drop = ["views", "depth", "full_reads_percent", "publish_date", "session",
+#                "document_id", 'date', 'title', 'text']
+# y_cols = ["views", "depth", "full_reads_percent"]
+#
+# X_train = df_train.drop(x_cols_drop, axis=1)
+# y_train = df_train[y_cols]
+# X_test = df_test.drop(x_cols_drop, axis=1)
+# y_test = df_test[y_cols]
+# #
+# # # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
+# # # train_texts = vectorizer.fit_transform(X_train['text'])
+# # # test_texts = vectorizer.transform(X_test['text'])
+# # # dump(DATA_PATH / "text_vectorizer.pickle", vectorizer)
+# #
+# # vectorizer = loads(DATA_PATH / "text_vectorizer.pickle")
+# # train_texts = vectorizer.transform(X_train['text'])
 # # test_texts = vectorizer.transform(X_test['text'])
-# # dump(DATA_PATH / "text_vectorizer.pickle", vectorizer)
+# #
+# # train_texts_arr = train_texts.toarray()
+# # train_texts_df = pd.DataFrame(train_texts_arr)
+# # test_texts_df = pd.DataFrame(test_texts.toarray())
+# #
+# # train_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
+# # test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
+# #
+# # X_train = X_train.reset_index()
+# # X_test = X_test.reset_index()
+# # y_train = y_train.reset_index()
+# # y_test = y_test.reset_index()
+# #
+# # X_train = X_train.merge(train_texts_df, left_index=True, right_index=True)
+# # X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
+# # X_train.drop(['title', 'text','index'], axis=1, inplace=True)
+# # X_test.drop(['title',  'text', 'index'], axis=1, inplace=True)
 #
-# vectorizer = loads(DATA_PATH / "text_vectorizer.pickle")
-# train_texts = vectorizer.transform(X_train['text'])
-# test_texts = vectorizer.transform(X_test['text'])
+# # feature_array = np.array(vectorizer.get_feature_names_out())
+# # tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
+# # n = 500
+# # top_n = feature_array[tfidf_sorting][:n]
+# # write_to_file(DATA_PATH / "text_top500.txt", '\n'.join(p for p in top_n))
 #
-# train_texts_arr = train_texts.toarray()
-# train_texts_df = pd.DataFrame(train_texts_arr)
-# test_texts_df = pd.DataFrame(test_texts.toarray())
+# score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
 #
-# train_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
-# test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
 #
-# X_train = X_train.reset_index()
-# X_test = X_test.reset_index()
-# y_train = y_train.reset_index()
-# y_test = y_test.reset_index()
+# # search = loads(DATA_PATH / "views_reg.pickle")
+# # score = calculate_score(y_test, search.predict(X_test), ['views'])
+# # print(score)
 #
-# X_train = X_train.merge(train_texts_df, left_index=True, right_index=True)
-# X_test = X_test.merge(test_texts_df, left_index=True, right_index=True)
-# X_train.drop(['title', 'text','index'], axis=1, inplace=True)
-# X_test.drop(['title',  'text', 'index'], axis=1, inplace=True)
-
-# feature_array = np.array(vectorizer.get_feature_names_out())
-# tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
-# n = 500
-# top_n = feature_array[tfidf_sorting][:n]
-# write_to_file(DATA_PATH / "text_top500.txt", '\n'.join(p for p in top_n))
-
-score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
-
-
-# search = loads(DATA_PATH / "views_reg.pickle")
-# score = calculate_score(y_test, search.predict(X_test), ['views'])
-# print(score)
-
-def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test):
-    y_train = y_train[y_cols]
-    y_test = y_test[y_cols]
-
-    if y_train.shape[1] == 1:
-        y_train = y_train.values.ravel()
-
-    logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
-
-    for n_components_rate in [0]:
-        X_train_new = X_train.copy()
-        X_test_new = X_test.copy()
-        # for n_components_rate in [0.6, 0.8]:
-        #     n_components = int(n_components_rate * X_train.shape[1])
-        #     logger.log(msg="n_components " + str(n_components), level=logging.getLevelName("WARNING"))
-        #     pca = PCA(n_components=n_components)
-        #     X_train_new = pca.fit_transform(X_train)
-        #     X_test_new = pca.transform(X_test)
-        #
-        #     logger.log(msg="explained_variance_ " + str(pca.explained_variance_ratio_),
-        #                level=logging.getLevelName("WARNING"))
-        #     logger.log(msg="n_components_ " + str(pca.n_components_), level=logging.getLevelName("WARNING"))
-        #     logger.log(msg="n_features_ " + str(pca.n_features_), level=logging.getLevelName("WARNING"))
-
-        random_grid = {
-            "n_estimators": [200, 500],
-            'max_features': [0.6, 0.8, 1],
-            "max_depth": [10, 20],
-        }
-
-        # rf_random = RandomizedSearchCV(estimator=RandomForestRegressor(), param_distributions=random_grid,
-        #                                n_iter=100, scoring='r2',
-        #                                cv=3, verbose=2, random_state=42, n_jobs=-1,
-        #                                return_train_score=True)
-        # search = rf_random.fit(X_train_new, y_train)
-        p = {'n_estimators': 500, 'max_depth': 20}
-        search = RandomForestRegressor(**p)
-        search.fit(X_train_new, y_train)
-        dump(DATA_PATH / (str(index) + "reg4.pickle"), search)
-        # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
-        # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
-        logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
-                   level=logging.getLevelName("WARNING"))
-        logger.log(msg="train score " + str(search.score(X_train_new, y_train)),
-                   level=logging.getLevelName("WARNING"))
-        logger.log(msg="test score " + str(search.score(X_test_new, y_test)), level=logging.getLevelName("WARNING"))
-        logger.log(msg="test score r2 " + str(r2_score(y_test, search.predict(X_test_new))),
-                   level=logging.getLevelName("WARNING"))
-        score = calculate_score(y_test, search.predict(X_test_new), y_cols)
-        logger.log(msg="test score custom " + str(score), level=logging.getLevelName("WARNING"))
-        logger.log(msg="\n", level=logging.getLevelName("WARNING"))
-
-
-l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
-for index, y_cols in enumerate([["views"]]):
-    train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
-    logger.log(msg="\n", level=logging.getLevelName("WARNING"))
-
-logger.log(msg="\n", level=logging.getLevelName("WARNING"))
+# def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test):
+#     y_train = y_train[y_cols]
+#     y_test = y_test[y_cols]
+#
+#     if y_train.shape[1] == 1:
+#         y_train = y_train.values.ravel()
+#
+#     logger.log(msg="y_cols " + str(y_cols), level=logging.getLevelName("WARNING"))
+#
+#     for n_components_rate in [0]:
+#         X_train_new = X_train.copy()
+#         X_test_new = X_test.copy()
+#         # for n_components_rate in [0.6, 0.8]:
+#         #     n_components = int(n_components_rate * X_train.shape[1])
+#         #     logger.log(msg="n_components " + str(n_components), level=logging.getLevelName("WARNING"))
+#         #     pca = PCA(n_components=n_components)
+#         #     X_train_new = pca.fit_transform(X_train)
+#         #     X_test_new = pca.transform(X_test)
+#         #
+#         #     logger.log(msg="explained_variance_ " + str(pca.explained_variance_ratio_),
+#         #                level=logging.getLevelName("WARNING"))
+#         #     logger.log(msg="n_components_ " + str(pca.n_components_), level=logging.getLevelName("WARNING"))
+#         #     logger.log(msg="n_features_ " + str(pca.n_features_), level=logging.getLevelName("WARNING"))
+#
+#         random_grid = {
+#             "n_estimators": [200, 500],
+#             'max_features': [0.6, 0.8, 1],
+#             "max_depth": [10, 20],
+#         }
+#
+#         # rf_random = RandomizedSearchCV(estimator=RandomForestRegressor(), param_distributions=random_grid,
+#         #                                n_iter=100, scoring='r2',
+#         #                                cv=3, verbose=2, random_state=42, n_jobs=-1,
+#         #                                return_train_score=True)
+#         # search = rf_random.fit(X_train_new, y_train)
+#         p = {'n_estimators': 500, 'max_depth': 20}
+#         search = RandomForestRegressor(**p)
+#         search.fit(X_train_new, y_train)
+#         dump(DATA_PATH / (str(index) + "reg4.pickle"), search)
+#         # logger.log(msg="params " + str(search.best_params_), level=logging.getLevelName("WARNING"))
+#         # logger.log(msg="best_score_ " + str(search.best_score_), level=logging.getLevelName("WARNING"))
+#         logger.log(msg="train score r2 " + str(r2_score(y_train, search.predict(X_train_new))),
+#                    level=logging.getLevelName("WARNING"))
+#         logger.log(msg="train score " + str(search.score(X_train_new, y_train)),
+#                    level=logging.getLevelName("WARNING"))
+#         logger.log(msg="test score " + str(search.score(X_test_new, y_test)), level=logging.getLevelName("WARNING"))
+#         logger.log(msg="test score r2 " + str(r2_score(y_test, search.predict(X_test_new))),
+#                    level=logging.getLevelName("WARNING"))
+#         score = calculate_score(y_test, search.predict(X_test_new), y_cols)
+#         logger.log(msg="test score custom " + str(score), level=logging.getLevelName("WARNING"))
+#         logger.log(msg="\n", level=logging.getLevelName("WARNING"))
+#
+#
+# l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]
+# for index, y_cols in enumerate([["views"]]):
+#     train_score(index, y_cols, X_train.copy(), X_test.copy(), y_train.copy(), y_test.copy())
+#     logger.log(msg="\n", level=logging.getLevelName("WARNING"))
+#
+# logger.log(msg="\n", level=logging.getLevelName("WARNING"))
