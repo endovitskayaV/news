@@ -1,10 +1,13 @@
 import ast
 import logging
+import re
 import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
 
 import pandas as pd
+import spacy_stanza
+import stanza
 from bs4 import BeautifulSoup
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
@@ -34,6 +37,8 @@ def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
     df = df.join(categories_df)
     return df
 
+stanza.download("ru")
+nlp = spacy_stanza.load_pipeline(name="ru", lang="ru")
 
 def encode_list_by_rate(df: DataFrame, col_name: str, rate_limit: float) -> DataFrame:
     def str_to_list(row: Series, col_name: str) -> Series:
@@ -128,38 +133,49 @@ def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
     return row
 
 
-def len_fun(row: Series) -> Series:
-    id = row['document_id'][0:24]
-    content = None
-    img = 0
-    video = 0
-    p = 0
-    a_s = 0
-    try:
-        content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
-    except Exception as e:
-        logger.log(msg=e, level=logging.getLevelName("ERROR"))
-
-    if content:
-        soup = BeautifulSoup(content, 'lxml')
-        text = soup.select_one('.article__text_free')
-        img = int(len(text.select('.article__main-image__image')) > 0)
-        video = int(len(text.select('.article__inline-video')) > 0)
-        p = len(text.select('p'))
-        a_s = text.select('a')
-        a_s = len([a for a in a_s if not a.attrs.get('class', None)])
-    else:
-        logger.log(msg=id, level=logging.getLevelName("WARN"))
-
-    row['img'] = img
-    row['video'] = video
-    row['p'] = p
-    row['a'] = a_s
+def ents_fun(row: Series, col_name:str) -> Series:
+    text = row[col_name]
+    doc = nlp(text)
+    ents = [token.ent_type_ for token in doc if token.ent_type_ and token.ent_iob_ == 'B']
+    row['ents'] = ents
     return row
 
-
 #
-# logging
+# def len_sent_fun(row: Series) -> Series:
+#     text = row['full_text']
+#     sentences = re.split(r'\. |\n+', text)
+#     lens = [len(sentence.split()) for sentence in sentences if len(sentence.strip()) > 0]
+#     lens = [length for length in lens if length > 10]
+#     avg_len = 0 if len(lens) == 0 else sum(lens) / len(lens)
+#     max_len = 0 if len(lens) == 0 else max(lens)
+#     min_len = 0 if len(lens) == 0 else min(lens)
+#     row['avg_sentence_len'] = avg_len
+#     row['max_sentence_len'] = max_len
+#     row['min_sentence_len'] = min_len
+#
+#     return row
+#
+#
+# def text_fun(row: Series) -> Series:
+#     id = row['document_id'][0:24]
+#     content = None
+#     text = ''
+#     try:
+#         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
+#     except Exception as e:
+#         logger.log(msg=e, level=logging.getLevelName("ERROR"))
+#
+#     if content:
+#         soup = BeautifulSoup(content, 'lxml')
+#         text = soup.select_one('.article__text_free')
+#         text = text.text
+#     else:
+#         logger.log(msg=id, level=logging.getLevelName("WARN"))
+#
+#     row['full_text'] = text
+#     return row
+
+
 logger = logging.getLogger()
 formatter = logging.Formatter(
     "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
@@ -169,7 +185,7 @@ general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 #
-df_train = pd.read_csv(RAW_PATH / "test_v.csv")
+df_train =pd.read_csv(RAW_PATH /"train.csv")
 # #
 # # dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
 # # dollar_df = dollar_df.parse("RC", parse_dates=['data'])
@@ -189,8 +205,8 @@ df_train = pd.read_csv(RAW_PATH / "test_v.csv")
 # # #
 # # df_train = encode_dummies(df_train, 'category')
 # # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-df_train = df_train.apply(lambda row: len_fun(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_test_text_co.csv", index=False)
+df_train = df_train.apply(lambda row: ents_fun(row, 'title'), axis=1)
+df_train.to_csv(DATA_PATH / "df_text_ents.csv", index=False)
 print('')
 # # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 # # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
