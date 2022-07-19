@@ -174,7 +174,7 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     return row
 #
 #
-def text_fun(row: Series) -> Series:
+def sub_cat_fun(row: Series) -> Series:
     id = row['document_id'][0:24]
     content = None
     sub_cat = ''
@@ -203,24 +203,23 @@ general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
 
+#
+# import re
+#
+# timeline_df = pd.ExcelFile(DATA_PATH / "timeline.xlsx")
+# timeline_df = timeline_df.parse("multiTimeline", parse_dates=['День'])
+# timeline_df['День'] = timeline_df['День'].apply(lambda _date: _date.date())
+#
+# cols_to_rename={}
+# for col_name in timeline_df.columns[1:]:
+#     new_col_name = col_name[:col_name.find(':')].lower()
+#     cols_to_rename[col_name] = new_col_name
+# timeline_df  = timeline_df.rename(columns=cols_to_rename)
+# timeline_columns = timeline_df.columns[1:].tolist()
 
-import re
-
-timeline_df = pd.ExcelFile(DATA_PATH / "timeline.xlsx")
-timeline_df = timeline_df.parse("multiTimeline", parse_dates=['День'])
-timeline_df['День'] = timeline_df['День'].apply(lambda _date: _date.date())
-
-cols_to_rename={}
-for col_name in timeline_df.columns[1:]:
-    new_col_name = col_name[:col_name.find(':')].lower()
-    cols_to_rename[col_name] = new_col_name
-timeline_df  = timeline_df.rename(columns=cols_to_rename)
-timeline_columns = timeline_df.columns[1:].tolist()
-
-df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'], index_col= 0)
-df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-df_train = df_train.apply(lambda row: timeline_fun(row, timeline_df, timeline_df.columns[1:].tolist()), axis=1)
-df_train.to_csv(DATA_PATH / "df_text.csv")
+df_train = pd.read_csv(DATA_PATH / "df_text.csv")
+df_train = df_train.apply(lambda row: sub_cat_fun(row), axis=1)
+df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
 #
 # df_train = pd.read_csv(RAW_PATH / "test.csv")
 # #
