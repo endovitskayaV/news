@@ -1,21 +1,22 @@
 import ast
 import logging
-import re
-import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
 
 import pandas as pd
-import spacy_stanza
-import stanza
-from bs4 import BeautifulSoup
+# import spacy_stanza
+# import stanza
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
+from textstat import textstat
 
 from settings import LOGGING_PATH, DATA_PATH, RAW_PATH
 
 
 # funs
+from src.funs import timeline_fun
+
+
 def str_to_list(row: Series, col_name: str) -> Series:
     row[col_name] = ast.literal_eval(row[col_name])
     return row
@@ -37,8 +38,10 @@ def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
     df = df.join(categories_df)
     return df
 
-stanza.download("ru")
-nlp = spacy_stanza.load_pipeline(name="ru", lang="ru")
+
+# stanza.download("ru")
+# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru")
+
 
 def encode_list_by_rate(df: DataFrame, col_name: str, rate_limit: float) -> DataFrame:
     def str_to_list(row: Series, col_name: str) -> Series:
@@ -133,12 +136,25 @@ def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
     return row
 
 
-def ents_fun(row: Series, col_name:str) -> Series:
+def ents_fun(row: Series, col_name: str) -> Series:
     text = row[col_name]
     doc = nlp(text)
     ents = [token.ent_type_ for token in doc if token.ent_type_ and token.ent_iob_ == 'B']
     row['ents'] = ents
     return row
+
+textstat.set_lang('ru')
+
+def readability_fun(row: Series, col_name: str) -> Series:
+    text = row[col_name]
+    flesch = textstat.flesch_reading_ease(text)
+    ari = textstat.automated_readability_index(text)
+    cli = textstat.coleman_liau_index(text)
+    row['flesch'] = flesch
+    row['ari'] = ari
+    row['cli'] = cli
+    return row
+
 
 #
 # def len_sent_fun(row: Series) -> Series:
@@ -184,8 +200,27 @@ general_fh = logging.FileHandler(LOGGING_PATH / "logs5.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
+
+
+import re
+
+timeline_df = pd.ExcelFile(DATA_PATH / "timeline.xlsx")
+timeline_df = timeline_df.parse("multiTimeline", parse_dates=['День'])
+timeline_df['День'] = timeline_df['День'].apply(lambda _date: _date.date())
+
+cols_to_rename={}
+for col_name in timeline_df.columns[1:]:
+    new_col_name = col_name[:col_name.find(':')].lower()
+    cols_to_rename[col_name] = new_col_name
+timeline_df  = timeline_df.rename(columns=cols_to_rename)
+timeline_columns = timeline_df.columns[1:].tolist()
+
+df_train = pd.read_csv(DATA_PATH / "df_text.csv", parse_dates=['publish_date'], index_col= 0)
+df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+df_train = df_train.apply(lambda row: timeline_fun(row, timeline_df, timeline_df.columns[1:].tolist()), axis=1)
+df_train.to_csv(DATA_PATH / "df_text.csv")
 #
-df_train =pd.read_csv(RAW_PATH /"train.csv")
+# df_train = pd.read_csv(RAW_PATH / "test.csv")
 # #
 # # dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
 # # dollar_df = dollar_df.parse("RC", parse_dates=['data'])
@@ -205,9 +240,9 @@ df_train =pd.read_csv(RAW_PATH /"train.csv")
 # # #
 # # df_train = encode_dummies(df_train, 'category')
 # # df_train = encode_list_by_rate(df_train, 'authors', 0.03)
-df_train = df_train.apply(lambda row: ents_fun(row, 'title'), axis=1)
-df_train.to_csv(DATA_PATH / "df_text_ents.csv", index=False)
-print('')
+# df_train = df_train.apply(lambda row: readability_fun(row, 'full_text'), axis=1)
+# df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
+# print('')
 # # df_train['day'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%d").astype(int)
 # # df_train['month'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%m").astype(int)
 # # df_train['hour'] = pd.to_datetime(df_train['publish_date']).dt.strftime("%H").astype(int)
@@ -266,9 +301,18 @@ print('')
 # X_test = df_test.drop(x_cols_drop, axis=1)
 # y_test = df_test[y_cols]
 # #
-# # # vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
-# # # train_texts = vectorizer.fit_transform(X_train['text'])
-# # # test_texts = vectorizer.transform(X_test['text'])
+
+
+# test_title = vectorizer.transform(df_test['title'])
+# test_texts_df = pd.DataFrame(test_title.toarray(), index = df_test.index)
+# test_texts_df.rename(lambda col_name: "text_" + str(col_name), axis='columns', inplace=True)
+# df_test = df_train.merge(test_texts_df, left_index=True, right_index=True)
+#
+#
+#
+# vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
+# train_texts = vectorizer.fit_transform(X_train['text'])
+# test_texts = vectorizer.transform(X_test['text'])
 # # # dump(DATA_PATH / "text_vectorizer.pickle", vectorizer)
 # #
 # # vectorizer = loads(DATA_PATH / "text_vectorizer.pickle")
@@ -292,10 +336,10 @@ print('')
 # # X_train.drop(['title', 'text','index'], axis=1, inplace=True)
 # # X_test.drop(['title',  'text', 'index'], axis=1, inplace=True)
 #
-# # feature_array = np.array(vectorizer.get_feature_names_out())
-# # tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
-# # n = 500
-# # top_n = feature_array[tfidf_sorting][:n]
+# feature_array = np.array(vectorizer.get_feature_names_out())
+# tfidf_sorting = np.argsort(train_texts_arr).flatten()[::-1]
+# n = 500
+# top_n = feature_array[tfidf_sorting][:n]
 # # write_to_file(DATA_PATH / "text_top500.txt", '\n'.join(p for p in top_n))
 #
 # score_dict = {"views": 0.4, "depth": 0.3, "full_reads_percent": 0.3}
