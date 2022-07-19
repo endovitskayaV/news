@@ -217,9 +217,9 @@ logger.addHandler(general_fh)
 # timeline_df  = timeline_df.rename(columns=cols_to_rename)
 # timeline_columns = timeline_df.columns[1:].tolist()
 
-df_train = pd.read_csv(DATA_PATH / "df_text.csv")
+df_train = pd.read_csv(DATA_PATH / "df_text_test.csv")
 df_train = df_train.apply(lambda row: sub_cat_fun(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
+df_train.to_csv(DATA_PATH / "df_text_test.csv", index=False)
 #
 # df_train = pd.read_csv(RAW_PATH / "test.csv")
 # #
