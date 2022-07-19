@@ -182,9 +182,12 @@ def div_fun(row: Series, df) -> Series:
     related_div = 0
     pro_div = 0
     related_articles = []
+    overview_text=''
     try:
         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
         soup = BeautifulSoup(content, 'lxml')
+        overview = soup.select_one('.article__text__overview')
+        overview_text = overview.text if overview else ''
         text = soup.select_one('.article__text_free')
         related_divs = text.select('.article__inline-item')
         related_div = len(related_divs)
@@ -234,6 +237,7 @@ def div_fun(row: Series, df) -> Series:
         logger.log(msg=id, level=logging.getLevelName("WARN"))
 
     row['related_div'] = related_div
+    row['overview_text'] = overview_text
     row['pro_div'] = pro_div
     row['related_articles'] = related_articles
     return row
