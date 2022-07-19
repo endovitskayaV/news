@@ -1,11 +1,13 @@
 import ast
 import logging
+import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
 
 import pandas as pd
 # import spacy_stanza
 # import stanza
+from bs4 import BeautifulSoup
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
 from textstat import textstat
@@ -172,24 +174,24 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     return row
 #
 #
-# def text_fun(row: Series) -> Series:
-#     id = row['document_id'][0:24]
-#     content = None
-#     text = ''
-#     try:
-#         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
-#     except Exception as e:
-#         logger.log(msg=e, level=logging.getLevelName("ERROR"))
-#
-#     if content:
-#         soup = BeautifulSoup(content, 'lxml')
-#         text = soup.select_one('.article__text_free')
-#         text = text.text
-#     else:
-#         logger.log(msg=id, level=logging.getLevelName("WARN"))
-#
-#     row['full_text'] = text
-#     return row
+def text_fun(row: Series) -> Series:
+    id = row['document_id'][0:24]
+    content = None
+    sub_cat = ''
+    try:
+        content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
+    except Exception as e:
+        logger.log(msg=e, level=logging.getLevelName("ERROR"))
+
+    if content:
+        soup = BeautifulSoup(content, 'lxml')
+        sub_cat = soup.select_one('.article__header__category')
+        sub_cat = sub_cat.text
+    else:
+        logger.log(msg=id, level=logging.getLevelName("WARN"))
+
+    row['sub_cat'] = sub_cat
+    return row
 
 
 logger = logging.getLogger()
