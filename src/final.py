@@ -1,5 +1,7 @@
 import ast
+import json
 import logging
+import re
 import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
@@ -12,11 +14,10 @@ from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
 from textstat import textstat
 
-from settings import LOGGING_PATH, DATA_PATH, RAW_PATH
+from settings import LOGGING_PATH, DATA_PATH
 
 
 # funs
-from src.funs import timeline_fun
 
 
 def str_to_list(row: Series, col_name: str) -> Series:
@@ -145,7 +146,9 @@ def ents_fun(row: Series, col_name: str) -> Series:
     row['ents'] = ents
     return row
 
+
 textstat.set_lang('ru')
+
 
 def readability_fun(row: Series, col_name: str) -> Series:
     text = row[col_name]
@@ -174,23 +177,65 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     return row
 #
 #
-def sub_cat_fun(row: Series) -> Series:
+def div_fun(row: Series, df) -> Series:
     id = row['document_id'][0:24]
-    content = None
-    sub_cat = ''
+    related_div = 0
+    pro_div = 0
+    related_articles = []
     try:
         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
+        soup = BeautifulSoup(content, 'lxml')
+        text = soup.select_one('.article__text_free')
+        related_divs = text.select('.article__inline-item')
+        related_div = len(related_divs)
+        pro_div = len(text.select('.pro-anons'))
+
+        for related_div in related_divs:
+            a_s = related_div.select('a')
+            art = {}
+            for a in a_s:
+                if 'article__inline-item__link' in a.attrs['class'] and 'article__inline-item__image-block' not in \
+                        a.attrs['class'] and not art.get('href', None):
+                    art['href'] = a.attrs['href']
+                    if art.get('href', None):
+                        art_id = art['href'].split('/')
+                        art_id = art_id[-1]
+                        art['raw_id'] = art_id
+                        art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
+                        art['id'] = art_id
+
+                        f = df.loc[df['document_id'].str.startswith(art_id)]
+                        art['ctr'] = f.iloc[0]['ctr'] if f.shape[0] > 0 else 0
+                        art['views'] = f.iloc[0]['views'] if f.shape[0] > 0 else 0
+                        art['cite_views'] = 0
+
+                        if art['views'] <= 0:
+                            art_id = art['href'].split('/')
+                            art_id = art_id[-1]
+                            art['raw_id'] = art_id
+                            art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
+                            art['id'] = art_id
+                            art_content = urllib.request.urlopen(art['href']).read()
+                            art_soup = BeautifulSoup(art_content, 'lxml')
+                            div = art_soup.select_one('.rbcslider__slide')
+                            paths = div.attrs['data-shorturl'].split('/')
+                            idd = paths[-1]
+                            content = urllib.request.urlopen("https://www.rbc.ru/redir/stat/" + idd).read()
+                            response = json.loads(content)
+                            art['views'] = response['show']
+                            art['cite_views'] = 1
+
+                elif 'article__inline-item__category' in a.attrs['class']:
+                    art['cat'] = a.text
+
+            related_articles.append(art)
     except Exception as e:
         logger.log(msg=e, level=logging.getLevelName("ERROR"))
-
-    if content:
-        soup = BeautifulSoup(content, 'lxml')
-        sub_cat = soup.select_one('.article__header__category')
-        sub_cat = sub_cat.text
-    else:
         logger.log(msg=id, level=logging.getLevelName("WARN"))
 
-    row['sub_cat'] = sub_cat
+    row['related_div'] = related_div
+    row['pro_div'] = pro_div
+    row['related_articles'] = related_articles
     return row
 
 
@@ -217,9 +262,10 @@ logger.addHandler(general_fh)
 # timeline_df  = timeline_df.rename(columns=cols_to_rename)
 # timeline_columns = timeline_df.columns[1:].tolist()
 
-df_train = pd.read_csv(DATA_PATH / "df_text_test.csv")
-df_train = df_train.apply(lambda row: sub_cat_fun(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_text_test.csv", index=False)
+df_train = pd.read_csv(DATA_PATH / "df_text.csv")
+df = pd.read_csv(DATA_PATH / "df_text.csv")
+df_train = df_train.apply(lambda row: div_fun(row, df), axis=1)
+df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
 #
 # df_train = pd.read_csv(RAW_PATH / "test.csv")
 # #
