@@ -198,3 +198,20 @@
 2022-07-11 14:14:14,663 stanza       INFO     Loading: pos
 2022-07-11 14:14:14,905 stanza       INFO     Loading: lemma
 2022-07-11 14:14:15,084 stanza       INFO     Done loading processors!
+2022-07-20 12:24:58,434 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-20 12:25:00,238 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-20 12:25:03,808 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-20 12:25:04,344 stanza       INFO     Loading these models for language: ru (Russian):
+=========================
+| Processor | Package   |
+-------------------------
+| tokenize  | syntagrus |
+| pos       | syntagrus |
+| lemma     | syntagrus |
+=========================
+
+2022-07-20 12:25:04,344 stanza       INFO     Use device: cpu
+2022-07-20 12:25:04,345 stanza       INFO     Loading: tokenize
+2022-07-20 12:25:04,359 stanza       INFO     Loading: pos
+2022-07-20 12:25:04,602 stanza       INFO     Loading: lemma
+2022-07-20 12:25:04,719 stanza       INFO     Done loading processors!

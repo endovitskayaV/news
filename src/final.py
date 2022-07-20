@@ -1,22 +1,21 @@
 import ast
-import json
 import logging
-import re
-import urllib
 from datetime import datetime, timedelta
 from typing import List, Dict
 
 import pandas as pd
 # import spacy_stanza
 # import stanza
-from bs4 import BeautifulSoup
+import spacy_stanza
+import stanza
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
 from textstat import textstat
 
 from settings import LOGGING_PATH, DATA_PATH
+
+
 # funs
-from src.funs import str_to_json
 
 
 def str_to_list(row: Series, col_name: str) -> Series:
@@ -177,87 +176,102 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #
 #
 
+#
+# def div_fun(row: Series, df) -> Series:
+#     id = row['document_id'][0:24]
+#     related_div_len = 0
+#     pro_div = 0
+#     related_articles = []
+#     overview_text = ''
+#     try:
+#         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
+#         soup = BeautifulSoup(content, 'lxml')
+#         overview = soup.select_one('.article__text__overview')
+#         overview_text = overview.text if overview else ''
+#         text = soup.select_one('.article__text_free')
+#         related_divs = text.select('.article__inline-item')
+#         related_div_len = len(related_divs)
+#         pro_div = len(text.select('.pro-anons'))
+#
+#         for related_div in related_divs:
+#             a_s = related_div.select('a')
+#             art = {}
+#             for a in a_s:
+#                 if 'article__inline-item__link' in a.attrs['class'] and 'article__inline-item__image-block' not in \
+#                         a.attrs['class'] and not art.get('href', None):
+#                     art['href'] = a.attrs['href']
+#                     if art.get('href', None):
+#                         art_id = art['href'].split('/')
+#                         art_id = art_id[-1]
+#                         art['raw_id'] = art_id
+#                         art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
+#                         art['id'] = art_id
+#
+#                         f = df.loc[df['document_id'].str.startswith(art_id)]
+#                         art['ctr'] = f.iloc[0]['ctr'] if f.shape[0] > 0 else 0
+#                         art['views'] = f.iloc[0]['views'] if f.shape[0] > 0 else 0
+#                         art['cite_views'] = 0
+#
+#                         if art['views'] <= 0:
+#                             art_id = art['href'].split('/')
+#                             art_id = art_id[-1]
+#                             art['raw_id'] = art_id
+#                             art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
+#                             art['id'] = art_id
+#                             art_content = urllib.request.urlopen(art['href']).read()
+#                             art_soup = BeautifulSoup(art_content, 'lxml')
+#                             div = art_soup.select_one('.rbcslider__slide')
+#                             url = div.attrs.get('data-shorturl', None)
+#                             url = div.attrs.get('data-url', None) if not url else url
+#                             if url:
+#                                 paths = url.split('/')
+#                                 idd = paths[-1]
+#                                 content = urllib.request.urlopen("https://www.rbc.ru/redir/stat/" + idd).read()
+#                                 response = json.loads(content)
+#                                 art['views'] = response['show']
+#                                 art['cite_views'] = 1
+#
+#                 elif 'article__inline-item__category' in a.attrs['class']:
+#                     art['cat'] = a.text
+#
+#             related_articles.append(art)
+#     except Exception as e:
+#         logger.log(msg=e, level=logging.getLevelName("ERROR"))
+#         logger.log(msg=id, level=logging.getLevelName("WARN"))
+#
+#     row['related_div'] = related_div_len
+#     row['overview_text'] = overview_text
+#     row['pro_div'] = pro_div
+#     row['related_articles'] = related_articles
+#     return row
+#
+#
+# def max_v_ctr(row):
+#     related_articles = row['related_articles']
+#     max_v = 0
+#     max_ctr = 0
+#     for a in related_articles:
+#         if a.get('views', 0) > max_v:
+#             max_v = a['views']
+#         if a.get('ctr', 0) > max_ctr:
+#             max_ctr = a['ctr']
+#     row['max_v'] = max_v
+#     row['max_ctr'] = max_ctr
+#     return row
 
-def div_fun(row: Series, df) -> Series:
-    id = row['document_id'][0:24]
-    related_div_len = 0
-    pro_div = 0
-    related_articles = []
-    overview_text = ''
-    try:
-        content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
-        soup = BeautifulSoup(content, 'lxml')
-        overview = soup.select_one('.article__text__overview')
-        overview_text = overview.text if overview else ''
-        text = soup.select_one('.article__text_free')
-        related_divs = text.select('.article__inline-item')
-        related_div_len = len(related_divs)
-        pro_div = len(text.select('.pro-anons'))
-
-        for related_div in related_divs:
-            a_s = related_div.select('a')
-            art = {}
-            for a in a_s:
-                if 'article__inline-item__link' in a.attrs['class'] and 'article__inline-item__image-block' not in \
-                        a.attrs['class'] and not art.get('href', None):
-                    art['href'] = a.attrs['href']
-                    if art.get('href', None):
-                        art_id = art['href'].split('/')
-                        art_id = art_id[-1]
-                        art['raw_id'] = art_id
-                        art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
-                        art['id'] = art_id
-
-                        f = df.loc[df['document_id'].str.startswith(art_id)]
-                        art['ctr'] = f.iloc[0]['ctr'] if f.shape[0] > 0 else 0
-                        art['views'] = f.iloc[0]['views'] if f.shape[0] > 0 else 0
-                        art['cite_views'] = 0
-
-                        if art['views'] <= 0:
-                            art_id = art['href'].split('/')
-                            art_id = art_id[-1]
-                            art['raw_id'] = art_id
-                            art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
-                            art['id'] = art_id
-                            art_content = urllib.request.urlopen(art['href']).read()
-                            art_soup = BeautifulSoup(art_content, 'lxml')
-                            div = art_soup.select_one('.rbcslider__slide')
-                            url = div.attrs.get('data-shorturl', None)
-                            url = div.attrs.get('data-url', None) if not url else url
-                            if url:
-                                paths = url.split('/')
-                                idd = paths[-1]
-                                content = urllib.request.urlopen("https://www.rbc.ru/redir/stat/" + idd).read()
-                                response = json.loads(content)
-                                art['views'] = response['show']
-                                art['cite_views'] = 1
-
-                elif 'article__inline-item__category' in a.attrs['class']:
-                    art['cat'] = a.text
-
-            related_articles.append(art)
-    except Exception as e:
-        logger.log(msg=e, level=logging.getLevelName("ERROR"))
-        logger.log(msg=id, level=logging.getLevelName("WARN"))
-
-    row['related_div'] = related_div_len
-    row['overview_text'] = overview_text
-    row['pro_div'] = pro_div
-    row['related_articles'] = related_articles
-    return row
+stanza.download("ru")
+nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
 
 
-def max_v_ctr(row):
-    related_articles = row['related_articles']
-    max_v = 0
-    max_ctr = 0
-    for a in related_articles:
-        if a.get('views', 0) > max_v:
-            max_v = a['views']
-        if a.get('ctr', 0) > max_ctr:
-            max_ctr = a['ctr']
-    row['max_v'] = max_v
-    row['max_ctr'] = max_ctr
+def ti(row):
+    title = row['title']
+    new_title = []
+    for t in title:
+        doc = nlp(t)
+        tag = doc[0].tag_
+        if tag in ['VERB', "ADJ"]:
+            new_title.append(t)
+    row['new_title'] = new_title
     return row
 
 
@@ -284,15 +298,10 @@ logger.addHandler(general_fh)
 # timeline_df  = timeline_df.rename(columns=cols_to_rename)
 # timeline_columns = timeline_df.columns[1:].tolist()
 
-df_train = pd.read_csv(DATA_PATH / "df_text_test.csv")
-df = pd.read_csv(DATA_PATH / "df_text.csv")
-df_train = df_train.apply(lambda row: div_fun(row, df), axis=1)
-df_train.to_csv(DATA_PATH / "df_text_test.csv", index=False)
-
-df_train = pd.read_csv(DATA_PATH / "df_text_test.csv")
-df_train = df_train.apply(lambda row: str_to_json(row, 'related_articles'), axis=1)
-df_train = df_train.apply(lambda row: max_v_ctr(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_text_test.csv", index=False)
+df_train = pd.read_csv(DATA_PATH / "df_text.csv")
+df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+df_train = df_train.apply(lambda row: ti(row), axis=1)
+df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
 
 #
 # df_train = pd.read_csv(RAW_PATH / "test.csv")
