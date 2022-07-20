@@ -3,16 +3,88 @@ import logging
 from datetime import datetime, timedelta
 from typing import List, Dict
 
+import numpy as np
 import pandas as pd
 # import spacy_stanza
 # import stanza
-import spacy_stanza
-import stanza
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
 from textstat import textstat
 
 from settings import LOGGING_PATH, DATA_PATH
+from src.funs import str_to_list
+
+popular_cats = ['Военная операция на Украине',
+                'Политика',
+                'Общество',
+                'Бизнес',
+                'Война санкций',
+                'Пандемия коронавируса',
+                'Экономика',
+                'Технологии и медиа',
+                'Финансы',
+                'Город',
+                'Высылки дипломатов',
+                'Конфликт в Донбассе',
+                'Протесты в Казахстане',
+                'Протесты в Белоруссии',
+                'Конфликт Армении и Азербайджана',
+                'Рост цен на газ',
+                'Выборы президента Франции',
+                'Дело Навального',
+                'Доходы власти',
+                'Дискуссионный клуб',
+                # 'Дело Порошенко и Медведчука',
+                # 'Отставки губернаторов',
+                # 'Протесты в Армении',
+                # 'Конфликт в Афганистане',
+                # 'Дело Абызова',
+                # 'ПМЭФ-2022',
+                # 'День выборов',
+                # 'Конфликт в Нагорном Карабахе'
+                ]
+
+
+def replace_sub_cat(row):
+    sub_cat = row['sub_cat']
+    if sub_cat not in popular_cats:
+        row['sub_cat'] = 'rare_sub_cat'
+    return row
+
+
+def fin(s):
+    s = Series(data=np.arange(1, len(s.index) + 1), index=s.index)
+    return s
+
+
+def fun(row, v_c):
+    coef = row['coef']
+    total = v_c.loc[row['sub_cat']]
+    coef = coef / total
+    row['coef'] = coef
+    coef_third = 3 if coef > 0.67 else (2 if coef > 0.34 else 1)
+    row['coef_third'] = coef_third
+    return row
+
+
+df_train = pd.read_csv(DATA_PATH / "df_text.csv", index_col=0, parse_dates=['publish_date'])
+df_train = df_train.apply(lambda row: replace_sub_cat(row), axis=1)
+v_c = df_train['sub_cat'].value_counts()
+df_train.sort_values('publish_date', inplace=True)
+df_train['coef'] = df_train.groupby(['sub_cat'])['views'].transform(lambda s: fin(s))
+df_train = df_train.apply(lambda r: fun(r, v_c), axis=1)
+print('')
+df_train.to_csv(DATA_PATH / "df_text.csv")
+
+
+# df_train = df_train[['text_length', 'avg_sentence_len', 'max_sentence_len', 'min_sentence_len', 'sub_cat', 'max_v', 'max_ctr',  'pro_div', 'related_div', 'overview_text', 'new_title']]
+#
+# df_train = df_train.apply(lambda row: str_to_list(row, 'new_title'), axis=1)
+#
+# vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False, ngram_range=(2,2), max_features=2500)
+# new_title = vectorizer.fit_transform(df_train['new_title'])
+# f=vectorizer.get_feature_names_out()
+# dump(DATA_PATH / "vectorizer_bi.pickle", vectorizer)
 
 
 # funs
@@ -258,9 +330,9 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     row['max_v'] = max_v
 #     row['max_ctr'] = max_ctr
 #     return row
-
-stanza.download("ru")
-nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
+#
+# stanza.download("ru")
+# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
 
 
 def ti(row):
