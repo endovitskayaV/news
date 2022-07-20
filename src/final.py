@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 # import spacy_stanza
 # import stanza
+import spacy_stanza
+import stanza
 from pandas import Series, DataFrame
 from sklearn.metrics import r2_score
 from textstat import textstat
@@ -56,25 +58,30 @@ def fin(s):
     s = Series(data=np.arange(1, len(s.index) + 1), index=s.index)
     return s
 
-# stanza.download("ru")
-# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
+
+stanza.download("ru")
+nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
+
 
 def fun(row):
+    n = 0
+    v = 0
+    a = 0
     text = row['text']
+    text_words_amount=len(text)
+    for word in text:
+        doc = nlp(word)
+        doc = doc[0]
+        if doc.tag_ == 'NOUN':
+            n += 1
+        elif doc.tag_ == 'VERB':
+            v += 1
+        elif doc.tag_ == 'ADJ':
+            a += 1
 
-    text_words_amount = len(text)
-    row['text_words_amount'] = text_words_amount
-
-    w_lens = [len(w) for w in text]
-    row['text_avg_word_len'] = sum(w_lens) / text_words_amount
-
-    w_lens_10 = [l for l in w_lens if l > 10]
-    w_lens_8 = [l for l in w_lens if l > 8]
-    w_lens_5 = [l for l in w_lens if l > 5]
-
-    row['text_word_len_10_ratio'] = len(w_lens_10) / text_words_amount
-    row['text_word_len_8_ratio'] = len(w_lens_8) / text_words_amount
-    row['text_word_len_5_ratio'] = len(w_lens_5) / text_words_amount
+    row['text_nouns_ratio'] = n/ text_words_amount
+    row['text_verbs_ratio'] = v / text_words_amount
+    row['text_adjs_ratio'] = a / text_words_amount
 
     return row
 
@@ -339,7 +346,6 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     row['max_ctr'] = max_ctr
 #     return row
 #
-
 
 
 def ti(row):
