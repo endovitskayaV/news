@@ -56,24 +56,32 @@ def fin(s):
     s = Series(data=np.arange(1, len(s.index) + 1), index=s.index)
     return s
 
+# stanza.download("ru")
+# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
 
-def fun(row, v_c):
-    coef = row['coef']
-    total = v_c.loc[row['sub_cat']]
-    coef = coef / total
-    row['coef'] = coef
-    coef_third = 3 if coef > 0.67 else (2 if coef > 0.34 else 1)
-    row['coef_third'] = coef_third
+def fun(row):
+    text = row['text']
+
+    text_words_amount = len(text)
+    row['text_words_amount'] = text_words_amount
+
+    w_lens = [len(w) for w in text]
+    row['text_avg_word_len'] = sum(w_lens) / text_words_amount
+
+    w_lens_10 = [l for l in w_lens if l > 10]
+    w_lens_8 = [l for l in w_lens if l > 8]
+    w_lens_5 = [l for l in w_lens if l > 5]
+
+    row['text_word_len_10_ratio'] = len(w_lens_10) / text_words_amount
+    row['text_word_len_8_ratio'] = len(w_lens_8) / text_words_amount
+    row['text_word_len_5_ratio'] = len(w_lens_5) / text_words_amount
+
     return row
 
 
 df_train = pd.read_csv(DATA_PATH / "df_text.csv", index_col=0, parse_dates=['publish_date'])
-df_train = df_train.apply(lambda row: replace_sub_cat(row), axis=1)
-v_c = df_train['sub_cat'].value_counts()
-df_train.sort_values('publish_date', inplace=True)
-df_train['coef'] = df_train.groupby(['sub_cat'])['views'].transform(lambda s: fin(s))
-df_train = df_train.apply(lambda r: fun(r, v_c), axis=1)
-print('')
+df_train = df_train.apply(lambda row: str_to_list(row, 'text'), axis=1)
+df_train = df_train.apply(lambda row: fun(row), axis=1)
 df_train.to_csv(DATA_PATH / "df_text.csv")
 
 
@@ -331,8 +339,7 @@ def readability_fun(row: Series, col_name: str) -> Series:
 #     row['max_ctr'] = max_ctr
 #     return row
 #
-# stanza.download("ru")
-# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
+
 
 
 def ti(row):
