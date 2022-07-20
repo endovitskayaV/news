@@ -1,4 +1,5 @@
 import ast
+import json
 import logging
 import urllib
 from datetime import datetime, timedelta
@@ -13,6 +14,13 @@ from sklearn.metrics import r2_score
 # funs
 def str_to_list(row: Series, col_name: str) -> Series:
     row[col_name] = ast.literal_eval(row[col_name])
+    return row
+
+
+def str_to_json(row: Series, col_name: str) -> Series:
+    value = row[col_name]
+    value = value.replace("'", "\"")
+    row[col_name] = json.loads(value)
     return row
 
 
@@ -205,7 +213,7 @@ def timeline_fun(row: Series, timeline_df: DataFrame, timeline_columns: List[str
     # row['title'] = title
 
     max_popularity = 0
-    popularity_words=[]
+    popularity_words = []
     # sum_popularity = 0
     for timeline_column in timeline_columns:
         if timeline_column in title:
