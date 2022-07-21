@@ -1,79 +1,132 @@
-import ast
 import logging
-from datetime import datetime, timedelta
-from typing import List, Dict
 
 import numpy as np
+import pandas
 import pandas as pd
+
+from settings import LOGGING_PATH, RAW_PATH, DATA_PATH
+
 # import spacy_stanza
 # import stanza
-import spacy_stanza
-import stanza
-from pandas import Series, DataFrame
-from sklearn.metrics import r2_score
-from textstat import textstat
 
-from settings import LOGGING_PATH, DATA_PATH
-from src.funs import str_to_list
+# popular_cats = ['Военная операция на Украине',
+#                 'Политика',
+#                 'Общество',
+#                 'Бизнес',
+#                 'Война санкций',
+#                 'Пандемия коронавируса',
+#                 'Экономика',
+#                 'Технологии и медиа',
+#                 'Финансы',
+#                 'Город',
+#                 'Высылки дипломатов',
+#                 'Конфликт в Донбассе',
+#                 'Протесты в Казахстане',
+#                 'Протесты в Белоруссии',
+#                 'Конфликт Армении и Азербайджана',
+#                 'Рост цен на газ',
+#                 'Выборы президента Франции',
+#                 'Дело Навального',
+#                 'Доходы власти',
+#                 'Дискуссионный клуб',
+#                 # 'Дело Порошенко и Медведчука',
+#                 # 'Отставки губернаторов',
+#                 # 'Протесты в Армении',
+#                 # 'Конфликт в Афганистане',
+#                 # 'Дело Абызова',
+#                 # 'ПМЭФ-2022',
+#                 # 'День выборов',
+#                 # 'Конфликт в Нагорном Карабахе'
+#                 ]
+#
+#
+# def replace_sub_cat(row):
+#     sub_cat = row['sub_cat']
+#     if sub_cat not in popular_cats:
+#         row['sub_cat'] = 'rare_sub_cat'
+#     return row
+#
+#
+# def fin(s):
+#     s = Series(data=np.arange(1, len(s.index) + 1), index=s.index)
+#     return s
 
-popular_cats = ['Военная операция на Украине',
-                'Политика',
-                'Общество',
-                'Бизнес',
-                'Война санкций',
-                'Пандемия коронавируса',
-                'Экономика',
-                'Технологии и медиа',
-                'Финансы',
-                'Город',
-                'Высылки дипломатов',
-                'Конфликт в Донбассе',
-                'Протесты в Казахстане',
-                'Протесты в Белоруссии',
-                'Конфликт Армении и Азербайджана',
-                'Рост цен на газ',
-                'Выборы президента Франции',
-                'Дело Навального',
-                'Доходы власти',
-                'Дискуссионный клуб',
-                # 'Дело Порошенко и Медведчука',
-                # 'Отставки губернаторов',
-                # 'Протесты в Армении',
-                # 'Конфликт в Афганистане',
-                # 'Дело Абызова',
-                # 'ПМЭФ-2022',
-                # 'День выборов',
-                # 'Конфликт в Нагорном Карабахе'
-                ]
-
-
-def replace_sub_cat(row):
-    sub_cat = row['sub_cat']
-    if sub_cat not in popular_cats:
-        row['sub_cat'] = 'rare_sub_cat'
-    return row
-
-
-def fin(s):
-    s = Series(data=np.arange(1, len(s.index) + 1), index=s.index)
-    return s
 
 #
 # stanza.download("ru")
 # nlp = spacy_stanza.load_pipeline(name="ru", lang="ru", processors="tokenize,pos,lemma")
 
+logger = logging.getLogger()
+formatter = logging.Formatter(
+    "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
+)
+general_fh = logging.FileHandler(LOGGING_PATH / "logs5.txt")
+general_fh.setFormatter(formatter)
+general_fh.setLevel("INFO")
+logger.addHandler(general_fh)
 
-def fun(row):
-    text = row['full_text']
-    i = text.find("Читайте на РБК Pro")
-    row['pro_place'] = i/ len(text)
-    return row
+#
+# def fun(row: Series) -> Series:
+#     id = row['document_id'][0:24]
+#     div_indexes = []
+#     pro_div_indexes = []
+#     covid_div_indexes = []
+#
+#     try:
+#         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
+#         soup = BeautifulSoup(content, 'lxml')
+#         t = soup.select_one('.article__text_free')
+#         tags = t.select('p,.article__inline-item,.pro-anons,.r-covid-19__date')
+#         tags = [tag for tag in tags if len(tag.text) > 3]
+#
+#         for index, tag in enumerate(tags):
+#             if tag.attrs and tag.attrs.get('class', None) and 'article__inline-item' in tag.attrs['class']:
+#                 div_indexes.append(index)
+#             elif tag.attrs and tag.attrs.get('class', None) and 'pro-anons' in tag.attrs['class']:
+#                 pro_div_indexes.append(index)
+#             elif tag.attrs and tag.attrs.get('class', None) and 'r-covid-19__date' in tag.attrs['class']:
+#                 covid_div_indexes.append(index)
+#     except Exception as e:
+#         logger.log(msg=e, level=logging.getLevelName("ERROR"))
+#         logger.log(msg=id, level=logging.getLevelName("WARN"))
+#
+#     row['div_indexes'] = div_indexes
+#     row['pro_div_indexes'] = pro_div_indexes
+#     row['covid_div_indexes'] = covid_div_indexes
+#
+#     row['min_div_indexes'] = min(div_indexes) if len(div_indexes) > 0 else -1
+#     row['min_pro_div_indexes'] = min(pro_div_indexes) if len(pro_div_indexes) > 0 else -1
+#     row['min_covid_div_indexes'] = min(covid_div_indexes) if len(covid_div_indexes) > 0 else -1
+#
+#     row['max_div_indexes'] = max(div_indexes) if len(div_indexes) > 0 else -1
+#     row['max_pro_div_indexes'] = max(pro_div_indexes) if len(pro_div_indexes) > 0 else -1
+#     row['max_covid_div_indexes'] = max(covid_div_indexes) if len(covid_div_indexes) > 0 else -1
+#
+#     all = div_indexes + pro_div_indexes + covid_div_indexes
+#     row['min_index'] = min(all) if len(all) > 0 else -1
+#     row['max_index'] = max(all) if len(all) > 0 else -1
+#     return row
 
 
-df_train = pd.read_csv(DATA_PATH / "df_text.csv", index_col=0)
-df_train = df_train.apply(lambda row: fun(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_text_pro.csv")
+# df_train = pd.read_csv(DATA_PATH / "df_testtext_pro.csv")
+# df_train = df_train.apply(lambda row: fun(row), axis=1)
+# df_train.to_csv(DATA_PATH / "df_text_pro.csv", index=False)
+# print('')
 
+# load dataset
+# from pycaret.datasets import get_data
+# df_train = pandas.read_csv(RAW_PATH / "train.csv")
+# # income = get_data('income')
+#
+# from pycaret.classification import *
+#
+# clf1 = setup(data=df_train, target='full_reads_percent', combine_rare_levels=True)
+#
+# best = compare_models()
+#
+# print(best)
+#
+# print('')
 
 # df_train = df_train[['text_length', 'avg_sentence_len', 'max_sentence_len', 'min_sentence_len', 'sub_cat', 'max_v', 'max_ctr',  'pro_div', 'related_div', 'overview_text', 'new_title']]
 #
@@ -88,288 +141,213 @@ df_train.to_csv(DATA_PATH / "df_text_pro.csv")
 # funs
 
 
-def str_to_list(row: Series, col_name: str) -> Series:
-    row[col_name] = ast.literal_eval(row[col_name])
-    return row
-
-
-def encode_list_dummies(df: DataFrame, col_name: str) -> DataFrame:
-    df = df.apply(lambda row: str_to_list(row, col_name), axis=1)
-    categories_df = pd.get_dummies(df[col_name].apply(pd.Series).stack(), prefix=col_name).sum(level=0)
-    df = df.drop(col_name, axis=1)
-    df = df.join(categories_df)
-    cols = [col for col in df if col.startswith(col_name)]
-    df[cols] = df[cols].fillna(0)
-    return df
-
-
-def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
-    categories_df = pd.get_dummies(df[col_name], prefix=col_name)  # dummy_na = False -> no NaN found
-    df = df.drop(col_name, axis=1)
-    df = df.join(categories_df)
-    return df
-
-
-# stanza.download("ru")
-# nlp = spacy_stanza.load_pipeline(name="ru", lang="ru")
-
-
-def encode_list_by_rate(df: DataFrame, col_name: str, rate_limit: float) -> DataFrame:
-    def str_to_list(row: Series, col_name: str) -> Series:
-        row[col_name] = ast.literal_eval(row[col_name])
-        return row
-
-    def get_col_encode_dict(df: DataFrame, col_name: str, rate_limit: float) -> Dict[str, int]:
-        col_value_rates = df.explode(col_name)[col_name].value_counts(normalize=True)
-        col_encode_dict = {}
-        for index, (col_value, rate) in enumerate(col_value_rates.items()):
-            if rate < rate_limit:
-                break
-            col_encode_dict[col_value] = index * 10
-
-        return col_encode_dict
-
-    def encode(row: Series, col_name: str, encode_dict: Dict[str, int], empty_code: int) -> Series:
-        values = row[col_name]
-        code = 0
-        if len(values) == 0:
-            code = empty_code
-        else:
-            for col_value, col_code in encode_dict.items():
-                if col_value in values:
-                    code += col_code
-
-        row[col_name] = code
-        return row
-
-    df = df.apply(lambda row: str_to_list(row, col_name), axis=1)
-    col_encode_dict = get_col_encode_dict(df, col_name, rate_limit)
-    df = df.apply(lambda row: encode(row, col_name, col_encode_dict, -1), axis=1)
-    return df
-
-
-def calculate_score(y_true: Series, y_pred: Series, y_cols: List[str]) -> float:
-    score = 0
-    for i, col_name in enumerate(y_cols):
-        if len(y_cols) > 1:
-            y_pred_i = y_pred[:, i]
-            y_true_i = y_true[col_name]
-            score_coef = score_dict[col_name]
-        else:
-            y_pred_i = y_pred
-            y_true_i = y_true[col_name].ravel()
-            score_coef = 1
-        score += score_coef * r2_score(y_true_i, y_pred_i)
-    return score
-
-
-def holiday_fun(row: Series, dates: Series) -> Series:
-    row['is_holiday'] = row['publish_date'].date() in dates.values
-    return row
-
-
-def weekend_fun(row: Series) -> Series:
-    row['weekday'] = row['publish_date'].date().weekday()
-    return row
-
-
-date_categs = {
-    '10': (datetime.strptime('19-02-2000', '%d-%m-%Y').date(), datetime.strptime('19-03-2022', '%d-%m-%Y').date()),
-    '20': (datetime.strptime('20-03-2022', '%d-%m-%Y').date(), datetime.strptime('08-04-2022', '%d-%m-%Y').date()),
-    '30': (datetime.strptime('09-04-2022', '%d-%m-%Y').date(), datetime.strptime('19-02-2025', '%d-%m-%Y').date()),
-}
-
-
-def date_categ_fun(row: Series) -> Series:
-    date = row['publish_date'].date()
-    date_categ = -1
-
-    for category_name, (start_date, end_date) in date_categs.items():
-        if date >= start_date and date <= end_date:
-            date_categ = category_name
-            break
-
-    row['date_categ'] = date_categ
-    return row
-
-
-def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
-    date = row['publish_date'].date()
-    max_attempt = 5
-    attempt = 0
-    curs = dollar_df.loc[dollar_df['data'] == date]['curs']
-    while curs.size <= 0 and attempt < max_attempt:
-        date -= timedelta(days=1)
-        curs = dollar_df.loc[dollar_df['data'] == date]['curs']
-        attempt += 1
-    curs = curs.iloc[0] if curs.size > 0 else None
-    row['curs'] = curs
-    return row
-
-
-def ents_fun(row: Series, col_name: str) -> Series:
-    text = row[col_name]
-    doc = nlp(text)
-    ents = [token.ent_type_ for token in doc if token.ent_type_ and token.ent_iob_ == 'B']
-    row['ents'] = ents
-    return row
-
-
-textstat.set_lang('ru')
-
-
-def readability_fun(row: Series, col_name: str) -> Series:
-    text = row[col_name]
-    flesch = textstat.flesch_reading_ease(text)
-    ari = textstat.automated_readability_index(text)
-    cli = textstat.coleman_liau_index(text)
-    row['flesch'] = flesch
-    row['ari'] = ari
-    row['cli'] = cli
-    return row
-
-
-#
-# def len_sent_fun(row: Series) -> Series:
-#     text = row['full_text']
-#     sentences = re.split(r'\. |\n+', text)
-#     lens = [len(sentence.split()) for sentence in sentences if len(sentence.strip()) > 0]
-#     lens = [length for length in lens if length > 10]
-#     avg_len = 0 if len(lens) == 0 else sum(lens) / len(lens)
-#     max_len = 0 if len(lens) == 0 else max(lens)
-#     min_len = 0 if len(lens) == 0 else min(lens)
-#     row['avg_sentence_len'] = avg_len
-#     row['max_sentence_len'] = max_len
-#     row['min_sentence_len'] = min_len
-#
+# def str_to_list(row: Series, col_name: str) -> Series:
+#     row[col_name] = ast.literal_eval(row[col_name])
 #     return row
 #
 #
-
+# def encode_list_dummies(df: DataFrame, col_name: str) -> DataFrame:
+#     df = df.apply(lambda row: str_to_list(row, col_name), axis=1)
+#     categories_df = pd.get_dummies(df[col_name].apply(pd.Series).stack(), prefix=col_name).sum(level=0)
+#     df = df.drop(col_name, axis=1)
+#     df = df.join(categories_df)
+#     cols = [col for col in df if col.startswith(col_name)]
+#     df[cols] = df[cols].fillna(0)
+#     return df
 #
-# def div_fun(row: Series, df) -> Series:
-#     id = row['document_id'][0:24]
-#     related_div_len = 0
-#     pro_div = 0
-#     related_articles = []
-#     overview_text = ''
-#     try:
-#         content = urllib.request.urlopen("https://www.rbc.ru/rbcfreenews/" + id).read()
-#         soup = BeautifulSoup(content, 'lxml')
-#         overview = soup.select_one('.article__text__overview')
-#         overview_text = overview.text if overview else ''
-#         text = soup.select_one('.article__text_free')
-#         related_divs = text.select('.article__inline-item')
-#         related_div_len = len(related_divs)
-#         pro_div = len(text.select('.pro-anons'))
 #
-#         for related_div in related_divs:
-#             a_s = related_div.select('a')
-#             art = {}
-#             for a in a_s:
-#                 if 'article__inline-item__link' in a.attrs['class'] and 'article__inline-item__image-block' not in \
-#                         a.attrs['class'] and not art.get('href', None):
-#                     art['href'] = a.attrs['href']
-#                     if art.get('href', None):
-#                         art_id = art['href'].split('/')
-#                         art_id = art_id[-1]
-#                         art['raw_id'] = art_id
-#                         art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
-#                         art['id'] = art_id
+# def encode_dummies(df: DataFrame, col_name: str) -> DataFrame:
+#     categories_df = pd.get_dummies(df[col_name], prefix=col_name)  # dummy_na = False -> no NaN found
+#     df = df.drop(col_name, axis=1)
+#     df = df.join(categories_df)
+#     return df
 #
-#                         f = df.loc[df['document_id'].str.startswith(art_id)]
-#                         art['ctr'] = f.iloc[0]['ctr'] if f.shape[0] > 0 else 0
-#                         art['views'] = f.iloc[0]['views'] if f.shape[0] > 0 else 0
-#                         art['cite_views'] = 0
 #
-#                         if art['views'] <= 0:
-#                             art_id = art['href'].split('/')
-#                             art_id = art_id[-1]
-#                             art['raw_id'] = art_id
-#                             art_id = re.sub(r'[^a-zA-Z\d]', '', art_id)
-#                             art['id'] = art_id
-#                             art_content = urllib.request.urlopen(art['href']).read()
-#                             art_soup = BeautifulSoup(art_content, 'lxml')
-#                             div = art_soup.select_one('.rbcslider__slide')
-#                             url = div.attrs.get('data-shorturl', None)
-#                             url = div.attrs.get('data-url', None) if not url else url
-#                             if url:
-#                                 paths = url.split('/')
-#                                 idd = paths[-1]
-#                                 content = urllib.request.urlopen("https://www.rbc.ru/redir/stat/" + idd).read()
-#                                 response = json.loads(content)
-#                                 art['views'] = response['show']
-#                                 art['cite_views'] = 1
+# # stanza.download("ru")
+# # nlp = spacy_stanza.load_pipeline(name="ru", lang="ru")
 #
-#                 elif 'article__inline-item__category' in a.attrs['class']:
-#                     art['cat'] = a.text
 #
-#             related_articles.append(art)
-#     except Exception as e:
-#         logger.log(msg=e, level=logging.getLevelName("ERROR"))
-#         logger.log(msg=id, level=logging.getLevelName("WARN"))
+# def encode_list_by_rate(df: DataFrame, col_name: str, rate_limit: float) -> DataFrame:
+#     def str_to_list(row: Series, col_name: str) -> Series:
+#         row[col_name] = ast.literal_eval(row[col_name])
+#         return row
 #
-#     row['related_div'] = related_div_len
-#     row['overview_text'] = overview_text
-#     row['pro_div'] = pro_div
-#     row['related_articles'] = related_articles
+#     def get_col_encode_dict(df: DataFrame, col_name: str, rate_limit: float) -> Dict[str, int]:
+#         col_value_rates = df.explode(col_name)[col_name].value_counts(normalize=True)
+#         col_encode_dict = {}
+#         for index, (col_value, rate) in enumerate(col_value_rates.items()):
+#             if rate < rate_limit:
+#                 break
+#             col_encode_dict[col_value] = index * 10
+#
+#         return col_encode_dict
+#
+#     def encode(row: Series, col_name: str, encode_dict: Dict[str, int], empty_code: int) -> Series:
+#         values = row[col_name]
+#         code = 0
+#         if len(values) == 0:
+#             code = empty_code
+#         else:
+#             for col_value, col_code in encode_dict.items():
+#                 if col_value in values:
+#                     code += col_code
+#
+#         row[col_name] = code
+#         return row
+#
+#     df = df.apply(lambda row: str_to_list(row, col_name), axis=1)
+#     col_encode_dict = get_col_encode_dict(df, col_name, rate_limit)
+#     df = df.apply(lambda row: encode(row, col_name, col_encode_dict, -1), axis=1)
+#     return df
+#
+#
+# def calculate_score(y_true: Series, y_pred: Series, y_cols: List[str]) -> float:
+#     score = 0
+#     for i, col_name in enumerate(y_cols):
+#         if len(y_cols) > 1:
+#             y_pred_i = y_pred[:, i]
+#             y_true_i = y_true[col_name]
+#             score_coef = score_dict[col_name]
+#         else:
+#             y_pred_i = y_pred
+#             y_true_i = y_true[col_name].ravel()
+#             score_coef = 1
+#         score += score_coef * r2_score(y_true_i, y_pred_i)
+#     return score
+#
+#
+# def holiday_fun(row: Series, dates: Series) -> Series:
+#     row['is_holiday'] = row['publish_date'].date() in dates.values
 #     return row
 #
 #
-# def max_v_ctr(row):
-#     related_articles = row['related_articles']
-#     max_v = 0
-#     max_ctr = 0
-#     for a in related_articles:
-#         if a.get('views', 0) > max_v:
-#             max_v = a['views']
-#         if a.get('ctr', 0) > max_ctr:
-#             max_ctr = a['ctr']
-#     row['max_v'] = max_v
-#     row['max_ctr'] = max_ctr
+# def weekend_fun(row: Series) -> Series:
+#     row['weekday'] = row['publish_date'].date().weekday()
 #     return row
 #
-
-
-def ti(row):
-    title = row['title']
-    new_title = []
-    for t in title:
-        doc = nlp(t)
-        tag = doc[0].tag_
-        if tag in ['VERB', "ADJ"]:
-            new_title.append(t)
-    row['new_title'] = new_title
-    return row
-
-
-logger = logging.getLogger()
-formatter = logging.Formatter(
-    "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
-)
-general_fh = logging.FileHandler(LOGGING_PATH / "logs5.txt")
-general_fh.setFormatter(formatter)
-general_fh.setLevel("INFO")
-logger.addHandler(general_fh)
-
 #
-# import re
+# date_categs = {
+#     '10': (datetime.strptime('19-02-2000', '%d-%m-%Y').date(), datetime.strptime('19-03-2022', '%d-%m-%Y').date()),
+#     '20': (datetime.strptime('20-03-2022', '%d-%m-%Y').date(), datetime.strptime('08-04-2022', '%d-%m-%Y').date()),
+#     '30': (datetime.strptime('09-04-2022', '%d-%m-%Y').date(), datetime.strptime('19-02-2025', '%d-%m-%Y').date()),
+# }
 #
-# timeline_df = pd.ExcelFile(DATA_PATH / "timeline.xlsx")
-# timeline_df = timeline_df.parse("multiTimeline", parse_dates=['День'])
-# timeline_df['День'] = timeline_df['День'].apply(lambda _date: _date.date())
 #
-# cols_to_rename={}
-# for col_name in timeline_df.columns[1:]:
-#     new_col_name = col_name[:col_name.find(':')].lower()
-#     cols_to_rename[col_name] = new_col_name
-# timeline_df  = timeline_df.rename(columns=cols_to_rename)
-# timeline_columns = timeline_df.columns[1:].tolist()
-
-df_train = pd.read_csv(DATA_PATH / "df_text.csv")
-df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
-df_train = df_train.apply(lambda row: ti(row), axis=1)
-df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
+# def date_categ_fun(row: Series) -> Series:
+#     date = row['publish_date'].date()
+#     date_categ = -1
+#
+#     for category_name, (start_date, end_date) in date_categs.items():
+#         if date >= start_date and date <= end_date:
+#             date_categ = category_name
+#             break
+#
+#     row['date_categ'] = date_categ
+#     return row
+#
+#
+# def curs_fun(row: Series, dollar_df: DataFrame) -> Series:
+#     date = row['publish_date'].date()
+#     max_attempt = 5
+#     attempt = 0
+#     curs = dollar_df.loc[dollar_df['data'] == date]['curs']
+#     while curs.size <= 0 and attempt < max_attempt:
+#         date -= timedelta(days=1)
+#         curs = dollar_df.loc[dollar_df['data'] == date]['curs']
+#         attempt += 1
+#     curs = curs.iloc[0] if curs.size > 0 else None
+#     row['curs'] = curs
+#     return row
+#
+#
+# def ents_fun(row: Series, col_name: str) -> Series:
+#     text = row[col_name]
+#     doc = nlp(text)
+#     ents = [token.ent_type_ for token in doc if token.ent_type_ and token.ent_iob_ == 'B']
+#     row['ents'] = ents
+#     return row
+#
+#
+# textstat.set_lang('ru')
+#
+#
+# def readability_fun(row: Series, col_name: str) -> Series:
+#     text = row[col_name]
+#     flesch = textstat.flesch_reading_ease(text)
+#     ari = textstat.automated_readability_index(text)
+#     cli = textstat.coleman_liau_index(text)
+#     row['flesch'] = flesch
+#     row['ari'] = ari
+#     row['cli'] = cli
+#     return row
+#
+#
+# #
+# # def len_sent_fun(row: Series) -> Series:
+# #     text = row['full_text']
+# #     sentences = re.split(r'\. |\n+', text)
+# #     lens = [len(sentence.split()) for sentence in sentences if len(sentence.strip()) > 0]
+# #     lens = [length for length in lens if length > 10]
+# #     avg_len = 0 if len(lens) == 0 else sum(lens) / len(lens)
+# #     max_len = 0 if len(lens) == 0 else max(lens)
+# #     min_len = 0 if len(lens) == 0 else min(lens)
+# #     row['avg_sentence_len'] = avg_len
+# #     row['max_sentence_len'] = max_len
+# #     row['min_sentence_len'] = min_len
+# #
+# #     return row
+# #
+# #
+#
+# #
+#
+# #
+# #
+# # def max_v_ctr(row):
+# #     related_articles = row['related_articles']
+# #     max_v = 0
+# #     max_ctr = 0
+# #     for a in related_articles:
+# #         if a.get('views', 0) > max_v:
+# #             max_v = a['views']
+# #         if a.get('ctr', 0) > max_ctr:
+# #             max_ctr = a['ctr']
+# #     row['max_v'] = max_v
+# #     row['max_ctr'] = max_ctr
+# #     return row
+# #
+#
+#
+# def ti(row):
+#     title = row['title']
+#     new_title = []
+#     for t in title:
+#         doc = nlp(t)
+#         tag = doc[0].tag_
+#         if tag in ['VERB', "ADJ"]:
+#             new_title.append(t)
+#     row['new_title'] = new_title
+#     return row
+#
+#
+# #
+# # import re
+# #
+# # timeline_df = pd.ExcelFile(DATA_PATH / "timeline.xlsx")
+# # timeline_df = timeline_df.parse("multiTimeline", parse_dates=['День'])
+# # timeline_df['День'] = timeline_df['День'].apply(lambda _date: _date.date())
+# #
+# # cols_to_rename={}
+# # for col_name in timeline_df.columns[1:]:
+# #     new_col_name = col_name[:col_name.find(':')].lower()
+# #     cols_to_rename[col_name] = new_col_name
+# # timeline_df  = timeline_df.rename(columns=cols_to_rename)
+# # timeline_columns = timeline_df.columns[1:].tolist()
+#
+# df_train = pd.read_csv(DATA_PATH / "df_text.csv")
+# df_train = df_train.apply(lambda row: str_to_list(row, 'title'), axis=1)
+# df_train = df_train.apply(lambda row: ti(row), axis=1)
+# df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
 
 #
 # df_train = pd.read_csv(RAW_PATH / "test.csv")
@@ -560,3 +538,45 @@ df_train.to_csv(DATA_PATH / "df_text.csv", index=False)
 #     logger.log(msg="\n", level=logging.getLevelName("WARNING"))
 #
 # logger.log(msg="\n", level=logging.getLevelName("WARNING"))
+
+
+from pycaret.datasets import get_data
+from pycaret.classification import *
+
+df_train = pd.read_csv(RAW_PATH / "train.csv", index_col=0)
+df_test = pd.read_csv(RAW_PATH / "test_v.csv", index_col=0)
+df_train_text = pd.read_csv(DATA_PATH / "df_text_pro.csv", index_col=0)
+df_train_text = df_train_text[[
+    'text_length', 'avg_sentence_len', 'max_sentence_len', 'min_sentence_len', 'flesch', 'ari', 'cli', 'popularity',
+    'popularity_words', 'sub_cat', 'related_div', 'overview_text', 'pro_div', 'related_articles', 'max_v', 'max_ctr',
+    'new_title', 'coef', 'coef_third', 'text_words_amount', 'text_avg_word_len',
+    'text_word_len_10_ratio', 'text_word_len_8_ratio', 'text_word_len_5_ratio', 'pro_place', 'div_indexes',
+    'pro_div_indexes', 'covid_div_indexes',
+    'min_div_indexes', 'min_pro_div_indexes', 'min_covid_div_indexes', 'max_div_indexes', 'max_pro_div_indexes',
+    'max_covid_div_indexes', 'min_index', 'max_index'
+]]
+
+df_train_text_f = pd.read_csv(DATA_PATH / "df_text_co.csv", index_col=0)
+df_train_text_f = df_train_text_f[["img", "video", "a", "p"]]
+
+df_train = df_train.merge(df_train_text, left_index=True, right_index=True)
+df_train = df_train.merge(df_train_text_f, left_index=True, right_index=True)
+
+df_train.loc[df_train['full_reads_percent'] > 100, 'full_reads_percent'] = np.nan
+df_train['full_reads_percent'].fillna((df_train['full_reads_percent'].mean()), inplace=True)
+df_train['sub_cat'] = df_train['sub_cat'].fillna('')
+df_train = df_train[
+    ['text_length', 'avg_sentence_len', 'max_sentence_len', 'min_sentence_len', 'flesch', 'ari', 'cli', 'popularity',
+     'popularity_words', 'sub_cat', 'related_div', 'overview_text', 'pro_div', 'related_articles', 'max_v', 'max_ctr',
+     'new_title', 'coef', 'coef_third', 'text_words_amount', 'text_avg_word_len',
+     'text_word_len_10_ratio', 'text_word_len_8_ratio', 'text_word_len_5_ratio', 'pro_place', 'div_indexes',
+     'pro_div_indexes', 'covid_div_indexes',
+     'min_div_indexes', 'min_pro_div_indexes', 'min_covid_div_indexes', 'max_div_indexes', 'max_pro_div_indexes',
+     'max_covid_div_indexes', 'min_index', 'max_index', "authors", "ctr", "category", "publish_date", "img",
+     "video", "a", "p", 'full_reads_percent', 'depth']]
+
+clf1 = setup(data=df_train, target='full_reads_percent', combine_rare_levels=True)
+
+best = compare_models()
+
+print(best)
