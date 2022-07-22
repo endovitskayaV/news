@@ -1,12 +1,7 @@
 pandas==1.4.3
-scikit-learn==0.23.2
+scikit-learn==1.1.1
 spacy-stanza==1.0.2
-seaborn==0.11.2
-openpyxl==3.0.10
-catboost
-gensim~=3.8.3
-beautifulsoup4~=4.11.1
-numpy~=1.19.5
-stanza~=1.4.0
-spacy~=2.3.7
-pycaret~=2.3.10
+beautifulsoup4==4.11.1
+numpy==1.19.5
+stanza==1.4.0
+spacy==3.3.1
