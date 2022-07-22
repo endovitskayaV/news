@@ -46,7 +46,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 X_train = X_train['title']
 X_test= X_test['title']
 
-vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False)
+vectorizer = TfidfVectorizer(tokenizer=identity, lowercase=False, ngram_range=(2,2), max_df=)
 X_train = vectorizer.fit_transform(X_train)
 X_test= vectorizer.transform(X_test)
 dump(DATA_PATH / "vectorizer23.pickle", vectorizer)

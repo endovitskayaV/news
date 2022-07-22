@@ -101,17 +101,18 @@ def clean_text(row: Series, col_name: str) -> Series:
     text = re.sub(r'\n', ' ', text)
     text = re.sub(r'\s+', ' ', text)
     text = text.strip()
-    row[col_name] = normalize_text(text)
+    row['title_cleaned'] = normalize_text(text)
     return row
 
-
+d[0].pos_='VERB'
+d[0].tag_='ADJ'
 def normalize_text(text: str) -> List[str]:
     doc = nlp(text)
     lemmatized_words = [token.lemma_ for token in doc]
     return [word for word in lemmatized_words if word not in STOP_WORDS]
 
 
-df_train = df_train.apply(lambda row: clean_text(row, 'text'), axis=1)
+df_train = df_train.apply(lambda row: clean_text(row, 'title'), axis=1)
 df_train.to_csv(DATA_PATH/"df_text.csv")
 
 def str_to_list(row: Series, col_name: str) -> Series:
@@ -194,7 +195,7 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
     # col_name = 'importance'
     # importance_df = pd.DataFrame(regr.feature_importances_, columns=[col_name],
     #                              index=regr.feature_names_in_).sort_values(by=col_name, ascending=False)
-    # importance_df.to_csv(DATA_PATH/ (str(round(time.time() * 1000))+"importance.csv"))
+    # importance_df.to_csv(DATA_PATH/ (str(round(time.time() * 1000))+"old_importance.csv"))
 
 
 for y_cols in ([["views"], ["depth" ], ["full_reads_percent"],["views", "depth", "full_reads_percent"]]):

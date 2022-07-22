@@ -202,7 +202,7 @@ def train_score(y_cols: List[str], X_train, X_test, y_train, y_test):
     # col_name = 'importance'
     # importance_df = pd.DataFrame(regr.feature_importances_, columns=[col_name],
     #                              index=regr.feature_names_in_).sort_values(by=col_name, ascending=False)
-    # importance_df.to_csv(DATA_PATH/ (str(round(time.time() * 1000))+"importance.csv"))
+    # importance_df.to_csv(DATA_PATH/ (str(round(time.time() * 1000))+"old_importance.csv"))
 
 
 for y_cols in ([["views"], ["depth" ], ["full_reads_percent"],["views", "depth", "full_reads_percent"]]):
