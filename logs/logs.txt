@@ -1,217 +1,105 @@
-2022-06-28 15:27:17,656 root         WARNING  ['views']
-2022-06-28 15:27:31,606 root         WARNING  score 0.06150751909036922
-2022-06-28 15:27:31,673 root         WARNING  ['depth']
-2022-06-28 15:27:43,479 root         WARNING  score 0.12807174113876463
-2022-06-28 15:27:43,498 root         WARNING  ['full_reads_percent']
-2022-06-28 15:27:54,095 root         WARNING  score 0.24465729838254646
-2022-06-28 15:27:54,114 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:28:07,865 root         WARNING  score 0.16459756307448342
-2022-06-28 15:31:21,284 root         WARNING  ['views']
-2022-06-28 15:32:43,140 root         WARNING  ['views']
-2022-06-28 15:32:51,386 root         WARNING  score -0.05703299656645733
-2022-06-28 15:32:51,404 root         WARNING  ['depth']
-2022-06-28 15:32:59,207 root         WARNING  score 0.0038136250694167373
-2022-06-28 15:32:59,224 root         WARNING  ['full_reads_percent']
-2022-06-28 15:33:08,071 root         WARNING  score -0.014650588555611854
-2022-06-28 15:33:08,089 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:33:16,870 root         WARNING  score -0.0070803197352045655
-2022-06-28 15:36:00,076 root         WARNING  ['views']
-2022-06-28 15:36:08,038 root         WARNING  score -0.07210517482690593
-2022-06-28 15:42:03,551 root         WARNING  ['views']
-2022-06-28 15:42:03,789 root         WARNING  score -0.00012600788687278097
-2022-06-28 15:43:31,204 root         WARNING  ['views']
-2022-06-28 15:43:31,311 root         WARNING  score -0.00012472669687135784
-2022-06-28 15:43:31,313 root         WARNING  ['depth']
-2022-06-28 15:43:31,418 root         WARNING  score -0.003040944156649461
-2022-06-28 15:43:31,419 root         WARNING  ['full_reads_percent']
-2022-06-28 15:43:31,525 root         WARNING  score -0.0037241366461902015
-2022-06-28 15:43:31,527 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:43:31,634 root         WARNING  score -0.0020244676561001593
-
-2022-06-28 15:51:14,360 root         WARNING  ['views']
-2022-06-28 15:51:14,468 root         WARNING  score -4.788748481717222e+32
-2022-06-28 15:51:14,469 root         WARNING  ['depth']
-2022-06-28 15:51:14,591 root         WARNING  score 0.0
-2022-06-28 15:51:14,592 root         WARNING  ['full_reads_percent']
-2022-06-28 15:51:14,705 root         WARNING  score -2.000194673965958e+30
-2022-06-28 15:51:14,706 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:51:14,816 root         WARNING  score -4.791465663949716e+31
-2022-06-28 15:51:51,125 root         WARNING  ['views']
-2022-06-28 15:51:51,233 root         WARNING  score -0.0002619661935425732
-2022-06-28 15:51:51,235 root         WARNING  ['depth']
-2022-06-28 15:51:51,343 root         WARNING  score -0.0034581998209330944
-2022-06-28 15:51:51,344 root         WARNING  ['full_reads_percent']
-2022-06-28 15:51:51,450 root         WARNING  score -0.0034813731925613656
-2022-06-28 15:51:51,451 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:51:51,563 root         WARNING  score -0.0022606852737913742
-2022-06-28 15:59:04,822 root         WARNING  ['views']
-2022-06-28 15:59:05,037 root         WARNING  score -0.00011920486949579256
-2022-06-28 15:59:05,038 root         WARNING  ['depth']
-2022-06-28 15:59:05,250 root         WARNING  score -0.0033588937033994792
-2022-06-28 15:59:05,251 root         WARNING  ['full_reads_percent']
-2022-06-28 15:59:05,459 root         WARNING  score -0.0036969335940060244
-2022-06-28 15:59:05,460 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 15:59:05,675 root         WARNING  score -0.0021443943403693932
-2022-06-28 15:59:45,178 root         WARNING  ['views']
-2022-06-28 16:24:33,540 root         WARNING  ['views']
-2022-06-28 16:24:39,159 root         WARNING  train score 0.0010204081632653062
-2022-06-28 16:26:33,152 root         WARNING  ['views']
-2022-06-28 16:26:33,158 root         WARNING  train score 0.0
-
-
-
-2022-06-28 16:41:44,955 root         WARNING  ['views']
-2022-06-28 16:41:53,415 root         WARNING  train score 0.5894685620237116
-2022-06-28 16:42:05,465 root         WARNING  test score -0.0559315523722399
-2022-06-28 16:42:05,475 root         WARNING  ['depth']
-2022-06-28 16:42:13,860 root         WARNING  train score 0.5816306330275165
-2022-06-28 16:42:13,865 root         WARNING  test score 0.0072990738689909795
-2022-06-28 16:42:13,875 root         WARNING  ['full_reads_percent']
-2022-06-28 16:42:23,050 root         WARNING  train score 0.6267732167498372
-2022-06-28 16:42:23,050 root         WARNING  test score -0.023399817891119667
-2022-06-28 16:42:23,055 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 16:42:32,070 root         WARNING  train score 0.6020567415891581
-2022-06-28 16:43:07,074 root         WARNING  test score -0.01584837351345202
-
-
-2022-06-28 16:43:50,385 root         WARNING  ['views']
-2022-06-28 16:43:59,345 root         WARNING  train score 0.6058107060440181
-
-2022-06-28 16:47:41,374 root         WARNING  ['views']
-2022-06-28 16:48:00,130 root         WARNING  ['views']
-2022-06-28 16:48:08,245 root         WARNING  train score 0.5803329132754842
-2022-06-28 16:48:08,425 root         WARNING  train score r2 0.5803329132754842
-2022-06-28 16:48:08,430 root         WARNING  test score -0.04267676763686934
-2022-06-28 16:48:08,430 root         WARNING  ['depth']
-2022-06-28 16:48:17,171 root         WARNING  train score 0.5834165818999053
-2022-06-28 16:48:17,393 root         WARNING  train score r2 0.5834165818999053
-2022-06-28 16:48:17,394 root         WARNING  test score -0.0007286798944186046
-2022-06-28 16:48:17,398 root         WARNING  ['full_reads_percent']
-2022-06-28 16:48:26,658 root         WARNING  train score 0.6231081175801707
-2022-06-28 16:48:26,856 root         WARNING  train score r2 0.6231081175801707
-2022-06-28 16:48:26,857 root         WARNING  test score -0.014929944313236243
-2022-06-28 16:48:26,861 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 16:48:35,982 root         WARNING  train score 0.5985694302075567
-2022-06-28 16:48:36,164 root         WARNING  train score r2 0.5985694302075567
-2022-06-28 16:48:36,165 root         WARNING  test score -0.01892428297402107
-2022-06-28 16:49:40,425 root         WARNING  ['views']
-2022-06-28 16:49:48,952 root         WARNING  train score 0.6097953170173082
-2022-06-28 16:49:49,125 root         WARNING  train score r2 0.6097953170173082
-2022-06-28 16:49:49,127 root         WARNING  test score r2 -0.045234013373030235
-2022-06-28 16:49:49,127 root         WARNING  test score -0.045234013373030235
-2022-06-28 16:49:49,131 root         WARNING  ['depth']
-2022-06-28 16:49:57,565 root         WARNING  train score 0.5823670073143803
-2022-06-28 16:49:57,745 root         WARNING  train score r2 0.5823670073143803
-2022-06-28 16:49:57,755 root         WARNING  test score r2 0.004699562889333708
-2022-06-28 16:49:57,755 root         WARNING  test score 0.004699562889333708
-2022-06-28 16:49:57,755 root         WARNING  ['full_reads_percent']
-2022-06-28 16:50:07,115 root         WARNING  train score 0.6249375378915976
-2022-06-28 16:50:07,309 root         WARNING  train score r2 0.6249375378915976
-2022-06-28 16:50:07,309 root         WARNING  test score r2 -0.00951972186780714
-2022-06-28 16:50:07,309 root         WARNING  test score -0.00951972186780714
-2022-06-28 16:50:07,315 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 16:50:16,205 root         WARNING  train score 0.6032853533517663
-2022-06-28 16:50:16,386 root         WARNING  train score r2 0.6032853533517663
-2022-06-28 16:50:16,386 root         WARNING  test score r2 -0.0106319543826211
-2022-06-28 16:50:16,395 root         WARNING  test score -0.014734882733500567
-
-
-
-
-
-
-2022-06-28 16:50:31,887 root         WARNING  ['views']
-2022-06-28 16:50:40,100 root         WARNING  train score 0.595276793748047
-2022-06-28 16:50:40,274 root         WARNING  train score r2 0.595276793748047
-2022-06-28 16:50:40,279 root         WARNING  test score r2 -0.06586375840032921
-2022-06-28 16:50:40,279 root         WARNING  test score -0.06586375840032921
-2022-06-28 16:50:40,279 root         WARNING  ['depth']
-2022-06-28 16:50:48,225 root         WARNING  train score 0.5835717944603369
-2022-06-28 16:50:48,405 root         WARNING  train score r2 0.5835717944603369
-2022-06-28 16:50:48,405 root         WARNING  test score r2 0.007107123477806732
-2022-06-28 16:50:48,405 root         WARNING  test score 0.007107123477806732
-2022-06-28 16:50:48,410 root         WARNING  ['full_reads_percent']
-2022-06-28 16:50:57,281 root         WARNING  train score 0.6289433813488543
-2022-06-28 16:50:57,489 root         WARNING  train score r2 0.6289433813488543
-2022-06-28 16:50:57,490 root         WARNING  test score r2 -0.02475464424939089
-2022-06-28 16:50:57,491 root         WARNING  test score -0.02475464424939089
-2022-06-28 16:50:57,495 root         WARNING  ['views', 'depth', 'full_reads_percent']
-2022-06-28 16:51:06,250 root         WARNING  train score 0.6023190457286268
-2022-06-28 16:51:06,430 root         WARNING  train score r2 0.6023190457286268
-2022-06-28 16:51:06,430 root         WARNING  test score r2 -0.017495727287946683
-2022-06-28 16:51:06,435 root         WARNING  test score -0.02318648198453034
-
-
-
-2022-06-28 17:29:19,974 root         WARNING  y_cols ['views']
-2022-06-28 17:29:19,974 root         WARNING  grid.best_score_ 0.005241633988587124
-2022-06-28 17:29:19,974 root         WARNING  grid.best_params_ {'bootstrap': False, 'max_depth': 5, 'max_features': 'log2', 'min_samples_split': 10, 'n_estimators': 500}
-2022-06-28 17:29:20,576 root         WARNING  train score 0.12162367589610601
-2022-06-28 17:29:20,678 root         WARNING  train score r2 0.12162367589610601
-2022-06-28 17:29:20,681 root         WARNING  test score r2 0.010357262899685193
-2022-06-28 17:29:20,681 root         WARNING  test score 0.010357262899685193
-2022-06-28 18:03:43,795 root         WARNING  y_cols ['depth']
-2022-06-28 18:03:43,795 root         WARNING  grid.best_score_ 0.07011183315996153
-2022-06-28 18:03:43,795 root         WARNING  grid.best_params_ {'bootstrap': True, 'max_depth': 100, 'max_features': 'log2', 'min_samples_split': 10, 'n_estimators': 1000}
-2022-06-28 18:03:52,086 root         WARNING  train score 0.4260639667910884
-2022-06-28 18:03:53,382 root         WARNING  train score r2 0.4260639667910884
-2022-06-28 18:03:53,384 root         WARNING  test score r2 0.057880607980762666
-2022-06-28 18:03:53,385 root         WARNING  test score 0.057880607980762666
-2022-06-28 18:43:21,675 root         WARNING  y_cols ['full_reads_percent']
-2022-06-28 18:43:21,675 root         WARNING  grid.best_score_ 0.03422303133929076
-2022-06-28 18:43:21,676 root         WARNING  grid.best_params_ {'bootstrap': True, 'max_depth': 100, 'max_features': 'log2', 'min_samples_split': 1000, 'n_estimators': 100}
-2022-06-28 18:43:22,225 root         WARNING  train score 0.18173053694621988
-2022-06-28 18:43:22,344 root         WARNING  train score r2 0.18173053694621988
-2022-06-28 18:43:22,347 root         WARNING  test score r2 0.04587707885652692
-2022-06-28 18:43:22,347 root         WARNING  test score 0.04587707885652692
-2022-07-11 14:13:38,254 stanza       INFO     Downloading default packages for language: ru (Russian)...
-2022-07-11 14:13:39,979 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
-2022-07-11 14:13:43,580 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
-2022-07-11 14:13:44,079 stanza       INFO     Loading these models for language: ru (Russian):
+2022-07-22 09:21:38,208 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-22 09:21:40,057 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-22 09:21:44,876 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-22 09:21:46,480 stanza       INFO     Loading these models for language: ru (Russian):
 =========================
 | Processor | Package   |
 -------------------------
 | tokenize  | syntagrus |
 | pos       | syntagrus |
 | lemma     | syntagrus |
+| depparse  | syntagrus |
+| ner       | wikiner   |
 =========================
 
-2022-07-11 14:13:44,079 stanza       INFO     Use device: cpu
-2022-07-11 14:13:44,079 stanza       INFO     Loading: tokenize
-2022-07-11 14:13:44,091 stanza       INFO     Loading: pos
-2022-07-11 14:13:44,313 stanza       INFO     Loading: lemma
-2022-07-11 14:13:44,430 stanza       INFO     Done loading processors!
-2022-07-11 14:14:08,362 stanza       INFO     Downloading default packages for language: ru (Russian)...
-2022-07-11 14:14:09,514 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
-2022-07-11 14:14:14,048 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
-2022-07-11 14:14:14,654 stanza       INFO     Loading these models for language: ru (Russian):
+2022-07-22 09:21:46,481 stanza       INFO     Use device: cpu
+2022-07-22 09:21:46,481 stanza       INFO     Loading: tokenize
+2022-07-22 09:21:46,493 stanza       INFO     Loading: pos
+2022-07-22 09:21:46,834 stanza       INFO     Loading: lemma
+2022-07-22 09:21:47,088 stanza       INFO     Loading: depparse
+2022-07-22 09:21:47,349 stanza       INFO     Loading: ner
+2022-07-22 09:21:48,580 stanza       INFO     Done loading processors!
+2022-07-22 09:24:37,638 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-22 09:24:38,669 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-22 09:24:42,298 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-22 09:24:43,774 stanza       INFO     Loading these models for language: ru (Russian):
 =========================
 | Processor | Package   |
 -------------------------
 | tokenize  | syntagrus |
 | pos       | syntagrus |
 | lemma     | syntagrus |
+| depparse  | syntagrus |
+| ner       | wikiner   |
 =========================
 
-2022-07-11 14:14:14,654 stanza       INFO     Use device: cpu
-2022-07-11 14:14:14,654 stanza       INFO     Loading: tokenize
-2022-07-11 14:14:14,663 stanza       INFO     Loading: pos
-2022-07-11 14:14:14,905 stanza       INFO     Loading: lemma
-2022-07-11 14:14:15,084 stanza       INFO     Done loading processors!
-2022-07-20 12:24:58,434 stanza       INFO     Downloading default packages for language: ru (Russian)...
-2022-07-20 12:25:00,238 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
-2022-07-20 12:25:03,808 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
-2022-07-20 12:25:04,344 stanza       INFO     Loading these models for language: ru (Russian):
+2022-07-22 09:24:43,774 stanza       INFO     Use device: cpu
+2022-07-22 09:24:43,774 stanza       INFO     Loading: tokenize
+2022-07-22 09:24:43,782 stanza       INFO     Loading: pos
+2022-07-22 09:24:44,013 stanza       INFO     Loading: lemma
+2022-07-22 09:24:44,138 stanza       INFO     Loading: depparse
+2022-07-22 09:24:44,354 stanza       INFO     Loading: ner
+2022-07-22 09:24:45,344 stanza       INFO     Done loading processors!
+2022-07-22 09:46:56,274 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-22 09:46:58,722 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-22 09:47:04,101 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-22 09:47:06,017 stanza       INFO     Loading these models for language: ru (Russian):
 =========================
 | Processor | Package   |
 -------------------------
 | tokenize  | syntagrus |
 | pos       | syntagrus |
 | lemma     | syntagrus |
+| depparse  | syntagrus |
+| ner       | wikiner   |
 =========================
 
-2022-07-20 12:25:04,344 stanza       INFO     Use device: cpu
-2022-07-20 12:25:04,345 stanza       INFO     Loading: tokenize
-2022-07-20 12:25:04,359 stanza       INFO     Loading: pos
-2022-07-20 12:25:04,602 stanza       INFO     Loading: lemma
-2022-07-20 12:25:04,719 stanza       INFO     Done loading processors!
+2022-07-22 09:47:06,018 stanza       INFO     Use device: cpu
+2022-07-22 09:47:06,018 stanza       INFO     Loading: tokenize
+2022-07-22 09:47:06,028 stanza       INFO     Loading: pos
+2022-07-22 09:47:06,511 stanza       INFO     Loading: lemma
+2022-07-22 09:47:06,913 stanza       INFO     Loading: depparse
+2022-07-22 09:47:08,253 stanza       INFO     Loading: ner
+2022-07-22 09:47:09,722 stanza       INFO     Done loading processors!
+2022-07-22 09:51:57,775 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-22 09:51:58,884 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-22 09:52:02,972 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-22 09:52:04,551 stanza       INFO     Loading these models for language: ru (Russian):
+=========================
+| Processor | Package   |
+-------------------------
+| tokenize  | syntagrus |
+| pos       | syntagrus |
+| lemma     | syntagrus |
+| depparse  | syntagrus |
+| ner       | wikiner   |
+=========================
+
+2022-07-22 09:52:04,551 stanza       INFO     Use device: cpu
+2022-07-22 09:52:04,552 stanza       INFO     Loading: tokenize
+2022-07-22 09:52:04,560 stanza       INFO     Loading: pos
+2022-07-22 09:52:04,881 stanza       INFO     Loading: lemma
+2022-07-22 09:52:05,042 stanza       INFO     Loading: depparse
+2022-07-22 09:52:05,289 stanza       INFO     Loading: ner
+2022-07-22 09:52:06,397 stanza       INFO     Done loading processors!
+2022-07-22 09:57:27,659 stanza       INFO     Downloading default packages for language: ru (Russian)...
+2022-07-22 09:57:28,690 stanza       INFO     File exists: C:\Users\evvEn\stanza_resources\ru\default.zip
+2022-07-22 09:57:32,417 stanza       INFO     Finished downloading models and saved to C:\Users\evvEn\stanza_resources.
+2022-07-22 09:57:33,845 stanza       INFO     Loading these models for language: ru (Russian):
+=========================
+| Processor | Package   |
+-------------------------
+| tokenize  | syntagrus |
+| pos       | syntagrus |
+| lemma     | syntagrus |
+| depparse  | syntagrus |
+| ner       | wikiner   |
+=========================
+
+2022-07-22 09:57:33,846 stanza       INFO     Use device: cpu
+2022-07-22 09:57:33,846 stanza       INFO     Loading: tokenize
+2022-07-22 09:57:33,853 stanza       INFO     Loading: pos
+2022-07-22 09:57:34,058 stanza       INFO     Loading: lemma
+2022-07-22 09:57:34,170 stanza       INFO     Loading: depparse
+2022-07-22 09:57:34,376 stanza       INFO     Loading: ner
+2022-07-22 09:57:35,347 stanza       INFO     Done loading processors!

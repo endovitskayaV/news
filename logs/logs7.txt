@@ -1,5 +1,0 @@
-2022-07-12 16:15:35,347 root         WARNING  views
-2022-07-12 16:16:05,247 root         WARNING  views
-2022-07-12 16:16:06,008 root         WARNING  score 0.8690544012220054
-2022-07-12 16:16:06,008 root         WARNING  
-

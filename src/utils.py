@@ -1,8 +1,11 @@
+import ast
 import json
 import pickle
 from itertools import chain
 from pathlib import Path
-from typing import Any, Union, AnyStr, List, Dict
+from typing import Any, Union, AnyStr, List
+
+from pandas import Series
 
 
 def write_to_file(filename: Union[str, Path], content: Any, encoding='utf-8') -> None:
@@ -31,5 +34,11 @@ def read_file(filename: Union[str, Path], encoding='utf-8') -> AnyStr:
 def unflatten(nested_list: List[List[Any]]) -> List[Any]:
     return list(chain.from_iterable(nested_list))
 
+
 def identity(w):
     return w
+
+
+def str_to_list(row: Series, col_name: str) -> Series:
+    row[col_name] = ast.literal_eval(row[col_name])
+    return row
