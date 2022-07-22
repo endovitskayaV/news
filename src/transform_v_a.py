@@ -324,7 +324,7 @@ def train_score(index: int, y_cols: List[str], X_train, X_test, y_train, y_test)
         col_name = 'importance'
         importance_df = pd.DataFrame(search.feature_importances_, columns=[col_name],
                                      index=search.feature_names_in_).sort_values(by=col_name, ascending=False)
-        importance_df.to_csv(DATA_PATH / "importance.csv")
+        importance_df.to_csv(DATA_PATH / "old_importance.csv")
 
 
 l1 = [["views"], ["depth"], ["full_reads_percent"], ["views", "depth", "full_reads_percent"]]

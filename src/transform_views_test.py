@@ -148,6 +148,7 @@ def len_fun(row: Series) -> Series:
         logger.log(msg=e, level=logging.getLevelName("ERROR"))
 
     row['real_views'] = views
+
     return row
 
 
@@ -160,76 +161,76 @@ general_fh = logging.FileHandler(LOGGING_PATH / "logs_test.txt")
 general_fh.setFormatter(formatter)
 general_fh.setLevel("INFO")
 logger.addHandler(general_fh)
-#
-# # transform data
-#
-# df_test = pd.read_csv(RAW_PATH / "test.csv", parse_dates=['publish_date'])
-#
-# # df_test.sort_values('publish_date', inplace=True)
-# # df_test['Time'] = np.arange(len(df_test.index))
-# # df_test = df_test.reset_index(drop=True)
-# df_test = df_test.apply(lambda row: len_fun(row), axis=1)
-# df_test.to_csv(DATA_PATH / "df_test_prepared_v_real.csv", index=False)
-#
-# category_encoder = loads(DATA_PATH / "category_encoder.pickle")
-# categs = category_encoder.transform(df_test[['category']]).toarray()
-# category_feat_names = list(category_encoder.get_feature_names_out(['category']))
-# category_df = pd.DataFrame(categs, columns=category_feat_names)
-# df_test = df_test.merge(category_df, left_index=True, right_index=True)
-# df_test = df_test.drop('category', axis=1)
-#
-#
-# df_test = df_test.apply(lambda row: str_to_list(row, 'tags'), axis=1)
-# tags_encoder = loads(DATA_PATH / "tags_encoder.pickle")
-# tags = tags_encoder.transform(df_test['tags'])
-# tags_feat_names = ['tags_' + str(cls) for cls in list(tags_encoder.classes_)]
-# tags_df = pd.DataFrame(tags, columns=tags_feat_names)
-# df_test = df_test.merge(tags_df, left_index=True, right_index=True)
-# df_test = df_test.drop('tags', axis=1)
-#
-# # df_test = df_test.apply(lambda row: str_to_list(row, 'authors'), axis=1)
-# # authors_encoder = loads(DATA_PATH / "tags_encoder.pickle")
-# # authors = authors_encoder.transform(df_test['authors'])
-# # authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
-# # authors_df = pd.DataFrame(authors, columns=authors_feat_names)
-# # dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
-# # df_test = df_test.merge(authors_df, left_index=True, right_index=True)
-# # df_test = df_test.drop('authors', axis=1)
 
-# # # # #df_test = encode_list_by_rate(df_test, 'authors', 0.03)
-#
-# df_test['day'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%d").astype(int)
-# df_test['month'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%m").astype(int)
-# df_test['hour'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%H").astype(int)
-# df_test['minute'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%M").astype(int)
-# df_test['date'] = df_test['publish_date'].apply(lambda _date: _date.date())
-#
-# holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
-# dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
-# df_test = df_test.apply(lambda row: holiday_fun(row, dates), axis=1)
-# df_test['is_holiday'] = df_test['is_holiday'].astype(int)
-# df_test = df_test.apply(lambda row: weekend_fun(row), axis=1)
-# df_test = df_test.apply(lambda row: date_categ_fun(row), axis=1)
-#
-# dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
-# dollar_df = dollar_df.parse("RC", parse_dates=['data'])
-# dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
-# df_test = df_test.apply(lambda row: curs_fun(row, dollar_df), axis=1)
-# df_test['curs'].fillna((df_test['curs'].mean()), inplace=True)
-# df_test.to_csv(DATA_PATH / "df_test_prepared_v.csv", index=False)
-# df_test_prepared = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
-# df_test = pd.read_csv(DATA_PATH / "df_test_depth_pred.csv")
-#
-# # x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
-# # X=df_test.drop(x_cols_drop, axis=1)
-#
-# search = loads(DATA_PATH / "0reg_authors_short_full_rp056.pickle")
-# X = df_test[search.feature_names_in_]
-# views = search.predict(X)
-# views_df = X.merge(pd.Series(views).rename("full_reads_percent"), left_index=True, right_index=True)
-# views_df['document_id'] = df_test_prepared['document_id']
-# views_df = views_df[["document_id", "views", "depth", "full_reads_percent"]]
-# views_df.to_csv(DATA_PATH / "df_test_full_reads_percent_pred.csv", index=False)
+# transform data
+
+df_test = pd.read_csv(RAW_PATH / "test.csv", parse_dates=['publish_date'])
+
+# df_test.sort_values('publish_date', inplace=True)
+# df_test['Time'] = np.arange(len(df_test.index))
+# df_test = df_test.reset_index(drop=True)
+df_test = df_test.apply(lambda row: len_fun(row), axis=1)
+df_test.to_csv(DATA_PATH / "df_test_prepared_v_real.csv", index=False)
+
+category_encoder = loads(DATA_PATH / "category_encoder.pickle")
+categs = category_encoder.transform(df_test[['category']]).toarray()
+category_feat_names = list(category_encoder.get_feature_names_out(['category']))
+category_df = pd.DataFrame(categs, columns=category_feat_names)
+df_test = df_test.merge(category_df, left_index=True, right_index=True)
+df_test = df_test.drop('category', axis=1)
+
+
+df_test = df_test.apply(lambda row: str_to_list(row, 'tags'), axis=1)
+tags_encoder = loads(DATA_PATH / "tags_encoder.pickle")
+tags = tags_encoder.transform(df_test['tags'])
+tags_feat_names = ['tags_' + str(cls) for cls in list(tags_encoder.classes_)]
+tags_df = pd.DataFrame(tags, columns=tags_feat_names)
+df_test = df_test.merge(tags_df, left_index=True, right_index=True)
+df_test = df_test.drop('tags', axis=1)
+
+# df_test = df_test.apply(lambda row: str_to_list(row, 'authors'), axis=1)
+# authors_encoder = loads(DATA_PATH / "tags_encoder.pickle")
+# authors = authors_encoder.transform(df_test['authors'])
+# authors_feat_names = ['authors_' + str(cls) for cls in list(authors_encoder.classes_)]
+# authors_df = pd.DataFrame(authors, columns=authors_feat_names)
+# dump(DATA_PATH / "authors_encoder.pickle", authors_encoder)
+# df_test = df_test.merge(authors_df, left_index=True, right_index=True)
+# df_test = df_test.drop('authors', axis=1)
+
+# # # #df_test = encode_list_by_rate(df_test, 'authors', 0.03)
+
+df_test['day'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%d").astype(int)
+df_test['month'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%m").astype(int)
+df_test['hour'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%H").astype(int)
+df_test['minute'] = pd.to_datetime(df_test['publish_date']).dt.strftime("%M").astype(int)
+df_test['date'] = df_test['publish_date'].apply(lambda _date: _date.date())
+
+holiday_dates = pd.read_csv(DATA_PATH / 'holidays.csv', sep=';')
+dates = holiday_dates['date'].apply(lambda _date: datetime.strptime(_date, "%Y-%m-%d").date())
+df_test = df_test.apply(lambda row: holiday_fun(row, dates), axis=1)
+df_test['is_holiday'] = df_test['is_holiday'].astype(int)
+df_test = df_test.apply(lambda row: weekend_fun(row), axis=1)
+df_test = df_test.apply(lambda row: date_categ_fun(row), axis=1)
+
+dollar_df = pd.ExcelFile(DATA_PATH / "dollar.xlsx")
+dollar_df = dollar_df.parse("RC", parse_dates=['data'])
+dollar_df['data'] = dollar_df['data'].apply(lambda _date: _date.date())
+df_test = df_test.apply(lambda row: curs_fun(row, dollar_df), axis=1)
+df_test['curs'].fillna((df_test['curs'].mean()), inplace=True)
+df_test.to_csv(DATA_PATH / "df_test_prepared_v.csv", index=False)
+df_test_prepared = pd.read_csv(DATA_PATH / "df_test_prepared_v.csv")
+df_test = pd.read_csv(DATA_PATH / "df_test_depth_pred.csv")
+
+# x_cols_drop = ["publish_date", "session", "document_id", 'date', 'title','text']
+# X=df_test.drop(x_cols_drop, axis=1)
+
+search = loads(DATA_PATH / "0reg_authors_short_full_rp056.pickle")
+X = df_test[search.feature_names_in_]
+views = search.predict(X)
+views_df = X.merge(pd.Series(views).rename("full_reads_percent"), left_index=True, right_index=True)
+views_df['document_id'] = df_test_prepared['document_id']
+views_df = views_df[["document_id", "views", "depth", "full_reads_percent"]]
+views_df.to_csv(DATA_PATH / "df_test_full_reads_percent_pred.csv", index=False)
 
 
 
